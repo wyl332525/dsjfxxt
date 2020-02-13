@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kmzc.dao.mini.UserMapper">
+    <select id="getOrder" parameterType="java.util.List" resultType="hashmap">
+		SELECT w.id,w.cphm,w.jczbh,w.driver,DATE_FORMAT(w.cgyysj,'%Y-%m-%d %H:%i:%s') cgyysj,w.yyrq,w.yysj, w.yyzt,w.yybh,w.yylx,w.yylsh,b.stationshortname,b.stationaddress,b.amstart,b.amend,b.pmstart,b.pmend FROM wx_yy_jcyy w 
+		LEFT JOIN bas_checkstation b ON w.jczbh = b.pkid 
+		WHERE
+		     w.openid = #{openid}
+	</select>
+	<!-- 根据yybh查询预约信息 -->
+	<select id="getOrderxx" parameterType="java.util.List" resultType="hashmap">
+		SELECT w.id,w.cphm,w.jczbh,w.driver,w.sjhm,w.czdzms,w.czaddress,w.czxm,w.longitude,w.latitude,DATE_FORMAT(w.cgyysj,'%Y-%m-%d %H:%i:%s') cgyysj,w.yyrq,w.yysj, w.yyzt,w.yybh,w.yylx,w.yylsh,b.stationshortname,b.stationaddress,b.amstart,b.amend,b.pmstart,b.pmend FROM wx_yy_jcyy w 
+		LEFT JOIN bas_checkstation b ON w.jczbh = b.pkid 
+		WHERE
+		     w.yylsh = #{yylsh}
+	</select>
+	
+	<!-- 查询小程序用户是否关注了公众号。如果关注则取到公众号的openid进行消息发送，否则是小程序的模板发送 -->
+	<select id="getUserGzhOpenid" parameterType="java.util.List" resultType="hashmap">
+		SELECT t.openid FROM wx_user_ygzyh t LEFT JOIN wx_user_miniyh a ON t.unionid = a.unionid
+		<where>
+			<if test="openid != null and openid != ''">
+				a.openid = #{openid}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据..查询代驾人员信息 -->
+	<select id="getDriverxx" parameterType="java.util.List" resultType="hashmap">
+		SELECT staffname,sex,cardnumber,qualifications,licensetype,mobilephone,openid 
+		FROM wx_yy_driver 
+		WHERE loginaccount = #{driver} 
+	</select>
+	
+	<!-- 代驾人员绑定微信公众号 -->
+	<insert id="bdWXGZH">
+		update wx_yy_driver set openid = #{openid} where loginaccount = #{loginaccount}
+	</insert>
+	
+	
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.UserMapper">    
+	
+	<insert id="insertUser" >
+		insert into wx_user_ygzyh(openid,nickname,sex,city,country,language,headimgurl,subscribe_time,
+		unionid,remark,groupid,tagid_list,subscribe_scene)  
+		values (#{openid},#{nickname},#{sex},#{city},#{country},#{language},#{headimgurl},#{subscribe_time},
+		#{unionid},#{remark},#{groupid},#{tagid_list},#{subscribe_scene})
+	</insert>
+	
+	<delete id="deleteUser" >
+		delete from wx_user_ygzyh
+	</delete>
+	
+	<select id="getUserList" resultType="map">
+		select id,openid,nickname,sex,city,country,headimgurl,
+			DATE_FORMAT(t.subscribe_time,'%Y-%m-%d %H:%i:%s') AS gzsj,t.groupid,t.tagid_list,subscribe_scene as gzfs 
+			from wx_user_ygzyh t
+		<where>
+			1=1 
+			<if test="nickname != null and nickname != ''">
+				and t.nickname like #{nickname}
+			</if>
+			<if test="gzfs != null and gzfs != ''">
+				and t.subscribe_scene = #{gzfs}
+			</if>
+			<if test="gzsjq != null and gzsjq != ''">
+				<![CDATA[and t.subscribe_time >= #{gzsjq} ]]> 
+			</if>
+			<if test="gzsjz != null and gzsjz != ''">
+				<![CDATA[and t.subscribe_time <= #{gzsjz} ]]> 
+			</if>
+		</where>
+		order by subscribe_time desc
+	</select>
+	
+	<select id="getKeyWordList" parameterType="java.util.List" resultType="hashmap">
+		select keyword from wx_message_reply t 
+	</select>
+	
+	
+</mapper>

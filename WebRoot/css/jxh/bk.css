@@ -1,0 +1,141 @@
+.windowContent {
+	background-image: url('../../img/jxh/beijin2.png');
+}
+
+.closeObj {
+	background-image: url('../../img/jxh/windowClose.png');
+	background-size: 40px 40px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	right: -35px;
+	top: -35px;
+	cursor: pointer;
+}
+
+.closeObj:hover {
+	background-image: url('../../img/jxh/windowCloseHover.png');
+}
+
+.amorecx {
+	border: 1px solid #00cffd;
+	font-size: 0.8rem;
+	color: #00cffd;
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	line-height: 1.4rem;
+	float: right;
+	margin-right: 38rem;
+	cursor: pointer;
+	background-color: #092b52;
+}
+
+.amorecx:hover {
+	background-color: #014195;
+	color: #FFF;
+	border: 1px solid #00FFFF;
+}
+
+#kssj {
+	margin-left: 38rem;
+	padding-left: 5px;
+}
+
+#jssj {
+	padding-left: 5px;
+}
+
+.amorecxxx {
+	border: 1px solid #00cffd;
+	font-size: 0.8rem;
+	color: #00cffd;
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	line-height: 1.4rem;
+	float: right;
+	margin-right: 32.5rem;
+	cursor: pointer;
+	background-color: #092b52;
+}
+
+.amorecxxx:hover {
+	background-color: #014195;
+	color: #FFF;
+	border: 1px solid #00FFFF;
+}
+
+#kssjxx {
+	margin-left: 32.5rem;
+	padding-left: 5px;
+}
+
+.label-btn {
+	border: 1px solid #00cffd;
+	background-color: #092b52;
+	color: #00cffd;
+	font-size: 1.22em;
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	min-width: 60px;
+	height: 30px;
+	line-height: 27px;
+	margin-left: 10px;
+}
+
+.label-btn:hover {
+	background-color: #004770;
+	color: #fff;
+}
+
+#stationname {
+	width: 200px;
+	height: 27px;
+	border: 1px solid #00cefc;
+	background-color: #01234b;
+	color: #97cbfc;
+	padding-left: 5px;
+}
+
+#carnumber {
+	width: 100px;
+	height: 27px;
+	border: 1px solid #00cefc;
+	background-color: #01234b;
+	color: #97cbfc;
+	padding-left: 5px;
+}
+
+.FormSelect {
+    width: 50px;
+    height: 30px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    padding: 0px;
+    background: url("../../img/jxh/select-bottom.png") no-repeat right center transparent;
+    font-size: 1em;
+    font-family: Microsoft YaHei;
+    color: #97cbfc;
+    border: 1px solid #00cefc;
+    background-color: #01234b;
+}
+
+.CitySelect {
+    width: 100px;
+    height: 30px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    padding: 0px;
+    background: url("../../img/jxh/select-bottom.png") no-repeat right center transparent;
+    font-size: 1em;
+    font-family: Microsoft YaHei;
+    color: #97cbfc;
+    border: 1px solid #00cefc;
+    background-color: #01234b;
+}

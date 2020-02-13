@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.YyglMapper">    
+	
+	<select id="getYYlb" parameterType="java.util.List" resultType="hashmap">
+		select t.id,t.yylsh,t.cphm,t.vin,t.cllx,t.szdz,t.syxz,concat(t.clpp,t.clxh) clpp,t.fdjhm,t.ccdjrq,
+		cs.stationname,concat(DATE_FORMAT(t.yyrq,'%Y-%m-%d'),'(',IF(t.yysj='1','上午到站',IF(t.yysj='2','下午到站','上门取车')),')') as yyrq,IF(t.yylx='1','预约到站','代驾年检') as yylx,
+		t.sjhm,DATE_FORMAT(t.cgyysj,'%Y-%m-%d %H:%i:%s') as cgyysj 
+		 from wx_yy_jcyy t left join bas_checkstation cs on t.jczbh = cs.pkid
+		<where>
+			<if test="cphm != null and cphm != ''">
+				and t.cphm like #{cphm}
+			</if>
+        	<if test="jczbh != null and jczbh != ''">
+            	and t.jczbh = #{jczbh}
+        	</if>
+        	<if test="yysjq != null and yysjq != ''">
+				<![CDATA[and t.cgyysj >= #{yysjq} ]]> 
+			</if>
+			<if test="yysjz != null and yysjz != ''">
+				<![CDATA[and t.cgyysj <= #{yysjz} ]]> 
+			</if>
+		</where>
+	</select>
+	
+	<select id="getJczById" parameterType="java.util.List" resultType="hashmap">
+		select cr.name as region,stationname,stationshortname,longitude,latitude,stationaddress from bas_checkstation t 
+		left join cod_region cr on t.region = cr.code
+		<where>
+        	<if test="pkid != null and pkid != ''">
+            	pkid = #{pkid}
+        	</if>
+		</where>
+	</select>
+	
+	<insert id="saveXsz">
+		insert into wx_yy_jcyy(openid,cphm,vin,cllx,czxm,szdz,syxz,clpp,clxh,fdjhm,ccdjrq,yyzt,yylsh) values
+		(#{openid},#{cphm},#{vin},#{cllx},#{czxm},#{szdz},#{syxz},#{clpp},#{clxh},#{fdjhm},#{ccdjrq},'1',#{yylsh})
+	</insert>
+	
+	<update id="updateXsz">
+		update wx_yy_jcyy set cphm=#{cphm},vin=#{vin},cllx=#{cllx},czxm=#{czxm},szdz=#{szdz},
+		syxz=#{syxz},clpp=#{clpp},clxh=#{clxh},fdjhm=#{fdjhm},ccdjrq=#{ccdjrq},xszscsj=now() 
+		where yylsh = #{yylsh}
+	</update>
+	
+	<update id="updateyy" >
+		update wx_yy_jcyy set jczbh=#{station},yyrq=#{yyrq},yysj=#{yysj},sjhm=#{sjhm},yybh=#{yybh},yyzt='2' 
+		where yylsh=#{yylsh}
+	</update>
+	
+	<update id="updateYyzt" >
+		update wx_yy_jcyy set yyzt=#{yyzt}
+		<where>
+        	<if test="openid != null and openid != ''">
+            	and openid = #{openid}
+        	</if>
+        	<if test="yylsh != null and yylsh != ''">
+            	and yylsh = #{yylsh}
+        	</if>
+		</where>
+	</update>
+	
+	<select id="getJczGzrqsz" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,stationname,week1,week2,week3,week4,week5,week6,week7 FROM bas_checkstation 
+		<where>
+        	<if test="pkid != null and pkid != ''">
+            	and pkid = #{pkid}
+        	</if>
+        	<if test="stationname != null and stationname != ''">
+            	and stationname like #{stationname}
+        	</if>
+		</where>
+	</select>
+
+	<update id="updateJczGzrqsz" >
+		update bas_checkstation set ${field} = #{sfsb} where pkid = #{pkid}
+	</update>
+	
+	<!-- 根据检测站编号、预约日期、时间段获取已预约数量 -->
+	<select id="getJczYysl" parameterType="java.util.List" resultType="hashmap">
+		SELECT count(*) as c FROM wx_yy_jcyy WHERE jczbh = #{jczbh} AND yyrq = #{yyrq} AND yysj = #{yysj}
+	</select>
+	
+	<!-- 根据检测站编号获取是否上班，最大预约数量 -->
+	<select id="getJczdzyyl" parameterType="java.util.List" resultType="hashmap">
+		SELECT week1,week2,week3,week4,week5,week6,week7,maxyyl,sjdmaxyyl FROM bas_checkstation where pkid = #{jczbh}
+	</select>
+	
+	<!-- 根据预约者openid获取预约信息 -->
+	<select id="getYYxx" parameterType="java.util.List" resultType="hashmap">
+		select t.id,t.cphm,t.vin,t.cllx,t.szdz,t.syxz,concat(t.clpp,t.clxh) ppxh,t.fdjhm,t.ccdjrq,
+		cs.stationname,DATE_FORMAT(t.yyrq,'%Y-%m-%d') as yyrq,y.name as yysj,t.sjhm,t.czxm 
+		 from wx_yy_jcyy t left join bas_checkstation cs on t.jczbh = cs.pkid left join cod_yysjd y on t.yysj = y.code 
+		<where>
+			t.yyzt = '2' 
+        	<if test="openid != null and openid != ''">
+            	and t.openid = #{openid}
+        	</if>
+		</where>
+	</select>
+	
+	<select id="getYYqk" parameterType="java.util.List" resultType="hashmap">
+		SELECT IFNULL(SUM(CASE WHEN yyzt = '3' THEN 1 ELSE 0 END),0) AS yys,bc.maxyyl,bc.jcsj FROM wx_yy_jcyy t 
+		LEFT JOIN bas_checkstation bc ON t.jczbh = bc.pkid
+		<where>
+			<if test="jczbh != null and jczbh != ''">
+				and bc.pkid = #{jczbh}
+			</if>
+        	<if test="yysj != null and yysj != ''">
+				and t.yyrq = #{yysj}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getsbsj" parameterType="java.util.List" resultType="hashmap">
+		SELECT t.amstart,t.amend,t.pmstart,t.pmend FROM bas_checkstation t 
+		<where>
+        	<if test="yysj != null and yysj != ''">
+				and t.pkid = #{jczbh}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 获取所有的预约信息 -->
+	<select id="getYueyuexx" parameterType="java.util.List" resultType="hashmap">
+		select t.id,t.yylsh,t.cphm,t.vin,t.cllx,t.szdz,t.syxz,t.clpp,t.clxh,t.fdjhm,
+		DATE_FORMAT(t.ccdjrq,'%Y-%m-%d') ccdjrq,t.jczbh,t.yyzt, 
+		cs.stationname,t.yyrq,t.yysj,t.sjhm,t.czxm,t.yybh,t.sfts 
+		 from wx_yy_jcyy t left join bas_checkstation cs on t.jczbh = cs.pkid 
+		<where>
+			1=1 
+			<if test="yylsh != null and yylsh != ''">
+				and t.yylsh = #{yylsh} 
+			</if>
+			<if test="yyzt != null and yyzt != ''">
+				and t.yyzt = #{yyzt} 
+			</if>
+        	<if test="openid != null and openid != ''">
+            	and t.openid = #{openid}
+        	</if>
+		</where>
+	</select>
+	
+	<!-- 获取所有的预约信息 -->
+	<select id="getYyxxByJczbh" parameterType="java.util.List" resultType="hashmap">
+		select id,openid,cphm,vin,cllx,szdz,syxz,clpp,clxh,fdjhm,
+		date_format(ccdjrq,'%Y%m%d') as ccdjrq,date_format(xszscsj,'%Y%m%d%H%i%s') as xszscsj,
+		jczbh,date_format(yyrq,'%Y%m%d') as yyrq,yysj,yycllx,sjhm,
+		date_format(cgyysj,'%Y%m%d%H%i%s') as cgyysj,yylsh,yybh,yyzt,czxm,
+		yylx,longitude,latitude,czdzms,czaddress 
+		from WX_YY_JCYY 
+		<where>
+			sfts='0' 
+			<if test="jczbh != null and jczbh != ''">
+				and jczbh = #{jczbh} 
+			</if>
+		</where>
+		limit 0,20
+	</select>
+	
+	<update id="updateTszt" >
+		update WX_YY_JCYY set sfts='1',tssj=now() where id = #{id}
+	</update>
+	
+	<update id="updateDriver" >
+		update wx_yy_jcyy set yyzt=#{yyzt},driver=#{driver} 
+		<where>
+        	<if test="openid != null and openid != ''">
+            	and openid = #{openid}
+        	</if>
+        	<if test="yylsh != null and yylsh != ''">
+            	and yylsh = #{yylsh}
+        	</if>
+		</where>
+	</update>
+	
+	<!-- 插入驾驶员信息 -->
+	<insert id="saveDriverxx">
+		insert into wx_yy_driver(stationcode,loginaccount,staffname,sex,birthday,cardnumber,qualifications,mobilephone,address,licensetype,licensedate,headurl) values
+		(#{stationcode},#{loginaccount},#{staffname},#{sex},#{birthday},#{cardnumber},#{qualifications},#{mobilephone},#{address},#{licensetype},#{licensedate},#{headurl})
+	</insert>
+	<!-- 代驾人员绑定微信公众号后同步到检测端 -->
+	<select id="getDriver" parameterType="java.util.List" resultType="hashmap">
+		SELECT openid FROM wx_yy_driver 
+		WHERE loginaccount = #{loginaccount}
+	</select>
+	
+	<!-- 清理历史预约信息 -->
+	<update id="clearHistoryYuyue">
+		update WX_YY_JCYY set yyzt='2', sfts='0' where <![CDATA[str_to_date(yyrq, '%Y-%m-%d') < now() ]]> and yyzt = '3'
+	</update>
+	
+	<!-- 查询优图账号-->
+	<select id="getYouTu" parameterType="java.util.List" resultType="hashmap">
+		SELECT id,txappid,txsecretid,txsecretkey,userid FROM wx_yy_youtu ORDER BY usenum ASC LIMIT 1
+	</select>
+	
+	<!-- 调用优图账号后将使次数+1 -->
+	<update id="upUseNum">
+		UPDATE wx_yy_youtu SET usenum = usenum+1 WHERE id = #{id}
+	</update>
+	
+	<!-- 每月重置优图账号的使用次数 -->
+	<update id="resetUseNum">
+		UPDATE wx_yy_youtu SET usenum ='0'
+	</update>
+
+</mapper>

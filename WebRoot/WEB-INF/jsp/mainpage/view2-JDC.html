@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    	<meta name="renderer” content=”webkit|ie-comp|ie-stand" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jdc2.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<div class="header">
+			车辆可视化视图  
+        	<span class="close"><img src="img/guanbi.png"/></span>
+		</div>
+		<!--主体-->
+		<div class="main">
+			<div class="mainLeft">
+				<!--车辆基本信息-->
+				<div class="jcBasiscMsg modelComment">
+					<div class="modelTitle"><i></i>车辆基本信息</div>
+					<table class="basicMsgListsTable tableComment">
+						<tr>
+							<td>车牌号码：</td><td><span class="plateNum">豫A66666</span></td>
+						</tr>
+						<tr>
+							<td>号牌种类：</td><td>教练车</td>
+						</tr>
+						<tr>
+							<td>燃料种类：</td><td>汽油</td>
+						</tr>
+						<tr>
+							<td>车辆类型：</td><td>小型普通客车</td>
+						</tr>
+						<tr>
+							<td>车辆识别码：</td><td>LSV12304913333333</td>
+						</tr>
+						<tr>
+							<td>使用性质：</td><td>非营运</td>
+						</tr>
+						<tr>
+							<td>车辆型号：</td><td>DC7141RPC</td>
+						</tr>
+						<tr>
+							<td>发动机型号：</td><td>EJUJK-1</td>
+						</tr>
+						<tr>
+							<td>注册登记日期</td><td>2012/06/13</td>
+						</tr>
+				</table>
+				</div>
+				<!--车辆检测记录-->
+				<div class="vehicleRecord modelComment">
+					<div class="modelTitle"><i></i>车辆检测记录</div>
+					<table class="vehicleRecordTable tableComment">
+						<tr>
+							<th>时间</th><th>检测方法</th><th>检测结果</th>
+						</tr>
+						<tr>
+							<td>2015/08/16</td><td>简易瞬态</td><td class="td"><span class="testtimes">首检</span><span class="below">不合格</span></td>
+						</tr>
+						<tr>
+							<td>2015/08/19</td><td>简易瞬态</td><td class="td"><span class="testtimes">一次复检</span><span class="below">不合格</span></td>
+						</tr>
+						<tr>
+							<td>2015/08/26</td><td>简易瞬态</td><td class="td"><span class="testtimes">2次复检</span><span class="uptest">合格</span></td>
+						</tr>
+					</table>
+				</div>
+				<!--信息修改记录-->
+				<div class="modifyInfo modelComment">
+					<div class="modelTitle"><i></i>信息修改记录</div>
+					<table class="tableComment">
+						<tr>
+							<td>2015/08/16</td><td>申请修改车辆信息</td><td><a href="javascript:;">详情</a></td>
+						</tr>
+						<tr>
+							<td>2015/08/18</td><td>申请修改检测方法</td><td><a href="javascript:;">详情</a></td>
+						</tr>
+						<tr>
+							<td>2015/08/21</td><td>申请跨站检测解锁</td><td><a href="javascript:;">详情</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="mainRight">
+				<div class="vehicleTestProcess modelComment">
+					<div class="modifyInfoTitle modelTitle"><i></i>豫A66666车辆检测过程数据曲线图</div>
+					<div id="echart">
+						
+					</div>
+				</div>
+				
+				<div class="testAnalysisBox">
+					<!--监测结果对比分析-->
+					<div class="resultAnalysis modelComment">
+						<div class="resultAnalysisTitle modelTitle"><i></i>监测结果对比分析</div>
+						<ul class="resultAnalysiList">
+							<li><div>车型（DC7141RPC）整体合格率</div>
+								<div class="progressone">
+									<div class="progress">
+				                        <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 85%;">
+				                            <div class="progress-value">85%</div>
+				                        </div>
+				                    </div>
+								</div>
+							</li>
+							<li><div>该车型里程数为(19902km±5000)合格率:</div>
+								<div class="progresstwo">
+									<div class="progress">
+				                        <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 65%;">
+				                            <div class="progress-value">65%</div>
+				                        </div>
+				                    </div>
+								</div>
+							</li>
+							<li><div>该车型登记日期为（2012.12±6个月）合格率：</div>
+								<div class="progressthree">
+									<div class="progress">
+				                        <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 95%;">
+				                            <div class="progress-value">95%</div>
+				                        </div>
+				                    </div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--报警信息展示-->
+					<div class="resultShow modelComment">
+						<div class="modelTitle resultShowTitle"><i></i>报警信息展示（过程数据分析）</div>
+						<table class="msgShowlists tableComment">
+							<tr><th>报警类型</th><th>报警内容</th><th>处理方式</th></tr>
+							<tr><td>过程数据</td><td>检测过程中发动机转速为0</td><td><a href="javascript:;" class="warming">报警</a></td></tr>
+							<tr><td>结果数据</td><td>结果数据温度、湿度异常</td><td><a href="javascript:;"class="cancel">作废</a></td></tr>
+							<tr><td>过程数据</td><td>CO+CO2<6%</td><td><a href="javascript:;" class="warming">报警</a></td></tr>
+							<tr><td>过程数据</td><td>分析仪测试工况O2为0</td><td><a href="javascript:;" class="warming">报警</a></td></tr>
+							<tr><td>过程数据</td><td>全程流量计流量低于2L/s</td><td><a href="javascript:;" class="cancel">作废</a></td></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+	var piechart2 = echarts.init(($('#echart')[0]));
+	var xAxisDatas = ['1','5','9','13','17','21','25','29','33','37','41','45','49','53','57','193'];
+		var	option = {
+			color:['#0ec896','#9fbd72','#c42376','#ff7b06','#856ddf'],
+		    title: {
+		        text: ''
+		    },
+		    tooltip: {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		    	top:15,
+		    	right:'6%',
+		    	icon:'rect',
+		    	itemWidth:15,
+		    	itemheight:10,
+		        data:['测试工况【HC】','测试工况【CO】','测试工况【CO2】','测试工况【NO】','车速']
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+//		    toolbox: {
+//		        feature: {
+//		            saveAsImage: {}
+//		        }
+//		    },
+		    xAxis: {
+		        type: 'category',
+		        boundaryGap: false,
+		        data: xAxisDatas,
+		        axisLine: {
+	                lineStyle: {
+	                    color: '#e7e7e7',
+	                    fontSize: 12,
+	                    width: 1
+	                }
+	            },
+	            axisLabel: {
+	                textStyle: {
+	                    color: '#777',
+	                    align: 'center'
+	
+	                },
+	            },
+	            axisTick: {
+	            	show:false,
+	                alignWithLabel: true,
+	                lineStyle: {
+	                    color: '#ddd',
+	
+	                },
+	            },
+	            splitLine: {     //网格线
+		          show: true
+		        }
+		    },
+		    yAxis: {
+		        type: 'value',
+		        axisLine: {
+	                lineStyle: {
+	                    color: '#e7e7e7',
+	                    fontSize: 12,
+	                    width: 1
+	                }
+	            },
+	            axisLabel: {
+	                textStyle: {
+	                    color: '#777',
+	                    align: 'center'
+	
+	                },
+	            },
+	            axisTick: {
+	            	show:false,
+	                alignWithLabel: true,
+	                lineStyle: {
+	                    color: '#ddd',
+	
+	                },
+	            },
+	            splitLine: {     //网格线
+		          show: true
+		        }
+		    },
+		    series: [
+		        {
+		            name:'测试工况【HC】',
+		            symbol:'circle',
+                	symbolSize:8,
+                	itemStyle: {
+	                    normal: {
+							color:'#0ec896',  
+	                        borderColor:'#fff', 
+	                        borderWidth: 1
+	                    }
+	                },
+	            	smooth:true,
+		            type:'line',
+		            data:[8, 15, 54, 58, 30, 25, 10,8, 15, 54, 58, 30, 25, 10,20,50]
+		        },
+		        {
+		            name:'测试工况【CO】',
+		            symbol:'circle',
+                	symbolSize:8,
+                	itemStyle: {
+	                    normal: {
+							color:'#9fbd72',  
+	                        borderColor:'#fff', 
+	                        borderWidth: 1
+	                    }
+	                },
+	            	smooth:true,
+		            type:'line',
+		            data:[0, 6, 13, 20, 10, 7, 4,0, 6, 13, 20, 10, 7, 4,3,0]
+		        },
+		        {
+		            name:'测试工况【CO2】',
+	            	smooth:true,
+	            	symbol:'circle',
+                	symbolSize:8,
+                	itemStyle: {
+	                    normal: {
+							color:'#c42376',  
+	                        borderColor:'#fff', 
+	                        borderWidth: 1
+	                    }
+	                },
+		            type:'line',
+		            data:[14, 15, 16, 13, 14, 15, 15,14, 15, 16, 13, 14, 15, 15,10,40]
+		        },
+		        {
+		            name:'测试工况【NO】',
+	            	smooth:true,
+	            	symbol:'circle',
+                	symbolSize:8,
+                	itemStyle: {
+	                    normal: {
+							color:'#ff7b06',  
+	                        borderColor:'#fff', 
+	                        borderWidth: 1
+	                    }
+	                },
+		            type:'line',
+		            data:[24, 40, 35, 30, 39, 42, 35,24, 40, 35, 30, 39, 42, 35,10,5]
+		        },
+		        {
+		            name:'车速',
+		            type:'line',
+		            symbol:'circle',
+                	symbolSize:8,
+                	itemStyle: {
+                    normal: {
+							color:'#856ddf',  
+	                        borderColor:'#fff', 
+	                        borderWidth: 1
+	                    }
+	                },
+	            	smooth:true,
+		            data:[0, 16, 20, 5, 30, 24, 58,0, 16, 20, 5, 30, 24, 58,30,20]
+		        }
+		    ]
+	};	
+	piechart2.setOption(option);
+	window.addEventListener("resize", function () {//窗口改变时的事件监听
+        piechart2.resize();
+   });
+	</script>
+</html>

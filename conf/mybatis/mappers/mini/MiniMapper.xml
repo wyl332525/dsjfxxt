@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.mini.MiniMapper">    
+	
+	<select id="getJczlb" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,region,stationname,stationshortname,stationstate,longitude,latitude,stationaddress,stationtel,pjfs,cr1.name AS regionname,cr2.code as areacode,cr2.name AS areaname FROM bas_checkstation t 
+		LEFT JOIN cod_region cr1 ON t.region = cr1.code LEFT JOIN cod_region cr2 ON cr1.parentcode = cr2.code 
+		<where>
+        	<if test="region != null and region != ''">
+            	region = #{region}
+        	</if>
+        	<if test="areacode != null and areacode != ''">
+            	and cr2.code = #{areacode}
+        	</if>
+		</where>
+	</select>
+	<!-- 实现模糊查询检测站列表  -->
+	<select id="getJczlbbyany" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,region,stationname,stationshortname,stationstate,longitude,latitude,stationaddress,stationtel,pjfs,cr1.name AS regionname,cr2.code as areacode,cr2.name AS areaname FROM bas_checkstation t 
+		LEFT JOIN cod_region cr1 ON t.region = cr1.code LEFT JOIN cod_region cr2 ON cr1.parentcode = cr2.code 
+		<where>
+        	<if test="inputdata != null and inputdata != ''">
+            	stationshortname like '%' #{inputdata} '%'
+        	</if>
+		</where>
+	</select>
+	
+	<select id="getAreaLb" parameterType="java.util.List" resultType="hashmap">
+		select code,name from cod_region t where t.parentcode = '530000' 
+	</select>
+	
+	<select id="getRegionLb" parameterType="java.util.List" resultType="hashmap">
+		select code,name from cod_region t where t.parentcode != '530000' and t.code != '530000'
+       	<if test="area != null and area != ''">
+           	and t.parentcode = #{area}
+       	</if>
+	</select>
+	
+	<select id="getYysjlb" parameterType="java.util.List" resultType="hashmap">
+		select code,name from cod_yysjd t 
+	</select>
+	
+	<select id="getJczById" parameterType="java.util.List" resultType="hashmap">
+		select cr.name as region,stationname,stationshortname,longitude,latitude,stationaddress from bas_checkstation t 
+		left join cod_region cr on t.region = cr.code
+		<where>
+        	<if test="pkid != null and pkid != ''">
+            	pkid = #{pkid}
+        	</if>
+		</where>
+	</select>
+	
+	<insert id="saveXsz">
+		insert into wx_yy_jcyy(openid,cphm,vin,cllx,szdz,syxz,clpp,clxh,fdjhm,ccdjrq) values
+		(#{openid},#{cphm},#{vin},#{cllx},#{szdz},#{syxz},#{clpp},#{clxh},#{fdjhm},#{ccdjrq})
+	</insert>
+	
+	<update id="updateyy" >
+		update wx_yy_jcyy set jczbh=#{station},yyrq=#{yyrq},yysj=#{yysj},sjhm=#{sjhm},cgyysj=now() 
+		where openid=#{openid}
+	</update>
+	
+	
+	<!-- 根据检测站编号获取节假日设置  -->
+	<select id="getjjrsj" parameterType="java.util.List" resultType="hashmap">
+		select * from bas_holidayset t where t.jczbh = #{jczbh}
+	</select>
+	
+	<!-- 根据检测站编号获取周1-周日上班设置  -->
+	<select id="getgzrsz" parameterType="java.util.List" resultType="hashmap">
+		select week1,week2,week3,week4,week5,week6,week7 from bas_checkstation t where t.pkid = #{jczbh}
+	</select>
+	
+	<!-- 根据检测站编号、日期获取已经预约的情况 -->
+	<select id="getYYqk" parameterType="java.util.List" resultType="hashmap">
+		SELECT 
+		IFNULL(SUM(CASE WHEN yyzt = '1' AND yysj = '1' AND yycllx = 'C' THEN 1 ELSE 0 END),0) AS amxcyys,
+		IFNULL(SUM(CASE WHEN yyzt = '1' AND yysj = '1' AND yycllx = 'A' THEN 1 ELSE 0 END),0) AS amdcyys,
+		IFNULL(SUM(CASE WHEN yyzt = '1' AND yysj = '2' AND yycllx = 'C' THEN 1 ELSE 0 END),0) AS pmxcyys,
+		IFNULL(SUM(CASE WHEN yyzt = '1' AND yysj = '2' AND yycllx = 'A' THEN 1 ELSE 0 END),0) AS pmdcyys,
+		bc.amxczdyyl,bc.amdczdyyl,bc.pmxczdyyl,bc.pmdczdyyl,bc.amstart,bc.amend,bc.pmstart,bc.pmend,bc.pjfs FROM bas_checkstation bc 
+		LEFT JOIN wx_yy_jcyy t ON  bc.pkid  = t.jczbh
+		<where>
+			<if test="jczbh != null and jczbh != ''">
+				and bc.pkid = #{jczbh}
+			</if>
+        	<if test="yysj != null and yysj != ''">
+				and t.yyrq = #{yysj}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据检测站编号获取评价 -->
+	<select id="getPjByJczbh" parameterType="java.util.List" resultType="hashmap">
+		SELECT 
+		p.pkid,p.cphm,p.yylsh,p.openid,p.pjfs,yylx,DATE_FORMAT(p.jcsj,'%Y-%m-%d') as jcsj,pjsj,m.nickname,m.avatarUrl,
+		p.pjnr,p.pjlx from wx_yy_czpj p inner join wx_user_miniyh m ON p.openid = m.openid
+		<where>
+			<if test="jczbh != null and jczbh != ''">
+				p.jczbh = #{jczbh}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 保存评价内容 -->
+	<insert id="savePj">
+		insert into wx_yy_czpj(openid,pjfs,pjnr,jczbh,pjsj,cphm,pjlx,yylsh,yylx) values
+		(#{openid},#{pjfs},#{pjnr},#{jczbh},now(),#{cphm},#{pjlx},#{yylsh},#{yylx})
+	</insert>
+	
+	<!-- 根据预约流水号查询评价明细  -->
+	<select id="getPJ" parameterType="java.util.List" resultType="hashmap">
+		SELECT p.openid,p.pjfs,p.pjnr,p.jczbh,p.jcsj,p.pjsj,p.cphm,p.pjlx,p.yylx,m.nickname,m.avatarUrl 
+		FROM wx_yy_czpj p INNER JOIN  wx_user_miniyh m 
+		ON p.openid = m.openid  
+		<where>
+			<if test="yylsh != null and yylsh != ''">
+				p.yylsh = #{yylsh}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据预约流水号查询评价pj -->
+	<select id="getPJbyyylsh" parameterType="java.util.List" resultType="hashmap">
+		select openid,pjfs,pjnr,jczbh,jcsj,pjsj,cphm,pjlx,yylsh from wx_yy_czpj 
+		<where>
+			<if test="yylsh != null and yylsh != ''">
+				yylsh = #{yylsh}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 保存检测结果-->
+	<insert id="saveJCJG">
+		insert into wx_yy_jcjg(openid,stationname,cphm,jcsj,jcjg,jccs) values
+		(#{openid},#{stationname},#{cphm},#{jcsj},#{jcjg},#{jccs})
+	</insert>
+	
+	<!-- 根据用户id查询检测结果  -->
+	<select id="getJCJGbyopenid" parameterType="java.util.List" resultType="hashmap">
+		SELECT  g.openid,g.stationname,g.cphm,g.jcsj,g.jcjg,g.jccs,j.jczbh,j.yylsh,j.yylx 
+		FROM wx_yy_jcjg g INNER JOIN wx_yy_jcyy j 
+		ON g.openid = j.openid  AND g.cphm = j.cphm 
+		<where>
+			<if test="openid != null and openid != ''">
+				g.openid = #{openid}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 评价成功后得到该检测站的所有评价分数求平均数并修改表bas_checkstation -->
+	<insert id="upPJFS">
+		UPDATE bas_checkstation SET pjfs = (SELECT AVG(pjfs) AS pjfs FROM  wx_yy_czpj AS a WHERE jczbh = #{jczbh}) WHERE pkid = #{jczbh};
+	</insert>
+	
+	<!-- 保存信息 -->
+	<insert id="saveYuyuexx">
+		insert into wx_yy_jcyy(openid,cphm,vin,cllx,czxm,szdz,syxz,clpp,clxh,fdjhm,ccdjrq,xszscsj,
+		jczbh,yyrq,yysj,yycllx,sjhm,yyzt,yylsh,yybh,cgyysj,yylx) values
+		(#{openid},#{cphm},#{vin},#{cllx},#{czxm},#{szdz},#{syxz},#{clpp},#{clxh},#{fdjhm},
+		#{ccdjrq},now(),#{jczbh},#{yyrq},#{yysj},#{yycllx},#{sjhm},'3',#{yylsh},#{yybh},now(),#{yylx})
+	</insert>
+	
+	<!-- 保存代驾年检 -->
+	<insert id="saveDjnjxx">
+		insert into wx_yy_jcyy(openid,cphm,vin,cllx,czxm,szdz,syxz,clpp,clxh,fdjhm,ccdjrq,xszscsj,
+		jczbh,yyrq,yysj,yycllx,sjhm,yyzt,yylsh,yybh,cgyysj,yylx,longitude,latitude,czdzms,czaddress) values
+		(#{openid},#{cphm},#{vin},#{cllx},#{czxm},#{szdz},#{syxz},#{clpp},#{clxh},#{fdjhm},
+		#{ccdjrq},now(),#{jczbh},#{yyrq},#{yysj},#{yycllx},#{sjhm},'4',#{yylsh},#{yybh},now(),#{yylx}
+		,#{longitude},#{latitude},#{czdzms},#{czaddress})
+	</insert>
+	
+	<!-- 保存到站年检 -->
+	<insert id="saveDznjxx">
+		insert into wx_yy_jcyy(openid,cphm,vin,cllx,czxm,szdz,syxz,clpp,clxh,fdjhm,ccdjrq,xszscsj,
+		jczbh,yyrq,yysj,yycllx,sjhm,yyzt,yylsh,yybh,cgyysj,yylx,longitude,latitude,czdzms,czaddress) values
+		(#{openid},#{cphm},#{vin},#{cllx},#{czxm},#{szdz},#{syxz},#{clpp},#{clxh},#{fdjhm},
+		#{ccdjrq},now(),#{jczbh},#{yyrq},#{yysj},#{yycllx},#{sjhm},'3',#{yylsh},#{yybh},now(),#{yylx}
+		,#{longitude},#{latitude},#{czdzms},#{czaddress})
+	</insert>
+	
+	<!-- 根据检测站编号、车辆大小获取预约编号 -->
+	<select id="getYybh" parameterType="java.util.List" resultType="hashmap">
+		SELECT count(*) as c from wx_yy_jcyy 
+		<where>
+			<if test="jczbh != null and jczbh != ''">
+				and jczbh = #{jczbh}
+			</if>
+			<if test="yyrq != null and yyrq != ''">
+				and yyrq = #{yyrq}
+			</if>
+			<if test="yysj != null and yysj != ''">
+				and yysj = #{yysj}
+			</if>
+			<if test="yycllx != null and yycllx != ''">
+				and yycllx = #{yycllx}
+			</if>
+			<if test="yylx != null and yylx != ''">
+				and yylx = #{yylx}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 检测站配置 -->
+	<select id="getJczpz" parameterType="java.util.List" resultType="hashmap">
+		select pkid,stationshortname,week1,week2,week3,week4,week5,week6,week7,amstart,amend,pmstart,pmend,
+		amxczdyyl,amdczdyyl,pmxczdyyl,pmdczdyyl from bas_checkstation
+	</select>
+	
+	
+	<!-- 根据小程序openid查询用户是否已经保存 -->
+	<select id="getUserByOpenid" parameterType="java.util.List" resultType="hashmap">
+		SELECT * from wx_user_miniyh
+		<where>
+			<if test="openid != null and openid != ''">
+				openid = #{openid}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 保存用户信息 -->
+	<insert id="saveMiniyh">
+		insert into wx_user_miniyh(openid,nickname,country,province,city,gender,avatarUrl,unionid) values
+		(#{openid},#{nickName},#{country},#{province},#{city},#{gender},#{avatarUrl},#{unionid})
+	</insert>
+	
+	<!-- 更新用户信息 -->
+	<insert id="updateMiniyh">
+		update wx_user_miniyh set nickname = #{nickName},country = #{country},province = #{province},
+		city = #{city},gender = #{gender},avatarUrl = #{avatarUrl},unionid = #{unionid} 
+		where openid = #{openid}
+	</insert>
+	
+	<!-- 取消预约 -->
+	<insert id="cancelYuyue">
+		update wx_yy_jcyy set yyzt = '0',sfts = '0' where yylsh = #{yylsh}
+	</insert>
+	
+	<!-- 车主确定提交车后修改预约状态为6（待交车） -->
+	<insert id="upyyzt">
+		update wx_yy_jcyy set yyzt = '6',sfts = '0' where yylsh = #{yylsh}
+	</insert>
+	
+	<!-- 代驾人员确定交车后修改预约状态为7（已交车） -->
+	<insert id="upyyzt2">
+		update wx_yy_jcyy set yyzt = '7',sfts = '0' where yybh = #{yybh}
+	</insert>
+	
+	<!-- 根据流水号查询预约信息  -->
+	<select id="getYyxxBylsh" parameterType="java.util.List" resultType="hashmap">
+		SELECT w.id,w.cphm,w.czxm,DATE_FORMAT(w.cgyysj,'%Y-%m-%d %H:%i:%s') cgyysj,
+		CASE WHEN yysj='1' THEN '上午' WHEN yysj='2' THEN '下午' WHEN yysj='3' THEN '全天' ELSE '即时排队检车' END AS yysj,
+		w.yyrq,w.yyzt,w.yybh,
+		CASE WHEN yylx='1' then '预约检车' when yylx='2' then '代驾检车' else '到站检车' end as yylx,
+		yylx as yylxsz,b.stationshortname,b.stationname,sjhm,
+		b.stationaddress FROM wx_yy_jcyy w LEFT JOIN bas_checkstation b ON w.jczbh = b.pkid 
+		<where>
+			<if test="yylsh != null and yylsh != ''">
+				yylsh = #{yylsh}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更新预约状态 -->
+	<update id="updateState" >
+		update wx_yy_jcyy set yyzt=#{state} where yylsh=#{yylsh}
+	</update>
+	
+	<!-- 更新检测站信息 -->
+	<update id="updateCheckStation" >
+		update bas_checkstation set region=#{region},stationname=#{stationname},stationshortname=#{stationshortname},
+			stationaddress=#{stationaddress},measurequalification=#{measurequalification},
+			permitnum=#{permitnum},legalperson=#{legalperson},legaltel=#{legaltel},
+			stationfex=#{stationfex},stationheader=#{stationheader},headerphone=#{fzrphone},
+			headeremail=#{headeremail},headerqq=#{headerqq},hbjcfzr=#{ hbjcfzr},fzrphone=#{fzrphone},
+			fzremail=#{fzremail},fzrqq=#{fzrqq},postcode=#{postcode},registdate=#{registdate},
+			stationstate=#{stationstate},stationtype=#{stationtype},longitude=#{latitude},latitude=#{longitude},
+			areatotle=#{areatotle},areaoffice=#{areaoffice},areacheck=#{areacheck},areawait=#{areawait},
+			amstart=#{amstart2},amend=#{amend2},pmstart=#{pmstart2},pmend=#{pmend2},
+			week1=#{week1},week2=#{week2},week3=#{week3},week4=#{week4},week5=#{week5},week6=#{week6},week7=#{week7},
+			authorizationstate=#{authorizationstate},stationtel=#{stationtel},stationremark=#{stationremark},
+			orgnum=#{orgnum} 
+		where pkid=#{pkid}
+	</update>
+	<!-- 更新节假日信息 -->
+	<update id="updateHoliday" >
+		update bas_holidayset set holidtime=#{datevalue} where id=#{id}
+	</update>
+	
+	<insert id="addHoliday">
+		insert into
+		bas_holidayset(id,jczbh,holidtime,tjsj)
+		values(#{id},#{jczbh},#{holidtime},now())
+	</insert>
+	
+	<delete id="delHoliday">
+		delete from bas_holidayset where id=#{id}
+	</delete>
+	
+	<!-- 根据cphm和vin查询 -->
+	<select id="getYyxx" parameterType="java.util.List" resultType="hashmap">
+		SELECT w.id,w.cphm,DATE_FORMAT(w.cgyysj,'%Y-%m-%d %H:%i:%s') cgyysj,
+		w.yyrq,w.yyzt,w.yybh,
+		CASE WHEN yylx='1' then '预约检车' when yylx='2' then '代驾检车' else '到站检车' end as yylx,
+		yylx as yylxsz,b.stationshortname,b.stationname,sjhm,
+		b.stationaddress FROM wx_yy_jcyy w LEFT JOIN bas_checkstation b ON w.jczbh = b.pkid 
+		<where>
+			yyzt != '9' and yyzt != '0' and yyzt != '2' 
+			<if test="cphm != null and cphm != ''">
+				and cphm = #{cphm}
+			</if>
+			<if test="vin != null and vin != ''">
+				and vin = #{vin}
+			</if>
+			<if test="openid != null and openid != ''">
+				and openid = #{openid}
+			</if>
+		</where>
+		order by cgyysj desc
+	</select>
+	
+	
+	<!-- 根据openid查询当日已经取消预约过几次 -->
+	<select id="getYyslByOpenid" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as c from wx_yy_jcyy 
+		<where>
+			DATE(cgyysj)=CURDATE() and yyzt ='0'
+			<if test="openid != null and openid != ''">
+				and openid = #{openid}
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 根据openid查询已经预约的车辆信息5条 -->
+	<select id="getYyclxxByOpenid" parameterType="java.util.List" resultType="hashmap">
+		select DISTINCT cphm,vin,cllx,szdz,syxz,clpp,clxh,fdjhm,ccdjrq,czxm,sjhm from wx_yy_jcyy 
+		<where>
+			openid = #{openid}
+		</where>
+		limit 5
+	</select>
+	<!-- 根据openid查询已经预约的车辆信息所有的 -->
+	<select id="getYyhisByOpenid" parameterType="java.util.List" resultType="hashmap">
+		select DISTINCT cphm,vin,cllx,szdz,syxz,clpp,clxh,fdjhm,ccdjrq,czxm,sjhm from wx_yy_jcyy 
+		<where>
+			openid = #{openid}
+		</where>
+	</select>
+	
+	<!-- 根据检测站id查询代驾人员信息 -->
+	<select id="getdaijiauser" parameterType="java.util.List" resultType="hashmap">
+		select stationcode,loginaccount,staffname,sex,birthday,cardnumber,qualifications,mobilephone,
+		address,licensetype,licensedate,headurl,sfsc,scsj from wx_yy_daijiauser
+		<where>
+			stationcode = #{stationpkid}
+		</where>
+	</select>
+</mapper>

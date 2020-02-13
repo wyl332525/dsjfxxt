@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>弹窗</title>
+    <link href="../../CSS/bootstrap.css" rel="stylesheet" />
+    <link href="../../Scripts/plugins/bootstraptable/bootstrap-table.css" rel="stylesheet" />
+    <link href="window.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="title">
+        <b class="titleName">基本信息</b>
+
+
+        <span class="closeTc"></span>
+        <!--<span class="xxtj"></span>
+        <span class="jbxx active"></span>-->
+    </div>
+    <div class="tjb">
+        <table id="jbxx">
+            <tr>
+                <td>点位名称</td>
+                <td class="dwName"><!--郑东新区站--></td>
+                <td>车道序号</td>
+                <td class="yccount"><!--3条--></td>
+            </tr>
+            <tr>
+                <td>所处状态</td>
+                <td class="status">
+                    <span><!--正常--></span>
+                </td>
+                <td>车牌号</td>
+                <td class="carPlate"></td>
+            </tr>
+            <tr>
+                <td>车牌颜色</td>
+                <td class="plateColor"></td>
+                <td>运行日期</td>
+                <td class="runDate"><!--15454544545--></td>
+            </tr>
+            <tr>
+                <td>地点经度</td>
+                <td class="lon"></td>
+                <td>地点纬度</td>
+                <td class="lat"></td>
+            </tr>
+            <tr>
+                <td>监测总数</td>
+                <td class="totalNumber"><!--2008-08-08--></td>
+                <td>合格数</td>
+                <td class="qualifiedNumber"><!--2018-08-08--></td>
+            </tr>
+            <tr>
+                <td>合格率</td>
+                <td class="qualifiedRate">
+                    <!--郑州市郑东新区威科姆大厦-->
+                </td>
+				<td>IP</td>
+				<td class="ip"></td>
+            </tr>
+        </table>
+        <div id="xxtj" style="display:none;">
+            <table id="xxtjTable">
+            	<thead>
+                <tr>
+                    <td>
+                        遥感测线编号
+                    </td>
+                    <td>
+                        车道序号
+                    </td>
+                    <td>
+                        当日监测总数
+                    </td>
+                    <td>
+                        合格率
+                    </td>
+                    <td>
+                        工位机IP
+                    </td>
+                    <td>
+                        操作
+                    </td>
+                    <td>
+                        操作2
+                    </td>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../../Scripts/jquery-1.11.3.js"></script>
+<script src="../../Scripts/custom/coustomTool.js"></script>
+<script src="../../Scripts/plugins/bootstraptable/bootstrap-table.js"></script>
+<script src="../../Scripts/build.js"></script>
+<script src="window2.js"></script>

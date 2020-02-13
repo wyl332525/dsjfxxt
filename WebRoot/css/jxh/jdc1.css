@@ -1,0 +1,503 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+body,html{
+	height: 100%;
+	min-width: 1280px;
+}
+body{
+	background-color: #eff1f4;
+	color: #4c4c4c;
+}
+ul li{
+	list-style: none;
+}
+table { 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+}
+.header{
+	height: 38px;
+	line-height: 36px;
+	background-color: #6792d6;
+	color: #fff;
+	padding-left: 20px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	font-weight: bold;
+}
+.close{
+	float: right;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.close:hover{
+	opacity: 0.8;
+	zoom: 1;
+}
+.main{
+	padding: 1% 0.6% 1% 1%;
+	overflow: hidden;
+}
+.mainLeft{
+	float: left;
+	width: 21%;
+}
+
+/*姣忎釜妯″潡鍏叡鐨勬牱寮�*/
+.modelComment{
+	background-color: #fdfefe;
+	box-shadow: 0px 2px 3px 0px rgba(6, 0, 1, 0.17);
+	border-radius: 2px;
+	border: solid 1px #dedede;
+}
+.modelTitle{
+	font-size: 14px;
+	padding-left: 10px;
+	height: 32px;
+	line-height: 32px;
+	background-image: linear-gradient(0deg, #f0f0f0 0%, #f8f8f8 100%);
+	border-radius: 2px 2px 0px 0px;
+	border: solid 1px #ffffff;
+	font-weight: bold;
+	color: #4c4c4c;
+}
+.modelTitle i{
+	display: inline-block;
+	width: 16px;
+	height: 14px;
+	margin-top: -2px;
+	margin-right: 5px;
+    vertical-align: middle;
+	background: url(../../img/jxh/icon.png) no-repeat center;
+}
+.jcshow{
+	padding: 10px 20px 10px 15px;
+	/*padding: 2.5% 5% 2.5% 5%;*/
+}
+.jcshow > div > span{
+	display: inline-block;
+	width: 50%;
+	text-align: center;
+	height: 36px;
+    line-height: 36px;
+}
+.showTitle span:first-child{
+	background-color: rgba(244, 192, 130, 0.21);
+	font-size: 1.05rem;
+}
+.showTitle span:last-child{
+	background-color: rgba(105, 204, 215, 0.21);
+	font-size: 1.05rem;
+}
+.showCon span:first-child{
+	background-color: #f4b66c;
+	color: #FFF;
+	font-size: 2rem;
+}
+.showCon span:last-child{
+	background-color: #27b3c3;
+	color: #FFF;
+	font-size: 2rem;
+}
+.passLists{
+	padding: 0 20px 10px 20px;
+}
+.passLists li > span{
+	display: inline-block;
+	width: 50%;
+	padding: 7px 0;
+	font-size: 1rem;
+}
+.passLists li > span:last-child{
+	padding: 8px 0;
+	position: relative;
+	top: 7px;
+}
+.jcBasiscMsg{
+	margin-top: 10px;
+}
+.tableBasisLists{
+	width: 96%;
+	margin: 5px auto 10px;
+	background-color: rgba(255, 255, 255, 0.9);
+	border: solid 1px #e6ebf4;
+}
+.tableBasisLists tr td{
+	padding: 5px 10px;
+}
+.tableBasisLists tr:nth-child(2n+1){
+	background-color: #f1f5fb;
+}
+.mainRight{
+	margin-left: 21.8%;
+}
+.allAmount{
+	width: 66%;
+	float: left;
+	margin-right: 1%;
+}
+.PercentOfPass{
+	width: 33%;
+	float: left;
+}
+.zhlPass{
+	margin-top: 10px;
+}
+.tableAlarmMsg{
+	width: 100%;
+}
+.tableAlarmMsg tr:nth-child(2n){
+	background-color: #f1f5fb;
+}
+.tableAlarmMsg tr td{
+	padding: 6px;
+}
+.tableAlarmMsg tr td:first-child{
+	text-align: center;
+}
+.vehicleType{
+	margin-top: 10px;
+}
+.vehicleTypeTable{
+	width: 98%;
+	margin: 5px auto;
+	border: solid 1px #dedede;
+}
+.vehicleTypeTable tr:first-child{
+	background-image: linear-gradient(0deg, #f0f0f0 0%, #f8f8f8 100%);
+}
+.vehicleTypeTable tr th{
+	/*padding: 1% 2%;*/
+	padding: 8px;
+}
+.vehicleTypeTable tr td{
+	text-align: center;
+	padding: 7px;
+	border: solid 1px #dedede;
+	position: relative;
+}
+.vehicleTypeTable tr td > span{
+	position: absolute;
+	left: 70%;
+	top:25%;
+}
+.vehicleTypeTable tr:nth-child(2n+1){
+	background-color: rgba(241, 245, 251, 0.8);
+	opacity: 0.8;
+}
+#piechart{
+	width: 100%;
+	height: 334px;
+}
+#chartOne{
+	height: 207px;
+}
+#chartTwo{
+	height: 190px;
+}
+/*鏃堕棿杞存牱寮�*/
+.timer{
+	position: relative;
+   	margin: 10px auto 20px;
+	width: 80%;
+	min-width: 65%;
+	height: 50px;
+    border:1px solid #eaeaea;
+    border-radius:3px;
+	background: #fafaf8;
+	z-index: 999;
+}
+.timer ul{
+    margin:5px 10px;
+    padding-left:5px;
+	overflow: hidden;
+	position: relative;
+	z-index: 9;
+}
+.timer ul .line{
+	position: absolute;
+	width: 76%;
+	height: 1px;
+	background: #949494;
+	top:38%;
+	left:7.5%;
+	margin-top: 2px;
+	z-index: 1;
+}
+.timer ul li{
+    position:relative;
+	float: left;
+	width: 15%;
+	text-align: center;
+	margin-top: 4px;
+	padding-top: 20px;
+	font-family: SimSun;
+	color: #363636;
+    font-size:12px;
+}
+.timer ul li span{
+    padding:2px 3px;
+}
+.timer ul li.openTimer span{
+    color:#00a0e9;
+    font-weight: bold;
+}
+.timer ul li:before{
+    content:'';
+    display:inline-block;
+    position:absolute;
+    top:6px;
+    left:50%;
+    margin-left:-6px;
+    width:12px;
+    height:12px;
+    background:#d8d8d8;
+    border-radius:50%;
+}
+.timer ul li:after{
+    content:'';
+    display:inline-block;
+    position:absolute;
+    top:9px;
+    left:50%;
+    margin-left:-3px;
+    width:6px;
+    height:6px;
+    background:#949494;
+    border-radius:50%;
+}
+.timer ul li:hover:before{
+    background:#b8e5f9;
+}
+.timer ul li:hover:after{
+    background:#0091d3;
+}
+.timer ul li.openTimer:before{
+    background:#b8e5f9;
+}
+.timer ul li.openTimer:after{
+    background:#0091d3;
+}
+.btntab{
+	width: 12px;
+	height: 20px;
+	position: absolute;
+	z-index: 999;
+	cursor: pointer;
+}
+.prev{
+	left: 12px;
+	top:15px;
+	background: url(../../img/jxh/time_zuo.png) no-repeat center;
+}
+
+.next{
+	right:50px;
+	top:15px;
+	background: url(../../img/jxh/time_you.png) no-repeat center;
+}
+
+.zanting{
+	top:8px;
+	right:10px;
+	width: 34px;
+	height: 34px;
+	background: url(../../img/jxh/time_kai.png) no-repeat center;
+}
+.openLi{
+	background: url(../../img/jxh/timei_guan.png) no-repeat center;
+}
+
+/* 璁剧疆婊氬姩鏉＄殑鏍峰紡 */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 10px; 
+}
+/* 婊氬姩妲� */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #dcdcdc;
+    border-radius: 10px;
+}
+/* 婊氬姩鏉℃粦鍧� */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #dcdcdc;
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #dcdcdc;
+}
+/*妯悜婊氬姩鏉℃牱寮�*/ 
+::-webkit-scrollbar:horizontal{  
+   height: 5px;  
+}  
+/*@media only screen and (min-width: 1400px) {
+	*{
+		font-size: 14px;
+	}
+	.passLists li > span{
+		padding: 8px 0;
+	}
+	.tableBasisLists tr td {
+	    padding: 6px 10px;
+	}
+	.jcBasiscMsg{
+		margin-top: 5px;
+	}
+}
+
+@media only screen and (max-height: 760px) {
+	.modelTitle{
+		height: 30px;
+		line-height: 30px;
+	}
+	.jcshow{
+		padding: 4px 20px 2px 20px;
+	}
+	.tableBasisLists tr td {
+	    padding: 3px 10px;
+	}
+	.jcshow > div > span{
+		height: 32px;
+		line-height: 32px;
+	}
+	.passLists li > span{
+		padding: 3px 0;
+	}
+	#piechart{
+		height: 228px;
+	}
+	#chartOne{
+		height: 142px;
+	}
+	#chartTwo{
+		height: 138px;
+	}
+}*/
+
+
+.passLists .num{
+	color: #517ddd;
+	position: absolute;
+	margin-right: 10px;
+	top: 0;
+}
+.progressBox{
+	width: 80px;
+	margin-left: 36%;
+}
+.ellpsis{
+	width: 90%;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+/*杩涘害鏉℃牱寮�*/
+.progress_bar{
+	width: 60%;
+	margin-left: 36%;
+}
+.progress_bar .pro-bar {
+	background: hsl(0, 0%, 97%);
+	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.1) inset;
+	height:4px;
+	height: 2px;
+	border-radius: 2px;
+	position: relative;
+}
+.progress_bar .progress_bar_title{
+	color: #D5D6E2;
+	font-size: 15px;
+	font-weight: 300;
+	position: relative;
+	top: -28px;
+	z-index: 1;
+	position: absolute;
+    top: 20px;
+    left: -42px;
+}
+.progress_bar .progress_number{
+	float: right;
+	margin-top: -28px;
+	color: #517ddd;
+}
+.progress_bar .progress-bar-inner {
+	background-color: hsl(0, 0%, 88%);
+	display: block;
+	width: 0;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: width 1s linear 0s;
+	animation: animate-positive 2s;
+}
+/*.progress_bar .progress-bar-inner:before {
+	content: "";
+	background-color: hsl(0, 0%, 100%);
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	position: absolute;
+	right: 1px;
+	top: 0;
+	z-index: 1;
+}*/
+ .progress_bar .progress-bar-inner:after {
+	content: "";
+	width: 8px;
+	height: 8px;
+	background-color: inherit;
+	border-radius: 50%;
+	position: absolute;
+	right: -4px;
+	top: -3px;
+	
+	box-shadow: 0px 8px 10px #dce2ee;
+}
+.passLists .progress_bar .progress-bar-inner:after{
+	background: #9ebcff;
+}
+.passLists .progress_bar{
+	border: 1px solid #517ddd;
+}
+.passLists .progress_bar .progress-bar-inner{
+	background: #9ebcff;
+}
+.firstmonitor .progress_bar .progress-bar-inner:after{
+	background:#4deefd;
+}
+.firstmonitor .progress_bar{
+	border: 1px solid #1B9FFC;
+}
+.firstmonitor .progress_bar .progress-bar-inner{
+	background: #1B9FFC;
+}
+.twomonitor .progress_bar .progress-bar-inner:after{
+	background: #c7ffb3;
+}
+.twomonitor .progress_bar{
+	border: 1px solid #16C8D3;
+}
+.twomonitor .progress_bar .progress-bar-inner{
+	background: #16C8D3;
+}
+.lastmonitor .progress_bar .progress-bar-inner:after{
+	background: #fef9cb;
+}
+.lastmonitor .progress_bar{
+	border: 1px solid #DE9124;
+}
+.lastmonitor .progress_bar .progress-bar-inner{
+	background: #DE9124;
+}
+@-webkit-keyframes animate-positive{
+	0% { width: 0%; }
+}
+@keyframes animate-positive{
+	0% { width: 0%; }
+}

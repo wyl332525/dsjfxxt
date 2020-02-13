@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.JczsjdMapper">
+
+	<select id="getgzsjd" parameterType="java.util.List" resultType="hashmap">
+		select
+		t.pkid,t.stationname,t.amstart,t.amend,t.pmstart,t.pmend,t.amxczdyyl,t.amdczdyyl,t.pmxczdyyl,t.pmdczdyyl 
+		from
+		bas_checkstation t 
+		<where>
+			<if test="tagname != null and tagname != ''">
+				t.stationname like #{stationname}
+			</if>
+			
+		</where>
+	</select>
+
+	<select id="getgzsjdxx" parameterType="java.util.List"
+		resultType="hashmap">
+		select
+		t.stationname,t.amstart,t.amend,t.pmstart,t.pmend,t.amxczdyyl,t.amdczdyyl,t.pmxczdyyl,t.pmdczdyyl 
+		from
+		bas_checkstation t where t.pkid=#{pkid}
+	</select>
+
+	<select id="getjcz" parameterType="java.util.List" resultType="hashmap">
+		select
+		t.pkid,t.stationname,t.amstart,t.amend,t.pmstart,t.pmend,t.maxyyl,t.jcsj
+		from
+		bas_checkstation t where t.stationname like #{stationname}
+	</select>
+
+	<update id="updategzsjd">
+		update bas_checkstation t set
+		t.amstart=#{amstart},t.amend=#{amend},t.pmstart=#{pmstart},t.pmend=#{pmend},
+		t.amxczdyyl=#{amxczdyyl},t.amdczdyyl=#{amdczdyyl},t.pmxczdyyl=#{pmxczdyyl},t.pmdczdyyl=#{pmdczdyyl} 
+		where t.pkid=#{pkid}
+	</update>
+
+	<select id="getjczjjr" parameterType="java.util.List"
+		resultType="hashmap">
+		select
+		t.id,t.jczbh,a.stationname,t.holidtime
+		from
+		bas_holidayset t left join bas_checkstation a on t.jczbh=a.pkid
+	</select>
+
+	<select id="getjczname" parameterType="java.util.List"
+		resultType="hashmap">
+		select
+		t.pkid,t.stationname
+		from
+		bas_checkstation t
+	</select>
+
+	<delete id="deletejjr">
+		delete from bas_holidayset where id=#{id}
+	</delete>
+
+	<insert id="savejjr">
+		insert into
+		bas_holidayset(jczbh,holidtime,tjsj)
+		values(#{jczbh},#{holidtime},now())
+	</insert>
+
+	<select id="getjjr" parameterType="java.util.List" resultType="hashmap">
+		select t.id,t.jczbh,a.stationname,t.holidtime from
+		 bas_holidayset t left join bas_checkstation a on t.jczbh=a.pkid
+		 where a.stationname like #{stationname}
+	</select>
+	
+	<select id="getjjrsj" parameterType="java.util.List" resultType="hashmap">
+		select * from bas_holidayset t where t.jczbh=#{jczbh}
+	</select>
+	
+	<select id="gettag" parameterType="java.util.List" resultType="hashmap">
+		select t.tagid,t.tagname,t.cjsj,a.yhmc from wx_wechat_tag t left join xt_yh a on t.cjr=a.pkid
+		<where>
+			<if test="tagname != null and tagname != ''">
+				and t.tagname like #{tagname} 
+			</if>
+		</where>
+	</select>
+	
+	<insert id="savetag">
+		insert into wx_wechat_tag(tagid,tagname,cjr,cjsj) values(#{tagid},#{tagname},#{cjr},now())
+	</insert>
+	
+	<update id="updatetag">
+		update wx_wechat_tag set tagname=#{tagname} where tagid=#{tagid}
+	</update>
+	
+	<delete id="deletetag">
+		delete from wx_wechat_tag where tagid=#{tagid}
+	</delete>
+	
+	<select id="gettagcx" parameterType="java.util.List" resultType="hashmap">
+		select * from wx_wechat_tag t  where t.tagname like #{tagname} 
+	</select> 
+	
+	<select id="getyhbq" parameterType="java.util.List" resultType="hashmap">
+		SELECT t.id,t.tagid,t.tagname,CASE WHEN (SELECT a.tagbh FROM wx_yh_tag a WHERE a.tagbh=t.tagid AND a.openid=#{openid})IS NOT NULL THEN 1 ELSE 0 END AS ischoice FROM wx_wechat_tag t 
+	</select>
+	
+	<insert id="setUsertag">
+		insert into wx_yh_tag(userid,openid,tagid,tagbh,bqhqsj) values(#{userid},#{openid},#{tagid},#{tagbh},now())
+	</insert>
+	
+	<delete id="deleteUsertag">
+		delete from wx_yh_tag where openid=#{openid} and tagbh=#{tagbh}
+	</delete>
+</mapper>

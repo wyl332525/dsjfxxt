@@ -1,0 +1,275 @@
+/*css reset*/
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+	font-family: '瀹嬩綋';
+	box-sizing: border-box;
+}
+html,body{
+	overflow: hidden;
+}
+html{
+	font-size: 12px;
+}
+a:hover{
+	text-decoration: none;
+}
+fieldset,img {
+	border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-weight: normal;
+	font-style: normal;
+}
+ol,ul {
+	list-style: none;
+}
+caption,th {
+	text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+q:before,q:after {
+	content:"";
+}
+abbr,acronym {
+	border: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body{
+	width:100%;
+	background-color: #073B77;
+}
+.lt{
+	float:left;
+}
+.rt{
+	float:right;
+}
+/*logo*/
+#header{
+	width:100%;
+	height:65px;
+	line-height:65px;
+	background-color:#fff;
+}
+#header img{
+	margin:3px 0 0 25px;
+}
+/*涓讳綋閮ㄥ垎*/
+#main{
+	width: 100%;
+	padding-top: 15px;
+	margin: 0 auto;
+	text-align: center;
+}
+.imgBox{
+	width:60%;
+	height: auto;
+	max-width: 100%;
+	min-height:500px;
+	display: block;
+	position: relative;
+	top: -23%;
+	left:2%;
+	z-index: -1;
+}
+.imgBox img{
+	max-width: 100%;
+	height: 768px;
+}
+/*鐧诲綍妗�*/
+.loginBox:after,.login:after,.codeLogin:after{
+	content: "";
+	display: block;
+	clear:both;
+}
+.loginBox{
+	position: absolute;
+	top: 28%;
+	right: 7%;
+	width:24%;
+	height:327px;
+	background: url(../image/bg3.png) no-repeat;
+	background-size: inherit;
+}
+#login{
+	width: 100%;
+	float: left;
+}
+.title{
+	font-size: 20px;
+	color: #06fbfe;
+	font-weight: bold;
+	margin:20px 0 0 20px;
+}
+.tableBox{
+	float: left;
+	width: 96%;
+	margin:7% 2% 0 2%;
+	padding-left:15px;
+}
+#loginTable{
+	width:100%;
+	height: 180px;
+}
+#loginTable tr input{
+	height: 38px;
+	width: 88%;
+	padding-left: 5%;
+	float:left;
+	border-radius: 3px;
+	border: 1px solid #7c9bb9;
+	background-color: transparent;
+	box-sizing:border-box;
+	vertical-align: middle;
+	outline:none;
+	color:#7c9bb9;
+	font-weight:bold;
+}
+#loginTable tr input:hover{
+	border-color:#09eef5;
+	color:#09eef5;
+}
+#loginTable tr input.verificationCode{
+	width:55%;
+}
+#loginTable b,#loginTable i{
+	display: inline-block;
+	width:43px;
+	height:38px;
+	float:left;
+	background-size: cover;
+}
+::-webkit-input-placeholder{/*WebKit鍜孊link锛圫afari,Google Chrome, Opera15+锛変娇鐢ㄤ吉鍏冪礌*/
+	color:#7c9bb9;font-size:14px;
+}
+
+:-moz-placeholder{/*Mozilla Firefox 4-18浣跨敤浼被*/
+	color:#7c9bb9;font-size:14px;
+}
+::-moz-placeholder{/*Mozilla Firefox 19+ 浣跨敤浼厓绱�*/
+	color:#7c9bb9;font-size:14px;
+}
+:-ms-input-placeholder{/*IE10浣跨敤浼被*/
+	color:#7c9bb9;font-size:14px;
+}
+.yzm{
+	display: inline-block;
+	width: 84px;
+	height: 46px;
+	line-height: 46px;
+	letter-spacing:2px;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 28px;
+	color:#1CE9E3;
+	background: url("../image/codeBox.png") no-repeat;
+	background-size:cover;
+}
+.btnLogin{
+	width: 88%;
+	height: 36px;
+	float:left;
+	margin-top:10px;
+	cursor: pointer;
+	color: #fff;
+	border: none;
+	font-size: 20px;
+	border-radius: 3px;
+	background: url("../image/btnBg.png") no-repeat;
+	background-size: cover;
+}
+/*浜岀淮鐮�*/
+.smallCode{
+	display: inline-block;
+	width: 70px;
+	height:70px;
+	position: absolute;
+	top: 0;
+	right: 3%;
+	background: url("../image/code.png") no-repeat;
+	cursor: pointer;
+}
+.code{
+	height:327px;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	display: none;
+	/*background: url(../image/bg3.png) no-repeat center #1873A5;*/
+	background-size: inherit;
+}
+.code img{
+	width:80%;
+	margin:0 auto;
+	height:100%;
+}
+/*搴曢儴*/
+#footer{
+	width: 100%;
+	height:30px;
+	line-height:30px;
+	text-align: center;
+	color: #6297C4;
+	font-size:12px;
+	position: absolute;
+	bottom:1%;
+}
+.footerBox{
+	width:340px;
+	height:30px;
+	margin:0 auto;
+}
+.footerBox div{
+	float:left;
+	font-weight: bold;
+}
+.footerBox p{
+	float: right;
+	font-weight: bold;
+}
+.footerBox p b{
+	display: inline-block;
+	border-bottom: 1px solid #6297C4;
+}
+/*濯掍綋鏌ヨ1366浠ヤ笂甯冨眬*/
+@media (min-width: 1400px) {
+	#header {
+		height: 80px;
+		line-height: 80px;
+	}
+	#header img {
+		margin: 10px 0 0 25px;
+	}
+	.imgBox {
+		width: 65%;
+		top: -18%;
+	}
+	.loginBox{
+		width: 340px;
+		height:340px;
+		top:27%;
+		right: 13%;
+		background-size: cover;
+	}
+	#loginTable {
+		height: 200px;
+	}
+	.smallCode {
+		top: 1%;
+		right: 1%;
+	}
+	#main{
+		padding-top: 10%;
+	}
+	.footerBox {
+		width: 500px;
+	}
+}

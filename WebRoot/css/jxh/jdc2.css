@@ -1,0 +1,349 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+body,html{
+	height: 100%;
+	min-width: 1280px;
+}
+body{
+	background-color: #eff1f4;
+	color: #4c4c4c;
+}
+ul li{
+	list-style: none;
+}
+table { 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+}
+a{
+	color: #0274d4;
+}
+.header{
+	height: 38px;
+	line-height: 38px;
+	background-color: #6792d6;
+	color: #fff;
+	padding-left: 20px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	font-weight: bold;
+}
+.close{
+	float: right;
+	margin-right: 10px;
+	line-height: 34px;
+	opacity: 1;
+	cursor: pointer;
+}
+.close:hover{
+	opacity: 0.8;
+	zoom: 1;
+}
+/*娑撳顣介弽宄扮础*/
+.main{
+	padding: 15px 10px 20px 20px;
+}
+.mainLeft{
+	width: 21%;
+	float: left;
+	margin-bottom: 20px;
+}
+.mainRight{
+	margin-left: 21.5%;
+}
+/*濮ｅ繋閲滃Ο鈥虫健閸忣剙鍙￠惃鍕壉瀵拷*/
+.modelComment{
+	background-color: #fdfefe;
+	box-shadow: 0px 2px 3px 0px rgba(6, 0, 1, 0.17);
+	border-radius: 2px;
+	border: solid 1px #dedede;
+}
+.modelTitle{
+	font-size: 14px;
+	padding-left: 10px;
+	height: 32px;
+	line-height: 32px;
+	background-image: linear-gradient(0deg, #f0f0f0 0%, #f8f8f8 100%);
+	border-radius: 2px 2px 0px 0px;
+	border: solid 1px #ffffff;
+	font-weight: bold;
+	color: #4c4c4c;
+}
+.modelTitle i{
+	display: inline-block;
+	width: 16px;
+	height: 14px;
+	margin-top: -2px;
+	margin-right: 5px;
+    vertical-align: middle;
+	background: url(../../img/jxh/icon.png) no-repeat center;
+}
+.resultShowTitle i{
+	background: url(../../img/jxh/shuju3.png) no-repeat center;
+}
+.resultAnalysisTitle i{
+	background: url(../../img/jxh/shuju2.png) no-repeat center;
+}
+.modifyInfoTitle i{
+	background: url(../../img/jxh/shuju.png) no-repeat center;
+}
+.tableComment{
+	width: 96%;
+	margin: 5px auto;
+	border-radius: 2px;
+	border: solid 1px #e6ebf4;
+}
+.tableComment tr td{
+	padding: 8px 5px;
+}
+
+/*鏉烇箒绶犻崺鐑樻拱娣団剝浼�*/
+.jcBasiscMsg,.vehicleRecord,.modifyInfo{
+	margin-top: 12px;
+}
+.jcBasiscMsg{
+	margin-top: 0;
+}
+
+.basicMsgListsTable tr:nth-child(2n){
+	background-color: #f1f5fb;
+}
+.vehicleRecordTable{
+	width: 96%;
+	margin: 5px auto;
+	border: solid 1px #e6ebf4;
+}
+.vehicleRecordTable tr{
+	background: #FFFFFF;
+}
+.vehicleRecordTable tr th{
+	padding: 5px;
+	background-color: #f1f5fb;
+	border: solid 1px #e6ebf4;
+}
+.vehicleRecordTable tr th{
+	text-align: center;
+}
+.vehicleRecordTable tr td{
+	padding: 8px 5px;
+	border: solid 1px #e6ebf4;
+}
+.vehicleRecordTable tr td.td{
+	padding-left: 0;
+	padding-right: 0;
+}
+/*鏉烇妇澧濋崣锟�*/
+.plateNum{
+	border-radius: 2px;
+	padding: 2px 3px;
+	color: #FFFFFF;
+}
+/*閸氬牊鐗告稉宥呮値閺嶏拷*/
+.below{
+	display: inline-block;
+	width: 46px;
+	line-height: 17px;
+	text-align: center;
+	background-color: #e94c4c;
+	border-radius: 1px;
+	color: #FFF9EC;
+}
+.uptest{
+	display: inline-block;
+	width: 46px;
+	line-height: 17px;
+	text-align: center;
+	background-color: #36bb65;
+	border-radius: 1px;
+	color: #FFF9EC;
+}
+.testtimes{
+	display: inline-block;
+	width: 46%;
+	text-align: right;
+	margin-right: 5px;
+}
+.testAnalysisBox{
+	/*overflow: hidden;*/
+	margin-top: 10px;
+}
+.resultAnalysis{
+	float: left;
+	width: 59.5%;
+	/*margin-right: 0.5%;*/
+}
+.resultShow{
+	float: right;
+	width: 40%;
+}
+.resultAnalysiList li{
+	border-bottom: solid 1px #e6ebf4;
+	padding: 24px 10px;
+	overflow: hidden;
+}
+.resultAnalysiList li > div{
+	float: left;
+	width: 50%;
+}
+.msgShowlists tr td{
+	text-align: center;
+	border: 1px solid #e6ebf4;
+}
+.msgShowlists tr th{
+	padding: 5px;
+	background-color: rgba(235, 241, 250, 0.8);
+	opacity: 0.8;
+}
+.cancel,.warming{
+	text-decoration: none;
+}
+.cancel{
+	color: #253be1;
+}
+.warming{
+	color: #ff5050;
+}
+#echart{
+	height: 400px;
+}
+
+/*鏉╂稑瀹抽弶鈩冪壉瀵拷*/
+.demo{ padding: 2em 0; background-color: #212121; }
+  .progress{
+      height: 16px;
+      background: #262626;
+      /*padding: 5px;*/
+      overflow: visible;
+      border-radius: 20px;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #7992a8;
+      /*margin-top: 50px;*/
+     margin-bottom: 0;
+  }
+  .progress .progress-bar{
+      border-radius: 20px;
+      position: relative;
+      animation: animate-positive 2s;
+  }
+  .progress .progress-value{
+      display: block;
+      /*padding: 3px 7px;*/
+      font-size: 12px;
+      color: #fff;
+      border-radius: 4px;
+      /*background: #191919;
+      border: 1px solid #000;*/
+      position: absolute;
+      top: -3px;
+	  right: 10px;
+  }
+  /*.progress .progress-value:after{
+      content: "";
+      border-top: 10px solid #191919;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      position: absolute;
+      bottom: -6px;
+      left: 26%;
+  }*/
+  .progress-bar.active{
+      animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+  }
+  .progressone .progress{
+  	background: #d3edfe;
+  	border: 1px solid #d3edfe;
+  }
+  .progressone .progress-bar-info{
+  	background: #4a73cb;
+  }
+  .progresstwo .progress{
+  	background: #ddf0f3;
+  	border: 1px solid #ddf0f3;
+  }
+  .progresstwo .progress-bar-info{
+  	background: #42a2b5;
+  }
+  .progressthree .progress{
+  	background: #e4eedc;
+  	border: 1px solid #e4eedc;
+  }
+  .progressthree .progress-bar-info{
+  	background: #99d868;
+  }
+  @-webkit-keyframes animate-positive{
+      0% { width: 0; }
+  }
+  @keyframes animate-positive{
+      0% { width: 0; }
+  }
+  /*@media only screen and (min-height: 768px) and (max-height: 1024px) {
+  	.main{
+  		padding-top: 20px;
+  	}
+  	.modelTitle{
+  		height: 32px;
+  		line-height: 32px;
+  	}
+  	#echart{
+		height: 372px;
+	}
+	.modifyInfo .tableComment tr td{
+		padding: 8px 5px;
+	}
+	.vehicleRecordTable tr td{
+		padding: 8px 5px;
+	}
+	
+	.jcBasiscMsg, .vehicleRecord, .modifyInfo{
+		margin-bottom: 5px;
+	}
+  }
+  @media only screen and (min-width: 1800px) and (max-width: 1920px) {
+  	*{
+  		font-size: 14px;
+  	}
+  	.tableComment tr td {
+	    padding: 10px 5px;
+	    padding-left: 20px;
+	}
+	.vehicleRecordTable tr td {
+	    border: solid 1px #e6ebf4;
+	}
+	#echart{
+		height: 458px;
+	}
+	.resultAnalysiList li {
+	    padding: 28px 10px;
+	}
+	.msgShowlists {
+		margin-bottom: 8px;
+	}
+  }*/
+
+
+/* 鐠佸墽鐤嗗姘З閺夛紕娈戦弽宄扮础 */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 10px; 
+}
+/* 濠婃艾濮╁Σ锟� */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #dcdcdc;
+    border-radius: 10px;
+}
+/* 濠婃艾濮╅弶鈩冪拨閸э拷 */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #dcdcdc;
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #dcdcdc;
+}
+/*濡亜鎮滃姘З閺夆剝鐗卞锟�*/ 
+::-webkit-scrollbar:horizontal{  
+   height: 5px;  
+}  

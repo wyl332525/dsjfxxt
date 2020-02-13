@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.MessageMapper">    
+	
+	<select id="getMessageReply" parameterType="java.util.List" resultType="hashmap">
+		select replytype,text,newsid from wx_message_reply t 
+		<where>
+        	<if test="msgtype != null and msgtype != ''">
+            	msgtype = #{msgtype}
+        	</if>
+        	<if test="keyword != null and keyword != ''">
+            	and keyword = #{keyword}
+        	</if>
+		</where>
+	</select>
+	
+	
+	<select id="getKeyWordList" parameterType="java.util.List" resultType="hashmap">
+		select keyword from wx_message_reply t 
+	</select>
+	
+	<!-- 插入已经群发的图文消息的一条article -->
+	<insert id="saveQfarticle">
+		insert into wx_message_qfarticle(title, thumbid, author, tzurl, content,digest,adduser,addtime) values
+		(#{title},#{thumbid},#{author},#{tzurl},#{content},#{digest},#{adduser},now())
+	</insert>
+	
+	<!-- 查询一条article -->
+	<select id="getQfarticle" parameterType="java.util.List" resultType="hashmap">
+		select id,title, thumbid, author, tzurl, content,digest,adduser,DATE_FORMAT(addtime,'%Y-%m-%d %H:%i:%s') as addtime from wx_message_qfarticle t 
+		<where>
+        	<if test="id != null and id != ''">
+            	id = #{id}
+        	</if>
+		</where>
+	</select>
+	
+</mapper>

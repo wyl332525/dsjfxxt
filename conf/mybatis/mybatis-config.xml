@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		
+		<!--显式的指定每个我们需要更改的配置的值，即使他是默认的。防止版本更新带来的问题  -->
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<setting name="callSettersOnNulls" value="true"/>
+	</settings>
+	
+	<plugins>
+		<!-- 配置记录执行的sql语句、参数及执行时间的插件 -->
+		<plugin interceptor="com.kmzc.mybatis.interceptor.SqlLogInterceptor" />
+        <!--配置MyBatis分页插件 pagehelper -->
+    	<plugin interceptor="com.github.pagehelper.PageInterceptor">
+    		<!--配置数据库方言，不配置helperDialect，则会自动选择，但是会额外创建链接去获取（1次）。注意使用 SqlServer2012 数据库时，需要手动指定为 sqlserver2012，否则会使用 SqlServer2005 的方式进行分页，常用的方言：oracle,mysql,mariadb,sqlite,hsqldb,postgresql,db2,sqlserver,informix,h2,sqlserver2012,derby -->
+	        <property name="helperDialect" value="oracle"/>
+	        <!-- 默认值为false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询 -->
+	        <property name="rowBoundsWithCount" value="true"/>
+	        <!-- 默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为 true 时，会将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页-->
+	        <property name="offsetAsPageNum" value="true"/>
+	        <!-- 分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询。 -->
+	        <property name="reasonable" value="true"/>
+	        <!--支持通过 Mapper 接口参数来传递分页参数，默认值false，分页插件会从查询方法的参数值中，自动根据配置的字段中取值，查找到合适的值时就会自动分页。 -->
+	        <property name="supportMethodsArguments" value="true"/>
+		</plugin>
+ 	</plugins>
+ 
+</configuration>

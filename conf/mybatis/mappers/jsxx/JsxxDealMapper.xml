@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.jsxx.JsxxDealMapper">
+	<!-- 发送主表数据入库 -->
+	<insert id="insertZb" >
+		insert into xx_xxfszb(pkid,xxbt,xxnr,sfyfj,xxlb,bz,sfxyhf,hfsm,jszzh,jszmc,jszlx,fsrzh,fsrmc,fssj) 
+		 values (#{pkid},#{xxbt},#{xxnr},#{sfyfj},#{xxlb},#{bz},#{sfxyhf},#{hfsm},#{jszzh},#{jszmc}
+		,#{jszlx},#{fsrzh},#{fsrmc},now())
+	</insert>
+	<!-- 插入附件表 -->
+	<insert id="insertFjb" >
+		insert into xx_xxfj(pkid,xxid,fjmc,fjlj,fjsxh)  
+		values (#{pkid},#{xxid},#{fjmc},#{fjlj},#{fjsxh})
+	</insert>
+	<!-- 插入个人主表 按人 -->
+	<select id="insertGrzbAr" resultType="map">
+		select pkid as yhid,yhmc,yhlx,ssjg from xt_yh where pkid in(#{pkidList}))
+	</select>
+	<!-- 插入个人主表 按组 -->
+	<select id="insertGrzbAz" resultType="map">
+		<if test="zxd!=null and zxd!=''">
+			select yh.pkid as yhid,yh.yhmc,yh.yhlx,ssjg from xt_yh yh where yh.yhlx='2' and ssjg in(#{zxdList})
+		</if>
+		<if test="jczJs!=null and jczJs!='' and jcz!=null and jcz!=''">
+			<if test="queryUser!=null and queryUser!=''">
+				 UNION ALL 
+			</if>
+			select yh.pkid as yhid,yh.yhmc,yh.yhlx,ssjg from xt_yh yh where yh.yhlx='1' and ssjg in(#{jczList}) 
+			and exists (select 1 from xt_yhjs js where yh.pkid=js.yhzh and js.jsid in(#{jczJsList}))
+		</if>
+	</select>
+	<!-- 向信息接收表中插入数据 -->
+	<insert id="insertXxjsb" >
+		insert into xx_xxjszb(pkid,xxid,xxbt,xxnr,sfyfj,sfxyhf,hfsm,jszzh,jszmc,bz,xxlb,fsrzh,fsrmc,fssj) 
+		values(#{pkid},#{xxid},#{xxbt},#{xxnr},#{sfyfj},#{sfxyhf},#{hfsm},#{jszzh},#{jszmc},#{bz},#{xxlb},#{fsrzh},#{fsrmc},now())
+	</insert>
+	<!-- 删除信息接收主表 -->
+	<delete id="delXxjszb" >
+		delete from xx_xxjszb where xxid=#{pkid}
+	</delete>
+	<!-- 删除信息附件 -->
+	<delete id="delXxfj" >
+		delete from xx_xxfj where xxid=#{pkid}
+	</delete>
+	<!-- 删除信息发送主表 -->
+	<delete id="delXxfszb" >
+		delete from xx_xxfszb where pkid=#{pkid}
+	</delete>
+</mapper>

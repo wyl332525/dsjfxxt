@@ -1,0 +1,216 @@
+/*css reset*/
+@charset "utf-8";
+/*燃料种类*/
+.rlzlys{
+	margin: 0px auto;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+/*使用性质*/
+.syxzys{
+	margin: 0px auto;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+/*状态样式*/
+.ztys{
+	margin: 0px auto;
+	width: 40px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+/*审核状态样式*/
+.shztys{
+	margin: 0px auto;
+	width: 60px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+/*检测报告状态样式*/
+.jcbg{
+	margin: 0px auto;
+	width: 40px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+/*检测结果样式*/
+.jcjgys{
+	margin: 0px auto;
+	width: 40px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+.plate{
+	margin: 0px auto;
+	width: 60px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 2px;
+}
+.platetb{
+	margin: 0px auto;
+	float:left;
+	width: 60px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 2px;
+}
+.plate1{
+	border: 1px solid #3B7ACE;
+	background-color: #3B7ACE;
+	color: #FFFFFF;
+}
+.plate2{
+	border: 1px solid #666666;
+	background-color: #ffcc01;
+	color: #666666;
+}
+.plate3{
+	border: 1px solid #209773;
+	background-color: #209773;
+	color: #FFFFFF;
+}
+.plate4{
+	border: 1px solid #1b1b1b;
+	background-color: #1b1b1b;
+	color: #FFFFFF;
+}
+.plate5{
+	border: 1px solid #666666;
+	background-color: #FFFFFF;
+	color: #666666;
+}
+.plate5 span{
+	color: red;
+}
+.gasoline{
+	margin: 0px auto;
+	width: 40px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #FC765B;
+	background-color: #fc765b;
+	color: #FFFFFF;
+}
+.diesel{
+	margin: 0px auto;
+	width: 40px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #41a1e1;
+	background-color: #41a1e1;
+	color: #FFFFFF;
+}
+.service{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #Fe8d5c;
+	background-color: #FE8D5C;
+	color: #FFFFFF;
+}
+.unservice{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #488dda;
+	background-color: #488dda;
+	color: #FFFFFF;
+}
+.normal{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #5fc184;
+	background-color: #5fc184;
+	color: #FFFFFF;
+}
+.abnormal{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #dd6562;
+	background-color: #dd6562;
+	color: #FFFFFF;
+}
+.fixed-table-container{
+	min-height: 410px!important;
+}
+/*扣分状态样式*/
+.kfztys{
+	margin: 0px auto;
+	width: 90px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+/*被扣分数*/
+.bkfsys{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+
+/*巡查方式*/
+.xcfs{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}
+
+/*巡查任务状态*/
+.xcrw{
+	margin: 0px auto;
+	width: 50px;
+    text-align: center;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 3px;
+	color: #FFFFFF;
+}

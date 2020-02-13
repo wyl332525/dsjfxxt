@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.xt.YhJsCdMapper">
+  <select id="selectYhJsAll" resultType="map">
+  		select yhzh,jsid from xt_yhjs
+  </select>
+  
+   <select id="selectJsCdAll" resultType="map">
+  		SELECT jsid,cdid FROM xt_jscd
+  </select>
+   <select id="getMainCxxxNum" resultType="map">
+  		select sum(case when xxlb ='00' then 1 else 0 end) as jsxx,SUM(CASE WHEN xxlb='00' THEN 0 ELSE 1 END) AS ptxx from xx_xxjszb where ydqk='未阅读' and jszzh=#{userId}
+  </select>
+  
+  <select id="selectCdAll" resultType="map">
+  		SELECT pkid,cdmc,cdlx,fjcd,sfcdx,cdtb,cdlj,sfqy,sfdkfw FROM xt_cd where sfqy='1' ORDER BY cdpx ASC 
+  </select>
+  
+  <select id="selectUserById" resultType="map">
+  		select ssjg,yhmc,yhmm,yhlx,sfgly,dllxsbcs,zhycdlsj from xt_yh where pkid=#{userId}
+  </select>
+  
+  <update id="userUpdateLoginErrInfo">
+  		update xt_yh set dllxsbcs=dllxsbcs+1,zhycdlsj=now() where pkid=#{userId}
+  </update>
+  
+   <update id="userUpdateLoginSucess">
+  		update xt_yh set dllxsbcs=0,zhycdlsj=now() where pkid=#{userId}
+  </update>
+
+
+
+	<!--#查询用户角色 yhgl页面调用 -->
+	<select id="queryYhjs" resultType="map">
+		SELECT pkid,jsmc FROM xt_js WHERE jslx = '2'
+	</select>
+	<!--#查询用户列表信息 yhgl页面调用 -->
+	<select id="yhList" resultType="map">
+	SELECT yh.PKID AS yhzh,yh.YHMC,GROUP_CONCAT(js.JSMC) AS yhjs,zt.JC AS yhzt
+	FROM xt_yh yh LEFT JOIN xt_yhjs yhjs ON yh.PKID = yhjs.YHZH 
+	LEFT JOIN xt_js js ON js.PKID = yhjs.JSID 
+	LEFT JOIN dm_gy_zt zt ON zt.PKID = yh.YHZT
+	<where>
+		yh.YHLX = '2' 
+		<if test="pkid !=null and pkid !=''">
+			and yh.pkid like #{pkid}
+		</if>
+		<if test="yhmc !=null and yhmc !=''"> and yh.yhmc like #{yhmc}</if>
+		<if test="jsid!=null and jsid!='' ">
+		
+			and yh.pkid in (select yhzh FROM xt_yhjs ys WHERE ys.JSID =#{jsid})
+		</if>
+		<if test="yhzt!=null and yhzt!=''"> and yh.yhzt=#{yhzt}</if>
+	</where>
+	GROUP BY yh.pkid
+</select>
+	<!--#查询用户角色列表 yhInfo页面调用 -->
+	<select id="yhjsList" resultType="map">
+		SELECT js.JSID FROM xt_yhjs js WHERE js.YHZH = #{yhzt}
+	</select>
+	<!--#获取指定用信息 yhInfo页面调用 -->
+	<select id="yhInfo" resultType="map">
+		SELECT yh.pkid AS yhzh,yh.ssjg ,yh.yhmc,yh.YHMM,yh.sgrq,yh.XB,zt.JC AS YHZT,yh.CSRQ,
+		yh.sfzh,yh.YZBM,yh.CSD,yh.LXDZ,yh.GZDH,yh.YDDH,yh.YX,yh.BYYX,yh.BYRQ,yh.SXZY,yh.XL,
+		yh.QMZP,yh.BZ
+		FROM xt_yh yh LEFT JOIN dm_gy_zt zt ON zt.PKID = yh.YHZT WHERE yh.pkid	= #{pkid}
+	</select>
+	<!--#判断用户是否已存在 yhgl页面调用 -->
+	<select id="countYhzh" resultType="map">
+		SELECT COUNT(*) nums FROM xt_yh WHERE pkid = #{pkid}
+	</select>
+	<!--#注销用户 yhInfo页面调用 -->
+	<update id="cancleYh">
+		update xt_yh set yhzt='4' where pkid=#{pkid}
+	</update> 
+	<!--#修改用户密码调用 -->
+	<update id="updateYhmm">
+		UPDATE xt_yh SET yhmm=#{yhmm} WHERE pkid=#{pkid}
+	</update> 
+ 
+  <!-- 查询角色列表 jsgl页面调用 -->
+  <select id="queryJsList" resultType="map">
+  SELECT pkid,jslx,jsmc,jsms,sfqy,zhxgsj FROM xt_js
+		<where>
+			1=1 
+			<if test="jsmc!=null and jsmc!=''">
+				and jsmc like #{jsmc}
+			</if>
+			<if test="jsms!=null and jsms!=''">
+				and jsms like #{jsms}
+			</if>
+			<if test="jslx!=null and jslx!=''">
+				and jslx = #{jslx}
+			</if>
+		</where>
+		<trim prefix="order by" prefixOverrides="">
+			<if test="orderBy!=null">
+				${orderBy}
+			</if>
+		</trim>
+  </select>
+
+	<!-- #查询一条角色数据 jsInfo页面调用 -->
+	<select id="queryJs" resultType="map">
+		SELECT pkid,jslx,jsmc,jsms,sfqy,zhxgsj FROM xt_js 
+		WHERE pkid =#{pkid}
+	</select>
+
+	<!-- #更新一条角色数据，jsInfo页面调用 -->
+	<update id="updateJs">
+		update xt_js set jslx=#{jslx},jsmc=#{jsmc} ,jsms=#{jsms},sfqy=#{sfqy}
+		,zhxgsj=now()
+		where pkid=#{pkid}
+	</update>
+
+	<!-- #插入一条角色数据，jsInfo页面调用 -->
+	<insert id="insertJs">
+		insert into xt_js(pkid,jslx,jsmc,jsms,sfqy,zhxgsj)
+		values(#{pkid},#{jslx},#{jsmc},#{jsms},#{sfqy},now());
+	</insert>
+
+	<!-- #判断角色pkid是否已经存在，jsInfo页面调用 -->
+	<select id="countJs" resultType="map">
+		SELECT COUNT(*) FROM xt_js WHERE pkid = #{pkid}
+	</select>
+
+
+
+	<!-- 查询拥有某指定角色的用户 jsgl页面调用 -->
+	<select id="queryJsYhList" resultType="map">
+		SELECT yj.yhzh,yj.jsid,h.yhmc,j.jsmc
+		FROM xt_yhjs yj LEFT JOIN xt_js j ON j.pkid=yj.jsid
+		LEFT JOIN xt_yh h ON h.pkid=yj.yhzh
+		<where>
+			1=1 
+			<if test="pkid!=null and pkid!=''">
+				and j.pkid =#{pkid}
+			</if>
+		</where>
+		<trim prefix="order by" prefixOverrides="">
+			<if test="orderBy!=null">
+				${orderBy}
+			</if>
+		</trim>
+	</select>
+	<!-- #删除用户角色 jsgl页面调用 -->
+	<delete id="deleteYhJs">
+		DELETE FROM xt_yhjs WHERE jsid =#{jsid}
+	</delete>
+
+	<!-- #删除角色权限 jsgl页面调用 -->
+	<delete id="deleteQx">
+		DELETE FROM xt_jscd WHERE jsid = #{jsid}
+	</delete>
+
+	<!-- #删除角色 jsgl页面调用 -->
+	<delete id="deteteJs">
+		DELETE FROM xt_js WHERE pkid= #{jsid}
+	</delete>
+
+
+	<!--#获取权限列表 jsQxInfo页面调用 -->
+	<select id="queryQxList" resultType="map">
+		SELECT c.pkid,c.cdmc,c.sfcdx,c.fjcd,cdlx FROM xt_cd c LEFT JOIN xt_js s ON
+		s.`JSLX` = c.`CDLX` 
+		<where>
+		c.sfqy='1' 
+		<if test="pkid !=null and pkid !=''">
+		and s.pkid=#{pkid}
+		</if>
+		</where>
+	</select>
+	<!--#删除已分配权限 jsQxInfo页面调用 -->
+	<delete id="deleteyQxcd">
+		DELETE FROM xt_jscd WHERE jsid=#{jsid}
+	</delete>
+	<!--#给角色分配权限 jsQxInfo页面调用 -->
+	<insert id="insertQxcd">
+		INSERT INTO xt_jscd(jsid,cdid) VALUES(#{jsid},#{cdid})
+	</insert>
+	<!--#查询某角色得权限 jsQxInfo页面调用 -->
+	<select id="queryQxcdList" resultType="map">
+		SELECT jsid,cdid FROM xt_jscd j LEFT JOIN xt_cd1 c ON c.`PKID` = j.`CDID`
+		<where>
+		c.sfcdx='1' 
+		<if test="jsid !=null and jsid !=''">
+		 jsid=#{jsid}
+		</if>
+		</where>
+	</select>
+	<!--#查询所有角色信息列表 jsxxrypz页面调用 -->
+	<select id="queryJsxxrypzJs" resultType="map">
+		SELECT pkid,jslx,jsmc FROM xt_js WHERE sfqy='1' and jslx = '2'
+	</select>
+	<!--#查询已选择用户列表 jsxxrypz页面调用 -->
+	<select id="queryYxzyh" resultType="map">
+		SELECT j.yhzh pkid,yh.yhmc yhmc FROM YW_JB_jsxxrypz j LEFT JOIN xt_yh yh ON
+		j.yhzh=yh.pkid WHERE xx_pkid=#{pkid}
+	</select>
+	<select id="queryYh" resultType="map">
+		SELECT yhzh FROM yw_jb_jsxxrypz WHERE xx_pkid = #{pkid}
+	</select>
+	<!--#删除接收信息人员配置信息 jsxxrypz页面调用 -->
+	<delete id="deleteJsxxrypz">
+		DELETE FROM YW_JB_jsxxrypz WHERE xx_pkid =#{pkid}
+	</delete>
+	<!--#插入接收信息人员配置信息 jsxxrypz页面调用 -->
+	<insert id="insertJsxxrypz">
+		insert into YW_JB_jsxxrypz(pkid,xx_pkid,yhzh,zhxgrzh,zhxgrmc,gxsj)
+		value(#{pkid},#{xx_pkid},#{yhzh},#{zhxgrzh},#{zhxgrmc},now())
+	</insert>
+	<!--#更新接收信息人员名单 -->
+	<update id="updataJsxxrypz">
+		UPDATE yw_jb_jsxxrypz SET yhzh=#{yhzh} WHERE xx_pkid=#{pkid}
+	</update>
+	<!--#查询用户密码配置参数xgyhmm页面调用 -->
+	<select id="queryYhmmcx" resultType="map">
+		select cs1,cs2,cs3,cs4 from xt_cspz where pkid='xt_yh_mm'
+	</select>
+	<!--#查询接收信息已有用户列表 -->
+	<select id="querYyyhName" resultType="map">
+		SELECT yhzh FROM yw_jb_jsxxrypz WHERE xx_pkid=#{pkid}
+	</select>
+	<!--#查询接收信息已有用户列表 -->
+	<select id="getXgYhMm" resultType="map">
+		SELECT y.ssjg,y.yhmc,y.yhlx,y.sfgly,y.yhmm,y.yhzt,y.dllxsbcs,y.zhycdlsj,
+		y.xtfg,y.tbfg,t.jc as yhztname 
+		FROM xt_yh y left join dm_gy_zt t on y.yhzt=t.pkid WHERE y.pkid=#{pkid}
+	</select>
+	
+	
+	<!-- 增加用户信息 -->
+	<insert id="insertXtYH">
+		insert into xt_yh(pkid,
+		<if test="yhmc!=null and yhmc!=''">yhmc,</if>
+		<if test="yhlx!=null and yhlx!=''">yhlx,</if>
+		<if test="yhzt!=null and yhzt!=''">yhzt,</if>
+		<if test="ssjg!=null and ssjg!=''">ssjg,</if>
+		<if test="sgrq!=null and sgrq!=''">sgrq,</if>
+		<if test="xb!=null and xb!=''">xb,</if>
+		<if test="csrq!=null and csrq!=''">csrq,</if>
+		<if test="sfzh!=null and sfzh!=''">sfzh,</if>
+		<if test="gzdh!=null and gzdh!=''">gzdh,</if>
+		<if test="yddh!=null and yddh!=''">yddh,</if>
+		<if test="yx!=null and yx!=''">yx,</if>
+		<if test="yzbm!=null and yzbm!=''">yzbm,</if>
+		<if test="byyx!=null and byyx!=''">byyx,</if>
+		<if test="byrq!=null and byrq!=''">byrq,</if>
+		<if test="sxzy!=null and sxzy!=''">sxzy,</if>
+		<if test="xl!=null and xl!=''">xl,</if>
+		<if test="csd!=null and csd!=''">csd,</if>
+		<if test="lxdz!=null and lxdz!=''">lxdz,</if>
+		<if test="qmzp!=null and qmzp!=''">qmzp,</if>
+		<if test="bz!=null and bz!=''">bz,</if>
+		<if test="cjrzh!=null and cjrzh!=''">cjrzh,</if>
+		<if test="cjrmc!=null and cjrmc!=''">cjrmc,</if>
+		<if test="cjsj!=null and cjsj!=''">cjsj,</if>
+		<if test="zhxgrz!=null and zhxgrz!=''">zhxgrz,</if>
+		<if test="zhxgrm!=null and zhxgrm!=''">zhxgrm,</if>
+		<if test="zhxgsj!=null and zhxgsj!=''">zhxgsj,</if>
+		<if test="xtfg!=null and xtfg!=''">xtfg,</if>
+		<if test="tbfg!=null and tbfg!=''">tbfg,</if>
+		yhmm
+		) values(#{pkid},
+		<if test="yhmc!=null and yhmc!=''">#{yhmc},</if>
+		<if test="yhlx!=null and yhlx!=''">#{yhlx},</if>
+		<if test="yhzt!=null and yhzt!=''">#{yhzt},</if>
+		<if test="ssjg!=null and ssjg!=''">#{ssjg},</if>
+		<if test="sgrq!=null and sgrq!=''">#{sgrq},</if>
+		<if test="xb!=null and xb!=''">#{xb},</if>
+		<if test="csrq!=null and csrq!=''">#{csrq},</if>
+		<if test="sfzh!=null and sfzh!=''">#{sfzh},</if>
+		<if test="gzdh!=null and gzdh!=''">#{gzdh},</if>
+		<if test="yddh!=null and yddh!=''">#{yddh},</if>
+		<if test="yx!=null and yx!=''">#{yx},</if>
+		<if test="yzbm!=null and yzbm!=''">#{yzbm},</if>
+		<if test="byyx!=null and byyx!=''">#{byyx},</if>
+		<if test="byrq!=null and byrq!=''">#{byrq},</if>
+		<if test="sxzy!=null and sxzy!=''">#{sxzy},</if>
+		<if test="xl!=null and xl!=''">#{xl},</if>
+		<if test="csd!=null and csd!=''">#{csd},</if>
+		<if test="lxdz!=null and lxdz!=''">#{lxdz},</if>
+		<if test="qmzp!=null and qmzp!=''">#{qmzp},</if>
+		<if test="bz!=null and bz!=''">#{bz},</if>
+		<if test="cjrzh!=null and cjrzh!=''">#{cjrzh},</if>
+		<if test="cjrmc!=null and cjrmc!=''">#{cjrmc},</if>
+		<if test="cjsj!=null and cjsj!=''">#{cjsj},</if>
+		<if test="zhxgrz!=null and zhxgrz!=''">#{zhxgrz},</if>
+		<if test="zhxgrm!=null and zhxgrm!=''">#{zhxgrm},</if>
+		<if test="zhxgsj!=null and zhxgsj!=''">#{zhxgsj},</if>
+		<if test="xtfg!=null and xtfg!=''">#{xtfg},</if>
+		<if test="tbfg!=null and tbfg!=''">#{tbfg},</if>
+		#{yhmm})
+	</insert>
+	<!-- 修改用户信息 -->
+	<update id="updateXtYh">
+		update xt_yh set 
+		<if test="yhmc!=null and yhmc!=''">yhmc=#{yhmc},</if>
+		<if test="yhlx!=null and yhlx!=''">yhlx=#{yhlx},</if>
+		<if test="yhzt!=null and yhzt!=''">yhzt=#{yhzt},</if>
+		<if test="ssjg!=null and ssjg!=''">ssjg=#{ssjg},</if>
+		<if test="sgrq!=null and sgrq!=''">sgrq=#{sgrq},</if>
+		<if test="xb!=null and xb!=''">xb=#{xb},</if>
+		<if test="csrq!=null and csrq!=''">csrq=#{csrq},</if>
+		<if test="sfzh!=null and sfzh!=''">sfzh=#{sfzh},</if>
+		<if test="gzdh!=null and gzdh!=''">gzdh=#{gzdh},</if>
+		<if test="yddh!=null and yddh!=''">yddh=#{yddh},</if>
+		<if test="yx!=null and yx!=''">yx=#{yx},</if>
+		<if test="yzbm!=null and yzbm!=''">yzbm=#{yzbm},</if>
+		<if test="byyx!=null and byyx!=''">byyx=#{byyx},</if>
+		<if test="byrq!=null and byrq!=''">byrq=#{byrq},</if>
+		<if test="sxzy!=null and sxzy!=''">sxzy=#{sxzy},</if>
+		<if test="xl!=null and xl!=''">xl=#{xl},</if>
+		<if test="csd!=null and csd!=''">csd=#{csd},</if>
+		<if test="lxdz!=null and lxdz!=''">lxdz=#{lxdz},</if>
+		<if test="qmzp!=null and qmzp!=''">qmzp=#{qmzp},</if>
+		<if test="bz!=null and bz!=''">bz=#{bz},</if>
+		<if test="cjrzh!=null and cjrzh!=''">cjrzh=#{cjrzh},</if>
+		<if test="cjrmc!=null and cjrmc!=''">cjrmc=#{cjrmc},</if>
+		<if test="cjsj!=null and cjsj!=''">cjsj=#{cjsj},</if>
+		<if test="zhxgrzh!=null and zhxgrzh!=''">zhxgrzh=#{zhxgrzh},</if>
+		<if test="zhxgrmc!=null and zhxgrmc!=''">zhxgrmc=#{zhxgrmc},</if>
+		<if test="zhxgsj!=null and zhxgsj!=''">zhxgsj=#{zhxgsj},</if>
+		<if test="xtfg!=null and xtfg!=''">xtfg=#{xtfg},</if>
+		<if test="tbfg!=null and tbfg!=''">tbfg=#{tbfg},</if>
+		pkid=#{pkid}
+ 	where pkid=#{pkid}
+	</update>
+	<!-- 增加用户角色信息 -->
+	<insert id="addYhJS">
+		INSERT INTO xt_yhjs(yhzh,jsid) VALUES(#{yhzh},#{jsid})
+	</insert>
+	<!-- 删除用户角色信息 -->
+	<delete id="delYhJS">
+		DELETE FROM xt_yhjs WHERE yhzh =#{yhzh} and jsid=#{jsid}
+	</delete>
+	
+	<!-- 查询指定角色的  -->
+	<!-- SELECT pkid,yhmc FROM xt_yh WHERE pkid IN(SELECT yhzh FROM xt_yhjs ) WHERE jsid IN('${wh}')-->
+	<select id="getJsXxRyPz" resultType="map">
+		SELECT DISTINCT m.pkid,m.yhmc FROM xt_yh m INNER JOIN xt_yhjs n ON m.pkid=n.yhzh
+		where n.jsid IN('${wh}')
+	</select>
+	<!-- 查询指定角色的 -->
+	<select id="getYyyhlb" resultType="map">
+		SELECT pkid,yhmc FROM xt_yh WHERE pkid IN('${wh}')
+	</select>
+	
+</mapper>

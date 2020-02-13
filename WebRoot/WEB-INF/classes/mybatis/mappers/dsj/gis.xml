@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.dsj.gis">
+
+	<!-- 获取点位坐标列表 -->
+	<select id="getStationdw" parameterType="java.util.List" resultType="hashmap">
+		select pkid,stationname,longitude,latitude 
+		from bas_checkstation where longitude <![CDATA[ > ]]> 95 and longitude <![CDATA[ != ]]> 111.111
+	</select>
+	
+	<!-- 获取点位检测站信息 -->
+	<select id="getStationInfo" parameterType="java.util.List" resultType="hashmap">
+		select stationname,hbjcfzr,fzrphone,legalperson,orgnum,
+		to_char(registdate,'yyyy-MM-dd') registdate,cr1.name as region,
+		stationaddress,t.measurequalification,to_char(m.issuedateto,'yyyy-MM-dd') dqsj 
+		from bas_checkstation t left join cod_region cr1 on t.region = cr1.code 
+		left join ins_measurequalification m on t.pkid = m.stationpkid where t.pkid = #{pkid}
+	</select>
+	
+	<!-- 获取检测线列表 -->
+	<select id="getJcxList" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as jczs,trunc(sum(case when checkresult='合格' then 1 else 0 end)/decode(count(*),0,1,count(*))*100,2) as jchgl,
+		cl.linename 
+		from ins_checkresultmain t left join bas_checkline cl on t.checklinepkid = cl.pkid 
+		where t.stationpkid = #{stationpkid} and t.checktime >= trunc(sysdate) group by cl.linename
+		
+	</select>
+</mapper>

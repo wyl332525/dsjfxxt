@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    	<meta name="renderer” content=”webkit|ie-comp|ie-stand" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/jdc1.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<div class="header">
+			车辆可视化视图  <span class="close"><img src="img/guanbi.png"/></span>
+		</div>
+		<!--主体-->
+		<div class="main">
+			<div class="mainLeft">
+				<div class="surveyCon modelComment">
+					<div class="modelTitle"><i></i>检测概况</div>
+					<div class="jcshow">
+						<div class="showTitle"><span>总监测数（辆）</span><span>监测线数（条）</span></div>
+						<div class="showCon"><span>26516</span><span>3</span></div>
+					</div>
+					<ul class="passLists">
+						<li><span>首检合格率</span><span>
+							<div class="progress_bar">
+								<div class="pro-bar" style="">
+									<small class="progress_bar_title">
+										<span class="progress_number">%</span>
+									</small>
+									<span class="progress-bar-inner" style="width: 88.5%;" data-value="88.5" data-percentage-value="88.5"></span>
+								</div>
+							</div>
+						</span>
+						</li>
+						<li><span>1次复检合格率</span><span>
+							<div class="progress_bar">
+								<div class="pro-bar">
+									<small class="progress_bar_title">
+										<span class="progress_number">%</span>
+									</small>
+									<span class="progress-bar-inner" style="width: 80.0%;" data-value="80.0" data-percentage-value="80.0"></span>
+								</div>
+							</div>
+						</span></li>
+						<li><span>2次复检合格率</span><span>
+							<div class="progress_bar">
+								<div class="pro-bar">
+									<small class="progress_bar_title">
+										<span class="progress_number">%</span>
+									</small>
+									<span class="progress-bar-inner" style="width: 75.4%;" data-value="75.4" data-percentage-value="75.4"></span>
+								</div>
+							</div>
+						</span></li>
+						<li><span>3次复检合格率</span><span>
+							<div class="progress_bar">
+								<div class="pro-bar">
+									<small class="progress_bar_title">
+										<span class="progress_number">%</span>
+									</small>
+									<span class="progress-bar-inner" style="width: 72.8%;" data-value="72.8" data-percentage-value="72.8"></span>
+								</div>
+							</div>
+						</span></li>
+						<li><span>3次以上合格率</span><span>
+							<div class="progress_bar">
+								<div class="pro-bar">
+									<small class="progress_bar_title">
+										<span class="progress_number">%</span>
+									</small>
+									<span class="progress-bar-inner" style="width: 66.0%;" data-value="66.0" data-percentage-value="66.0"></span>
+								</div>
+							</div>
+						</span></li>
+					</ul>
+				</div>
+				<div class="jcBasiscMsg modelComment">
+					<div class="modelTitle"><i></i>监测站基本信息</div>
+					<table cellspacing="0" cellpadding="0" class="tableBasisLists">
+						<tr><td>监测机构名称</td><td><span class="ellpsis">天宇晨阳机动车有限公司</span></td></tr>
+						<tr><td>监测机构简称</td><td>天宇晨阳机</td></tr>
+						<tr><td>所属行政区划</td><td>新洲区</td></tr>
+						<tr><td>监测站状态</td><td><span class="jcz" style="color: #7af1a1;">正常</span></td></tr>
+						<tr><td>注册日期</td><td><span>2015年10月21日</span></td></tr>
+						<tr><td>监测机构地址</td><td><span></span></td></tr>
+						<tr><td>法人</td><td>刘大红</td></tr>
+						<tr><td>法人电话</td><td>18922225566</td></tr>
+						<tr><td>站长</td><td>邹涛帅</td></tr>
+						<tr><td>站长电话</td><td>13899996789</td></tr>
+						<tr><td>环保负责人</td><td>吕开业</td></tr>
+						<tr><td>负责人电话</td><td>18927556666</td></tr>
+						<tr><td><span class="ellpsis">计量认证有效期</span></td><td>2019年5月12日</td></tr>
+					</table>
+				</div>
+			</div>
+			<div class="mainRight">
+				<div class="allAmount">
+					<div class="modelComment">
+						<div class="modelTitle"><i></i>检测数量</div>
+						<div id="piechart"></div>
+						<!--时间轴-->
+						<div class="timer">
+						    <div class="prev btntab"></div>
+						    <ul>
+						        <li><span>2012</span></li>
+						        <li><span>2013</span></li>
+						        <li><span>2014</span></li>
+						        <li><span>2015</span></li>
+						        <li ><span>2016</span></li>
+						        <li class="openTimer"><span>2017</span></li>
+						        <div class="line"></div>
+						    </ul>
+						    <div class="next btntab"></div>
+						    <div class="zanting btntab">
+						    </div>
+						</div>
+					</div>
+					<div class="vehicleType modelComment">
+						<table class="vehicleTypeTable">
+							<tr>
+								<th>车辆类型</th>
+								<th>首检</th>
+								<th width="20%">合格率</th>
+								<th>1次复检</th>
+								<th width="20%">合格率</th>
+								<th>2次以上</th>
+								<th width="20%">合格率</th>
+							</tr>
+							<tr>
+								<td>微型客车</td>
+								<td>560</td>
+								<td class="firstmonitor">
+									<div class="progress_bar">
+									<div class="pro-bar">
+										<small class="progress_bar_title">
+											<span class="progress_number">%</span>
+										</small>
+										<span class="progress-bar-inner" style="width: 96.2%;" data-value="96.2" data-percentage-value="96.2"></span>
+									</div>
+								</div>
+								</td>
+								<td>60</td>
+								<td class="twomonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 74.0%;" data-value="74.0" data-percentage-value="74.0"></span>
+										</div>
+									</div>
+								</td>
+								<td>16</td>
+								<td class="lastmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 75.0%;" data-value="75.0" data-percentage-value="75.0"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>微型货车</td>
+								<td>560</td>
+								<td class="firstmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 95.5%;" data-value="95.5" data-percentage-value="95.5"></span>
+										</div>
+									</div>
+								</td>
+								<td>60</td>
+								<td class="twomonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 85.4%;" data-value="85.4" data-percentage-value="85.4"></span>
+										</div>
+									</div>
+								</td>
+								<td>16</td>
+								<td class="lastmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 78.0%;" data-value="78.0" data-percentage-value="78.0"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>小型客车</td>
+								<td>560</td>
+								<td class="firstmonitor">
+									<div class="progress_bar">
+									<div class="pro-bar">
+										<small class="progress_bar_title">
+											<span class="progress_number">%</span>
+										</small>
+										<span class="progress-bar-inner" style="width: 82.0%;" data-value="82.0" data-percentage-value="82.0"></span>
+									</div>
+								</div>
+								</td>
+								<td>60</td>
+								<td class="twomonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 89.1%;" data-value="89.1" data-percentage-value="89.1"></span>
+										</div>
+									</div>
+								</td>
+								<td>16</td>
+								<td class="lastmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 89.3%;" data-value="89.3" data-percentage-value="89.3"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>轻型货车</td>
+								<td>560</td>
+								<td class="firstmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 87.6%;" data-value="87.6" data-percentage-value="87.6"></span>
+										</div>
+									</div>
+								</td>
+								<td>60</td>
+								<td class="twomonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 93.0%;" data-value="93.0" data-percentage-value="93.0"></span>
+										</div>
+									</div>
+								</td>
+								<td>16</td>
+								<td class="lastmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 66.7%;" data-value="66.7" data-percentage-value="66.7"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>低速货车</td>
+								<td>560</td>
+								<td class="firstmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 92.5%;" data-value="92.5" data-percentage-value="92.5"></span>
+										</div>
+									</div>
+								</td>
+								<td>60</td>
+								<td class="twomonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 75.0%;" data-value="75.0" data-percentage-value="75.0"></span>
+										</div>
+									</div>
+								</td>
+								<td>16</td>
+								<td class="lastmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 100%;" data-value="100" data-percentage-value="100"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>中型客车</td>
+								<td>560</td>
+								<td class="firstmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 89.0%;" data-value="89.0" data-percentage-value="89.0"></span>
+										</div>
+									</div>
+								</td>
+								<td>60</td>
+								<td class="twomonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 89.9%;" data-value="89.9" data-percentage-value="89.9"></span>
+										</div>
+									</div>
+								</td>
+								<td>16</td>
+								<td class="lastmonitor">
+									<div class="progress_bar">
+										<div class="pro-bar">
+											<small class="progress_bar_title">
+												<span class="progress_number">%</span>
+											</small>
+											<span class="progress-bar-inner" style="width: 89%;" data-value="89" data-percentage-value="89"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="PercentOfPass">
+					<div class="modelComment">
+						<div class="modelTitle"><i></i>按监测方法合格率情况</div>
+						<div id="chartOne" style="width: 100%;"></div>
+					</div>
+					<div class="zhlPass modelComment">
+						<div class="modelTitle"><i></i>按监测线合格率情况</div>
+						<div id="chartTwo" style="width: 100%;"></div>
+					</div>
+					<div class="zhlPass modelComment">
+						<div class="modelTitle"><i></i>报警信息</div>
+						<table border="0" class="tableAlarmMsg">
+							<tr>
+								<td width="25%">报警类型</td>
+								<td width="50%">报警内容</td>
+								<td width="20%">数量</td>
+							</tr>
+							<tr>
+								<td>过程数据</td>
+								<td>检测过程中发动机转速为0</td>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>结果数据</td>
+								<td>记过数据温度、湿度异常</td>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>过程数据</td>
+								<td>CO+CO2<6%</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>过程数据</td>
+								<td>分析仪测试工况CO为0</td>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td>过程数据</td>
+								<td>全称流量计流量低于2L/s</td>
+								<td>32</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+		        var progress = $(".progress-bar-inner");
+		        progress.each(function (i)
+		        {
+		            var data = $(this).attr('data-value');
+		            $(this).prev().find("span").html(data+"%");
+		        });
+		   });
+	</script>
+</html>

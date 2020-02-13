@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.xt.sysrz">
+	<!-- 将执行的sql语句及相关信息插入到数据库中，注意数据库的表名必须为xt_rz_sql，否则需要去com.kmzc.mybatis.interceptor.SqlLogInterceptor中进行修改，不然会引起死循环不停向数据库中插入信息 -->
+	<insert id="sqlRz">
+		insert into xt_rz_sql(sqlyj, cs, kssj, zxsj,userId) values (#{sql},#{args},#{startTime},#{exeTime},#{userId})
+	</insert>
+	
+	<!-- 将用户的登录相关信息插入到数据库中 -->
+	<insert id="loginRz">
+		insert into xt_rz_yhdltc(pkid,ssjg,dldnip,yhlx,dlzh,dlmc,dlsj,dlfs) values (#{pkid},#{ssjg},#{dldnip},#{yhlx},#{dlzh},#{dlmc},#{dlsj},#{dlfs})
+	</insert>
+	<!-- 将用户的退出的相关信息更新到数据库中 -->
+	<insert id="logoutRz">
+		update xt_rz_yhdltc set tcsj=#{tcsj},tcfs=#{tcfs} where pkid=#{pkid}
+	</insert>
+</mapper>

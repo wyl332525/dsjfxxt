@@ -1,0 +1,112 @@
+html{
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	color: #f1f1f1;
+	min-width: 1280px;
+}
+
+#mainbottom{
+	float:left;
+	width:100%;
+}
+
+#carText{
+	height: 9rem;
+	width: 100%;
+}
+
+#carTextTable{
+	width: 100%;
+	border: none;
+	table-layout:fixed;
+}
+
+
+#carTextTable td{
+	padding: 0.5%;
+	padding-left: 3%;
+	color: #f1f1f1;
+	border: none;
+	font-size: 1.1rem;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.tableJC{
+	width: 99.7%;
+	text-align: center;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	border-bottom: 1px solid #2A87B9;
+	color: #51CBFD;
+}
+
+.testResultsF{
+	color: #EB4C4F;
+}
+
+.testResultsT{
+	color: #18E3AE;
+}
+
+.testResultsFont{
+	display: block;
+	float: left;
+	width: 5rem;
+}
+
+#contrast1{
+	margin-top: 1rem;
+	float: left;
+	width:97%;
+	height:100%;
+	margin-right: 0.5rem;
+	margin-left: 1rem;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;
+}
+
+#contrast2{
+	margin-top: 2rem;
+	float: left;
+	width:61%;
+	height:100%;
+	margin-right: 0.5rem;
+	margin-left: 1rem;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;
+}
+
+.lw {
+	display: inline-block;
+	width: 25px;
+	height: 21px;
+	margin-top: -2px;
+	margin-right: 5px;
+	vertical-align: middle;
+	background: url(../../img/visual1/sxj1.png) no-repeat;
+	background-size:25px 25px;
+}
+.wlw {
+	display: inline-block;
+	width: 25px;
+	height: 21px;
+	margin-top: -2px;
+	margin-right: 5px;
+	vertical-align: middle;
+	background: url(../../img/visual1/sxj2.png) no-repeat;
+	background-size:25px 25px;
+}
+#lwtitle{
+	margin-left:3%;
+	color:#00FFFF;
+	height:2rem;
+}

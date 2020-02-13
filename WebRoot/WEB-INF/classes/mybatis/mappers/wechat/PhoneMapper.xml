@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.PhoneMapper">    
+	
+	<select id="getJczlb" parameterType="java.util.List" resultType="hashmap">
+		select pkid,region,stationname,stationshortname,longitude,latitude,stationaddress,stationtel,pjfs from bas_checkstation t 
+		<where>
+        	<if test="region != null and region != ''">
+            	region = #{region}
+        	</if>
+		</where>
+	</select>
+	
+	<select id="getAreaLb" parameterType="java.util.List" resultType="hashmap">
+		select code,name from cod_region t where t.parentcode = '530000' 
+	</select>
+	
+	<select id="getRegionLb" parameterType="java.util.List" resultType="hashmap">
+		select code,name from cod_region t where t.parentcode != '530000' and t.code != '530000'
+       	<if test="area != null and area != ''">
+           	and t.parentcode = #{area}
+       	</if>
+	</select>
+	
+	<select id="getYysjlb" parameterType="java.util.List" resultType="hashmap">
+		select code,name from cod_yysjd t 
+	</select>
+	
+	<select id="getJczById" parameterType="java.util.List" resultType="hashmap">
+		select cr.name as region,stationname,stationshortname,longitude,latitude,stationaddress from bas_checkstation t 
+		left join cod_region cr on t.region = cr.code
+		<where>
+        	<if test="pkid != null and pkid != ''">
+            	pkid = #{pkid}
+        	</if>
+		</where>
+	</select>
+	
+	<insert id="saveXsz">
+		insert into wx_yy_jcyy(openid,cphm,vin,cllx,szdz,syxz,clpp,clxh,fdjhm,ccdjrq) values
+		(#{openid},#{cphm},#{vin},#{cllx},#{szdz},#{syxz},#{clpp},#{clxh},#{fdjhm},#{ccdjrq})
+	</insert>
+	
+	<update id="updateyy" >
+		update wx_yy_jcyy set jczbh=#{station},yyrq=#{yyrq},yysj=#{yysj},sjhm=#{sjhm},cgyysj=now() 
+		where openid=#{openid}
+	</update>
+	
+	<!-- 公众号法律法规 -->
+	<select id="getLaws" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,title,pdfurl FROM wx_pdf_flfg
+		<where>
+			<if test="pkid != null and pkid != ''">
+				and pkid = #{pkid}
+			</if>
+			<if test="title != null and title != ''">
+				and title = #{title}
+			</if>
+		</where>
+		
+	</select>
+	
+</mapper>

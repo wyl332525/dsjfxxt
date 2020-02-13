@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.xt.CsPzMapper">
+	<!-- 登录参数配置页面 -->
+	<!-- #获取登录参数配置 dlcspz -->
+	<select id="dlcspzList" resultType="map">
+		SELECT pkid,cs1,cs2,cs3,cs4 
+		FROM xt_cspz WHERE pkid IN('login_err_next','login_yzm','xt_yh_mm','jcz_jcyz_pz')
+	</select>
+	<!--#修改登录参数值 dlcspz页面调用 -->
+	<update id="updateDlcspz">
+		update xt_cspz set
+		<if test="cs1 !=null and cs1!='' ">
+			cs1=#{cs1},
+		</if>
+		<if test="cs2 !=null and cs2!='' ">
+			cs2=#{cs2},
+		</if>
+		<if test="cs3 !=null and cs3!='' ">
+			cs3=#{cs3},
+		</if>
+		<if test="cs4 !=null and cs4!='' ">
+			cs4=#{cs4},
+		</if>
+		pkid=#{pkid}
+		where pkid=#{pkid}
+	</update>
+
+	<!-- 车辆信息录入权限控制页面 -->
+	<!--#获取车辆录入权限控制列表 -->
+	<select id="carLrqxkzList" resultType="map">
+		SELECT sjkzdm,zdzwmc,sfbt,jczrysfkxg,px FROM JC_CL_CLXXQXKZ
+	</select>
+	<!--#修改是否必填状态 -->
+	<update id="editSfbt">
+		UPDATE JC_CL_CLXXQXKZ SET sfbt = #{sfbt} WHERE sjkzdm = #{sjkzdm}
+	</update>
+	<!--#修改检测站人员是否可修改 -->
+	<update id="editJczrysfkxg">
+		UPDATE JC_CL_CLXXQXKZ SET jczrysfkxg = #{jczrysfkxg} WHERE sjkzdm = #{sjkzdm}
+	</update>
+	<!--#查询车辆录入权限控制列表 -->
+	<select id="queryCarLrqxkz" resultType="map">
+		SELECT sjkzdm,zdzwmc,sfbt,jczrysfkxg,px FROM JC_CL_CLXXQXKZ 
+		where zdzwmc like '%${zdzwmc}%'
+	</select>
+	
+	<!--  -->
+	
+	
+	
+	<!-- 检测站检测流程配置页面 -->
+	<!--#获取车辆录入权限控制列表 -->
+	<select id="jczList" resultType="map">
+		SELECT pkid,jczjc,sfqywgcy,sfjcdshfccl,sfzxdshfccl,sfzxdshjcbg 
+		FROM jc_jcz_jczjbxx 
+		<where>
+		 	1=1
+		 	<if test="pkid!=null and pkid!=''">
+		 	 and pkid=#{pkid}
+		 	</if>
+		</where>
+	</select>
+	<!--#编辑是否启用外观查验 -->
+	<update id="editSfqywgcy">
+		UPDATE jc_jcz_jczjbxx SET sfqywgcy = #{sfqywgcy} WHERE pkid = #{pkid}
+	</update>
+	<!--#编辑是否启用检测端审核车辆复测信息 -->
+	<update id="editSfjcdfccl">
+		UPDATE jc_jcz_jczjbxx SET sfjcdshfccl = #{sfjcdshfccl} WHERE pkid = #{pkid}
+	</update>
+	<!--#编辑是否启用中心端审核车辆复测信息 -->
+	<update id="editSfzxdfccl">
+		UPDATE jc_jcz_jczjbxx SET sfzxdshfccl = #{sfzxdshfccl} WHERE pkid = #{pkid}
+	</update>
+	<!--#编辑是否启用中心端审核车辆检测报告 -->
+	<update id="editSfzxdjcbg">
+		UPDATE jc_jcz_jczjbxx SET sfzxdshjcbg = #{sfzxdshjcbg} WHERE pkid = #{pkid}
+	</update>
+	
+	<!-- 检测周期配置页面 -->
+	<!--#获取自检标定参数 -->
+	<select id="selectZjBdPz" resultType="map">
+		select t.pkid ,lx.jc as sblx,ff.jc as jcff,t.pl,t.jyxm,jdwc1,jdwc2,jdwc3,xdwc1,xdwc2,
+		xdwc3,t.sfqy,bz 
+		from jc_sbzjbd_pz t left join dm_jc_jcff ff on ff.pkid=t.syjcff 
+		left join dm_jc_sblx lx on lx.pkid=t.sblx 
+		where t.syjcff =#{syjcff}  AND	t.sblx = #{sblx}
+	</select>
+
+	<!--#自检标定查询 -->
+	<select id="selectZjBd" resultType="map">
+		select t.pkid ,lx.jc as sblx,ff.jc as jcff,t.pl,t.jyxm,jdwc1,jdwc2,jdwc3,xdwc1,xdwc2,
+		xdwc3,t.sfqy,bz 
+		from jc_sbzjbd_pz t left join dm_jc_jcff ff on ff.pkid=t.syjcff 
+		left join dm_jc_sblx lx on lx.pkid=t.sblx 
+		where t.syjcff=#{pkid}
+	</select>
+	<!--#更新自检标定设置 -->
+	<update id="updateZjbdPz">
+		update jc_sbzjbd_pz t set t.pl= #{pl},
+		<if test="jdwc1!=null and jdwc1!=''">
+			t.jdwc1=#{jdwc1} ,
+		</if>
+		<if test="jdwc2!=null and jdwc2!=''">
+			t.jdwc2=#{jdwc2} ,
+		</if>
+		<if test="jdwc3!=null and jdwc3!=''">
+			t.jdwc3=#{jdwc3} ,
+		</if>
+		<if test="xdwc1!=null and xdwc1!=''">
+			t.xdwc1=#{xdwc1} ,
+		</if>
+		<if test="xdwc2!=null and xdwc2!=''">
+			t.xdwc2=#{xdwc2} ,
+		</if>
+		<if test="xdwc3!=null and xdwc3!=''">
+			t.xdwc3=#{xdwc3} ,
+		</if>
+		t.sfqy=#{sfqy}
+		where t.pkid=#{pkid}
+	</update>
+	<!--#获取检测周期配置信息列表 jczqpz页面调用 -->
+	<select id="queryJczqpz" resultType="map">
+		SELECT pkid,djrqq,djrqq,djrqz,yyxz,clxx,synxq,synxz,hjzq,sfqy 
+		FROM jc_jc_jczq
+	</select>
+	<!--#新增检测周期配置信息 -->
+	<insert id="insertJczqpz">
+		INSERT INTO	jc_jc_jczq(pkid,djrqq,djrqz,yyxz,clxx,synxq,synxz,hjzq,sfqy,lrsj,lrrzh,lrrmc)
+		values (#{pkid},${djrqq},${djrqz},${yyxz},${clxx},#{synxq},#{synxz},
+		#{hjzq},#{sfqy},now(),#{lrrzh},#{lrrmc})
+	</insert>
+
+	<!--#获取运营性质 -->
+	<select id="queryYyxz" resultType="map">
+		SELECT pkid,jc FROM dm_cl_syxz
+	</select>
+	<!--#获取车辆类型 -->
+	<select id="queryCllx" resultType="map">
+		SELECT pkid,jc FROM dm_cl_cllx
+	</select>
+	<!--#删除检测周期配置记录 -->
+	<delete id="deleteJczq">
+		DELETE FROM jc_jc_jczq WHERE  pkid=#{pkid}
+	</delete>
+
+	<!--#获取一条检测周期配置记录信息 -->
+	<select id="queryJczqpzOne" resultType="map">
+		select pkid,djrqq,djrqq,djrqz,yyxz,clxx,synxq,synxz,hjzq,sfqy 
+		FROM jc_jc_jczq where pkid=#{pkid}
+	</select>
+	<!--#修改检测周期记录 -->
+	<update id="updateJczqpz">
+		UPDATE jc_jc_jczq SET djrqq=${djrqq},djrqz=${djrqz} ,yyxz=${yyxz},clxx=${cllx},
+		synxq=#{synxq},synxz=#{synxz},hjzq=#{hjzq},sfqy=#{sfqy},lrsj=NOW(),
+		lrrzh=#{lrrzh},lrrmc=#{lrrmc}
+		WHERE pkid=#{pkid}
+	</update>
+	
+	
+	<!--#获取复检情况配置 -->
+	<select id="queryFjqkpz" resultType="map">
+		select cs1,cs2,cs3,cs4 from xt_cspz where pkid = 'jc_yw_fjpz'
+	</select>
+	<!--#修改复检情况配置 -->
+	<update id="editFjqkpz">
+		UPDATE xt_cspz set cs1=#{cs1},cs2=#{cs2},cs3=#{cs3} where pkid = 'jc_yw_fjpz'
+	</update>
+	<!--#查询标准代码维护信息列表 xdBzdmwh页面调用 -->
+	<select id="queryBzdmxx" resultType="map">
+		SELECT pkid,mc,dmmc, cdimg,px FROM XT_BZDMWH WHERE sfqy = '1'
+	</select>
+</mapper>

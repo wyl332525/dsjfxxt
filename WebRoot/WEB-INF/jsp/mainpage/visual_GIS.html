@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/visual_GIS.css" />
+    <!--1、Jquery组件引用-->
+    <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--2、echart4组件引用-->
+    <script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--3、滚动条的引入-->
+    <script src="js/my_scrollbar.js" type="text/javascript" charset="utf-8"></script>
+    <!--4、页面自编辑文件的引用-->
+    <script src="js/jQuery.fontFlex.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/visual_GIS.js" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://192.168.120.103/arcgis_js_api/library/3.21/3.21/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" type="text/css" href="http://192.168.120.103/arcgis_js_api/library/3.21/3.21/esri/css/esri.css" />
+    <script src="js/config/mapconfig.js"></script>
+</head>
+<body>
+    <div id="header">
+        <p>车辆可视化视图</p>  
+        <span class="close"><img src="img/guanbi.png"/></span>
+    </div>
+    <div id="main">
+        <div id="mainLeft">
+        	<div class="RealTimeTestData modelComment">
+	            <div class="title">实时检测数据</div>
+	            <div id="realTime">
+	                <table id="realTimeTable" border="0" cellspacing="0" cellpadding="0">
+	                    <thead>
+	                        <tr>
+	                            <td width="40%">车牌号</td>
+	                            <td width="30%">监测结果</td>
+	                            <td width="30%">报警信息</td>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr>
+	                            <td>
+	                                <div class="plateNub1">豫A99999</div>
+	                            </td>
+	                            <td>合格</td>
+	                            <td>0</td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <div class="plateNub1">豫A99998</div>
+	                            </td>
+	                            <td>合格</td>
+	                            <td>0</td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <div class="plateNub1">豫A99998</div>
+	                            </td>
+	                            <td>合格</td>
+	                            <td>0</td>
+	                        </tr>
+	                        <tr class="redTr">
+	                            <td>
+	                                <div class="plateNub2">豫A99997</div>
+	                            </td>
+	                            <td>不合格</td>
+	                            <td>1</td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+            </div>
+            
+            <div class="monitorDataLiang modelComment">
+	            <div class="title">监测数据量</div>
+	            <div id="chart4"></div>
+	            <div id="chart4Nub">
+	                <div class="chart4Nub1">
+	                    月检测数据：100000
+	                </div>
+	                <div class="chart4Nub2">
+	                    日监测数据：2500
+	                </div>
+	            </div>
+            </div>
+            <div class="testLineTitle">监测线信息动态</div>
+        </div>
+        <div id="mainMiddle">
+            <div id="map" style="height: 98%;"></div>
+            <div id="gisMessage" class="modelComment">
+                <div id="tableHeader">
+                    <div>检测线名称</div>
+                    <div>检测线合格数</div>
+                    <div>检测总数</div>
+                    <div>合格率</div>
+                </div>
+                <div id="tableroll">
+                    <table id="gisMessageTable" class="scroll" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">环检五号线</td>
+                                <td width="25%">13</td>
+                                <td width="25%">14</td>
+                                <td width="25%">93%</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="toolsleft">
+                <div id="toolsleft1">
+
+                </div>
+                <div id="toolsleft2">
+
+                </div>
+                <div id="toolsleft3">
+
+                </div>
+                <div id="toolsleft4">
+
+                </div>
+                <div id="toolsleft5">
+
+                </div>
+            </div>
+            
+        </div>
+        <div id="mainRight">
+        	<div class="passPrecent modelComment">
+	            <div class="title"> 各检测方法合格率统计</div>
+	            <div id="chart1"></div>
+	            <div id="chart1Nub">
+	                <div class="chart1Nub1">
+	                    <span class="chart1NubW">总合格率：</span><span class="chart1Nub1c">80%</span>
+	                </div>
+	                <div class="chart1Nub2">
+	                    <span class="chart1NubW">加载减速法：</span><span class="chart1Nub2c">80%</span>
+	                </div>
+	                <div class="chart1Nub3">
+	                    <span class="chart1NubW">双怠速法：</span><span class="chart1Nub3c">89%</span>
+	                </div>
+	                <div class="chart1Nub4">
+	                    <span class="chart1NubW">不透光烟度法：</span><span class="chart1Nub4c">91%</span>
+	                </div>
+	                <div class="chart1Nub5">
+	                    <span class="chart1NubW">简易瞬态工况法：</span><span class="chart1Nub5c">91%</span>
+	                </div>
+	                <div class="chart1Nub6">
+	                    <span class="chart1NubW">滤纸烟度法：</span><span class="chart1Nub6c">91%</span>
+	                </div>
+	            </div>
+			</div>
+			<div class="vehiclePass modelComment">
+	            <div class="title">近12个月车辆检测合格率</div>
+	            <div id="chart2"></div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="dynamic">
+            <table id="dynamicTable" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <td width="9%">检测站名称 </td>
+                        <td width="10%">检测线名称</td>
+                        <td width="9%">检测线类型</td>
+                        <td width="9%">检测线状态</td>
+                        <td width="9%">设备商</td>
+                        <td width="9%">在检车辆</td>
+                        <td width="9%">检测总数</td>
+                        <td width="9%">合格数</td>
+                        <td width="9%">合格率</td>
+                        <td width="9%">检定有效期（天</td>
+                        <td width="9%">检测异常数量</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>公交</td>
+                        <td>公交检测线（1）</td>
+                        <td>重柴线</td>
+                        <td>正常</td>
+                        <td>成保</td>
+                        <td>无</td>
+                        <td>15</td>
+                        <td>15</td>
+                        <td>100%</td>
+                        <td>107</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>公交</td>
+                        <td>公交检测线（1）</td>
+                        <td>重柴线</td>
+                        <td>正常</td>
+                        <td>成保</td>
+                        <td>无</td>
+                        <td>15</td>
+                        <td>15</td>
+                        <td>100%</td>
+                        <td>107</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>公交</td>
+                        <td>公交检测线（1）</td>
+                        <td>重柴线</td>
+                        <td>正常</td>
+                        <td>成保</td>
+                        <td>无</td>
+                        <td>15</td>
+                        <td>15</td>
+                        <td>100%</td>
+                        <td>107</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>公交</td>
+                        <td>公交检测线（1）</td>
+                        <td>重柴线</td>
+                        <td>正常</td>
+                        <td>成保</td>
+                        <td>无</td>
+                        <td>15</td>
+                        <td>15</td>
+                        <td>100%</td>
+                        <td>107</td>
+                        <td>0</td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var dojoConfig = {
+		packages: [{
+				name: 'plugins',
+				location: location.pathname.replace(/\/[^/]+$/, "") + '/js/plugins'
+			}
+	
+		]
+	};
+////加载 位于 head 里的引用的文件
+//FileImport.LoadFileList(headFileArr, "head");
+////加载 位于 body 后的引用的文件
+//setTimeout(function () {
+//    FileImport.LoadFileList(afterBodyFileArr, "afterBody");
+//}, 0)
+</script>
+<script src="http://192.168.120.103/arcgis_js_api/library/3.21/3.21/init.js"></script>
+<script src="js/config/mapconfig.js"></script>
+<script src="js/custom/mapShowPoints.js"></script>
+<script src="js/mainEvent.js"></script>
+<script src="js/mainMap.js"></script>

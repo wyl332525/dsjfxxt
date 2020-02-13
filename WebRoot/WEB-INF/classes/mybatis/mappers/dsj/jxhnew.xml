@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.dsj.jxhnew">
+	<select id="countJccls" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) AS nums FROM ins_checkresultmain where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD')
+	</select>
+	
+	<select id="countyzydJccls" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) AS nums FROM ins_checkresultmain where stationpkid = #{stationpkid}
+	</select>
+	
+	<select id="countJcxts" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) AS cc FROM bas_checkline
+		<where>
+			<if test="belongtostation!=null and belongtostation!=''">
+				belongtostation = #{belongtostation}
+			</if>
+		</where>
+	</select>
+	
+	<select id="countJcclsjt" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) AS nums FROM ins_checkresultmain where checktime <![CDATA[ >= ]]> trunc(sysdate) AND checktime <![CDATA[ < ]]> trunc(sysdate)+1
+	</select>
+	
+	<select id="getStationLb" parameterType="java.util.List" resultType="hashmap">
+		select pkid,to_char(longitude) longitude,to_char(latitude) latitude from bas_checkstation where longitude <![CDATA[ > ]]> 95 and longitude != 111.111
+	</select>
+	
+	<select id="hgltj" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) nums,SUM(CASE WHEN t.checkresult='合格' THEN 1 ELSE 0 END ) AS hgs,to_char(SUM(CASE WHEN t.checkresult='合格' THEN 1 ELSE 0 END )*100/COUNT(*),'FM99990.00') hgl,t.fjqk FROM (SELECT m.PKID,m.stationpkid,m.checkresult,CASE WHEN m.recheckinfo <![CDATA[ > ]]> 3 THEN 4 ELSE m.recheckinfo END fjqk FROM ins_checkresultmain m where m.checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND m.checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD')) t GROUP BY t.fjqk
+	</select>
+	
+	<select id="hgltjyzyd" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) nums,SUM(CASE WHEN t.checkresult='合格' THEN 1 ELSE 0 END ) AS hgs,to_char(SUM(CASE WHEN t.checkresult='合格' THEN 1 ELSE 0 END )*100/COUNT(*),'FM99990.00') hgl,t.fjqk FROM (SELECT m.PKID,m.stationpkid,m.checkresult,CASE WHEN m.recheckinfo <![CDATA[ > ]]> 3 THEN 4 ELSE m.recheckinfo END fjqk FROM ins_checkresultmain m where stationpkid=#{stationpkid}) t GROUP BY t.fjqk
+	</select>
+	
+	<select id="getJczjbxx" parameterType="java.util.List" resultType="hashmap">
+		select stationname,stationaddress from bas_checkstation where pkid = #{pkid}
+	</select>
+	
+	<select id="getHglByAreacode" parameterType="java.util.List" resultType="hashmap">
+		select to_char((sum(hgs)/decode(sum(zs),0,1,sum(zs))) *100,'FM99990.00') hgl from SJTJ_HGLTJ t 
+		<where>
+			<if test="areacode!=null and areacode!=''">
+				t.areacode = #{areacode}
+			</if>
+			<if test="starttime!=null and endtime!=nill and starttime!='' and endtime!=''">
+				and checktime <![CDATA[ >= ]]> to_date(#{starttime},'yyyy-MM-dd') and checktime <![CDATA[ <= ]]> to_date(#{endtime},'yyyy-MM-dd') 
+			</if>
+		</where>
+	</select>
+	
+	<select id="getHbcJclByAreacode" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as c from SJTJ_HGLTJ_HBC t where t.areacode = #{areacode} and checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD')
+	</select>
+	
+	<select id="getCycJclByAreacode" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as c from SJTJ_HGLTJ t where (checkmethod = 'TG' or checkmethod = 'LD') and t.areacode = #{areacode} and checktime <![CDATA[ <= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD')
+	</select>
+	
+	<select id="getDsjclGroup" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as c,stationname as area,stationpkid as areacode from SJTJ_HGLTJ t where t.checktime <![CDATA[ <= ]]> to_date(#{starttime},'YYYY-MM-DD') AND t.checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by stationname,stationpkid order by c desc
+		<!-- select sum(zs) as c,areaname as area,areacode from SJTJ_HGLTJ t where t.checktime <![CDATA[ <= ]]> to_date(#{starttime},'YYYY-MM-DD') AND t.checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by areaname,areacode order by areacode asc -->
+	</select>
+	
+	<select id="getYcsjlb" parameterType="java.util.List" resultType="hashmap">
+		select pkid,carpkid,carcardnumber from ins_checkresultmain where checkmethod = 'DB' and recheckinfo <![CDATA[ > ]]> 3 and checkresult='合格' and rownum <![CDATA[ < ]]> 10
+	</select>
+	
+	<select id="getJcsj" parameterType="java.util.List" resultType="hashmap">
+		select dd.colstr,dd.colowvalueel,dd.cohstr,dd.cohighvalueel,dd.hclstr,dd.hclowvalueel,dd.hchstr,dd.hchighvalueel from ins_dt_doubleidledata dd where dd.businessid = #{businessid}
+	</select>
+	
+	<select id="getJcjl" parameterType="java.util.List" resultType="hashmap">
+		select decode(recheckinfo,0,'首检','复检') fjqk,cd.name as region,cs.stationshortname from ins_checkresultmain t left join bas_checkstation cs on t.stationpkid = cs.pkid left join cod_region cd on t.areacode = cd.code where carcardnumber=#{carcardnumber}
+	</select>
+	
+	<select id="dsjcffhgltj" parameterType="java.util.List" resultType="hashmap">
+		select to_char(sum(case when checkmethod = 'DB' then hgs else 0 end)/decode(sum(case when checkmethod = 'DB' then zs else 0 end),0,1,sum(case when checkmethod = 'DB' then zs else 0 end)) *100,'FM99990.00') as dbhgl,to_char(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then hgs else 0 end)/decode(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end),0,1,sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end)) *100,'FM99990.00') as wthgl,to_char(sum(case when checkmethod = 'TG' then hgs else 0 end)/decode(sum(case when checkmethod = 'TG' then zs else 0 end),0,1,sum(case when checkmethod = 'TG' then zs else 0 end)) *100,'FM99990.00') as tghgl,to_char(sum(case when checkmethod = 'LD' then hgs else 0 end)/decode(sum(case when checkmethod = 'LD' then zs else 0 end),0,1,sum(case when checkmethod = 'LD' then zs else 0 end)) *100,'FM99990.00') as ldhgl,to_char(sum(hgs)/decode(sum(zs),0,1,sum(zs)) *100,'FM99990.00') as zhgl,areaname from SJTJ_HGLTJ where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by areaname
+	</select>
+	
+	<select id="zsjcffhgl" parameterType="java.util.List" resultType="hashmap">
+		select to_char(sum(case when checkmethod = 'DB' then hgs else 0 end)/decode(sum(case when checkmethod = 'DB' then zs else 0 end),0,1,sum(case when checkmethod = 'DB' then zs else 0 end)) *100,'FM99990.00') as dbhgl,to_char(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then hgs else 0 end)/decode(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end),0,1,sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end)) *100,'FM99990.00') as wthgl,to_char(sum(case when checkmethod = 'TG' then hgs else 0 end)/decode(sum(case when checkmethod = 'TG' then zs else 0 end),0,1,sum(case when checkmethod = 'TG' then zs else 0 end)) *100,'FM99990.00') as tghgl,to_char(sum(case when checkmethod = 'LD' then hgs else 0 end)/decode(sum(case when checkmethod = 'LD' then zs else 0 end),0,1,sum(case when checkmethod = 'LD' then zs else 0 end)) *100,'FM99990.00') as ldhgl,to_char(sum(hgs)/decode(sum(zs),0,1,sum(zs)) *100,'FM99990.00') as zhgl,stationname from SJTJ_HGLTJ where areaname = #{areaname} and checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by stationname
+	</select>
+	
+	<select id="jcffhgl" parameterType="java.util.List" resultType="hashmap">
+		select to_char(sum(case when checkmethod = 'DB' then hgs else 0 end)/decode(sum(case when checkmethod = 'DB' then zs else 0 end),0,1,sum(case when checkmethod = 'DB' then zs else 0 end)) *100,'FM99990.00') as dbhgl,to_char(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then hgs else 0 end)/decode(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end),0,1,sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end)) *100,'FM99990.00') as wthgl,to_char(sum(case when checkmethod = 'TG' then hgs else 0 end)/decode(sum(case when checkmethod = 'TG' then zs else 0 end),0,1,sum(case when checkmethod = 'TG' then zs else 0 end)) *100,'FM99990.00') as tghgl,to_char(sum(case when checkmethod = 'LD' then hgs else 0 end)/decode(sum(case when checkmethod = 'LD' then zs else 0 end),0,1,sum(case when checkmethod = 'LD' then zs else 0 end)) *100,'FM99990.00') as ldhgl,to_char(sum(hgs)/decode(sum(zs),0,1,sum(zs)) *100,'FM99990.00') as zhgl,stationname from SJTJ_HGLTJ where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by stationname
+	</select>
+	
+	<select id="getCycjcsdt" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when (checkmethod = 'TG' or checkmethod = 'LD') and checkresult='合格' then 1 else 0 end)/sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end)*100,2) as cychgl,sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end) cycjcl,trunc(avg(maxweight)) as pjzzl,name from ins_checkresultmain t left join BAS_CHECKSTATION a on a.pkid=t.stationpkid  left join cod_region b on b.code=a.region where (checkmethod = 'TG' or checkmethod = 'LD') and checktime<![CDATA[ >= ]]>to_date(#{starttime},'YYYY-MM-DD') AND checktime<![CDATA[ <= ]]>to_date(#{endtime},'YYYY-MM-DD') group by b.code,name order by b.code
+	</select>
+	
+	<select id="getHbcjcsdt" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and (checkmethod = 'LD' or checkmethod = 'TG')) and checkresult='合格' then 1 else 0 end)/sum(case when (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and (checkmethod = 'LD' or checkmethod = 'TG'))  then 1 else 0 end)*100,2) as hbchgl,sum(case when (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and (checkmethod = 'LD' or checkmethod = 'TG'))  then 1 else 0 end) hbcjcl,trunc(avg(maxweight)) as pjzzl,name from ins_checkresultmain t left join BAS_CHECKSTATION a on a.pkid=t.stationpkid  left join cod_region b on b.code=a.region where (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and (checkmethod = 'LD' or checkmethod = 'TG')) and checktime<![CDATA[ >= ]]>to_date(#{starttime},'YYYY-MM-DD') AND checktime<![CDATA[ <= ]]>to_date(#{endtime},'YYYY-MM-DD') group by b.code,name order by b.code
+	</select>
+	
+	<select id="getCycjcsdtCity" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when (checkmethod = 'TG' or checkmethod = 'LD') and checkresult='合格' then 1 else 0 end)/sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end)*100,2)as cychgl,sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end) cycjcl,trunc(avg(maxweight)) as pjzzl,a.stationshortname from ins_checkresultmain t left join BAS_CHECKSTATION a on a.pkid=t.stationpkid  left join cod_region b on b.code=a.region where (checkmethod = 'TG' or checkmethod = 'LD')and b.name=#{name} and checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD')  group by b.code,a.stationshortname order by b.code
+	</select>
+	
+	<select id="getHbcjcsdtCity" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and (checkmethod = 'LD' or checkmethod = 'TG')) and checkresult='合格' then 1 else 0 end)/sum(case when (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and  (checkmethod = 'LD' or checkmethod = 'TG'))  then 1 else 0 end)*100,2) as hbchgl, sum(case when (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd')and (checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd') and (checkmethod = 'LD' or checkmethod = 'TG'))  then 1 else 0 end) hbcjcl,trunc(avg(maxweight)) as pjzzl,a.stationshortname from ins_checkresultmain t left join BAS_CHECKSTATION a on a.pkid=t.stationpkid  left join cod_region b on b.code=a.region where (registerdate <![CDATA[ < ]]> to_date('2001-10-01','yyyy-MM-dd') and ((checkmethod = 'WT' or checkmethod = 'DB')) or (registerdate <![CDATA[ < ]]> to_date('2009-07-01','yyyy-MM-dd')) and (checkmethod = 'LD' or checkmethod = 'TG')) and b.name=#{name}  and checktime<![CDATA[ >= ]]>to_date(#{starttime},'YYYY-MM-DD') AND checktime<![CDATA[ <= ]]>to_date(#{endtime},'YYYY-MM-DD') group by b.code,a.stationshortname order by b.code	
+	</select>
+	
+	<select id="queryStations" parameterType="java.util.List" resultType="hashmap">
+		select t.stationname,c.name as area,cc.name as region,cs.name as stationstate,to_char(t.registdate,'yyyy-MM-dd') as registdate,t.stationaddress,t.legalperson,t.hbjcfzr,t.fzrphone from bas_checkstation t left join cod_region c on t.region = c.code left join cod_region cc on t.region = cc.code left join cod_state cs on t.stationstate = cs.code where pkid = #{pkid}
+	</select>
+	
+	<select id="getCheckTimes" parameterType="java.util.List" resultType="hashmap">
+		select * from (SELECT DISTINCT(to_char(checktime,'yyyy-mm')) AS rq,stationpkid FROM ins_checkresultmain m order by to_char(checktime,'yyyy-mm') desc ) where rownum <![CDATA[ < ]]> 6 and stationpkid = #{stationpkid}
+	</select>
+	
+	<select id="getJcffHgl" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when recheckinfo = 0 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 0 then 1 else 0 end),0,1,sum(case when recheckinfo = 0 then 1 else 0 end))*100,2) as sjhgl,trunc(sum(case when recheckinfo = 1 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 1 then 1 else 0 end),0,1,sum(case when recheckinfo = 1 then 1 else 0 end))*100,2) as fj1hgl,trunc(sum(case when recheckinfo = 2 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 2 then 1 else 0 end),0,1,sum(case when recheckinfo = 2 then 1 else 0 end))*100,2) as fj2hgl,trunc(sum(case when recheckinfo = 3 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 3 then 1 else 0 end),0,1,sum(case when recheckinfo = 3 then 1 else 0 end))*100,2) as fj3hgl,trunc(sum(case when recheckinfo = 4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 4 then 1 else 0 end),0,1,sum(case when recheckinfo = 4 then 1 else 0 end))*100,2) as fj4hgl,trunc(sum(case when recheckinfo >4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo >4 then 1 else 0 end),0,1,sum(case when recheckinfo >4 then 1 else 0 end))*100,2) as fj5hgl,cc.name as checkmethod from ins_checkresultmain t left join cod_checkmethod cc on t.checkmethod = cc.code where t.checkmethod in ('DB','TG','WT','IG','LD') and to_char(t.checktime,'yyyy-MM') = #{checktime} and t.stationpkid = #{stationpkid} group by cc.name 
+	</select>
+	
+	<select id="getJcxHgl" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when recheckinfo = 0 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 0 then 1 else 0 end),0,1,sum(case when recheckinfo = 0 then 1 else 0 end))*100,2) as sjhgl,trunc(sum(case when recheckinfo = 1 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 1 then 1 else 0 end),0,1,sum(case when recheckinfo = 1 then 1 else 0 end))*100,2) as fj1hgl,trunc(sum(case when recheckinfo = 2 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 2 then 1 else 0 end),0,1,sum(case when recheckinfo = 2 then 1 else 0 end))*100,2) as fj2hgl,trunc(sum(case when recheckinfo = 3 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 3 then 1 else 0 end),0,1,sum(case when recheckinfo = 3 then 1 else 0 end))*100,2) as fj3hgl,trunc(sum(case when recheckinfo = 4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 4 then 1 else 0 end),0,1,sum(case when recheckinfo = 4 then 1 else 0 end))*100,2) as fj4hgl,trunc(sum(case when recheckinfo >4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo >4 then 1 else 0 end),0,1,sum(case when recheckinfo >4 then 1 else 0 end))*100,2) as fj5hgl,cl.linename from ins_checkresultmain t left join bas_checkline cl on t.checklinepkid = cl.pkid where to_char(t.checktime,'yyyy-MM') = #{checktime} and t.stationpkid = #{stationpkid} group by cl.linename order by linename 
+	</select>
+	
+	<select id="getPfbzHgl" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when recheckinfo = 0 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 0 then 1 else 0 end),0,1,sum(case when recheckinfo = 0 then 1 else 0 end))*100,2) as sjhgl,trunc(sum(case when recheckinfo = 1 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 1 then 1 else 0 end),0,1,sum(case when recheckinfo = 1 then 1 else 0 end))*100,2) as fj1hgl,trunc(sum(case when recheckinfo = 2 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 2 then 1 else 0 end),0,1,sum(case when recheckinfo = 2 then 1 else 0 end))*100,2) as fj2hgl,trunc(sum(case when recheckinfo = 3 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 3 then 1 else 0 end),0,1,sum(case when recheckinfo = 3 then 1 else 0 end))*100,2) as fj3hgl,trunc(sum(case when recheckinfo = 4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 4 then 1 else 0 end),0,1,sum(case when recheckinfo = 4 then 1 else 0 end))*100,2) as fj4hgl,trunc(sum(case when recheckinfo >4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo >4 then 1 else 0 end),0,1,sum(case when recheckinfo >4 then 1 else 0 end))*100,2) as fj5hgl,markstandard from ins_checkresultmain t where t.markstandard in ('国0','国Ⅰ','国Ⅱ','国Ⅲ','国Ⅳ','国Ⅴ') and to_char(t.checktime,'yyyy-MM') = #{checktime} and t.stationpkid = #{stationpkid} group by markstandard order by markstandard 
+	</select>
+	
+	<select id="getAllHgl" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when recheckinfo = 0 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 0 then 1 else 0 end),0,1,sum(case when recheckinfo = 0 then 1 else 0 end))*100,2) as sjhgl,sum(case when recheckinfo = 0 then 1 else 0 end) as sjzs,trunc(sum(case when recheckinfo = 1 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 1 then 1 else 0 end),0,1,sum(case when recheckinfo = 1 then 1 else 0 end))*100,2) as fj1hgl,sum(case when recheckinfo = 1 then 1 else 0 end) as fj1zs,trunc(sum(case when recheckinfo = 2 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 2 then 1 else 0 end),0,1,sum(case when recheckinfo = 2 then 1 else 0 end))*100,2) as fj2hgl,sum(case when recheckinfo = 2 then 1 else 0 end) as fj2zs,trunc(sum(case when recheckinfo = 3 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 3 then 1 else 0 end),0,1,sum(case when recheckinfo = 3 then 1 else 0 end))*100,2) as fj3hgl,sum(case when recheckinfo = 3 then 1 else 0 end) as fj3zs,trunc(sum(case when recheckinfo = 4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo = 4 then 1 else 0 end),0,1,sum(case when recheckinfo = 4 then 1 else 0 end))*100,2) as fj4hgl,sum(case when recheckinfo = 4 then 1 else 0 end) as fj4zs,trunc(sum(case when recheckinfo >4 and checkresult='合格' then 1 else 0 end)/decode(sum(case when recheckinfo >4 then 1 else 0 end),0,1,sum(case when recheckinfo >4 then 1 else 0 end))*100,2) as fj5hgl,sum(case when recheckinfo >4 then 1 else 0 end) as fj5zs from ins_checkresultmain t where to_char(t.checktime,'yyyy-MM') = #{checktime} and t.stationpkid = #{stationpkid}
+	</select>
+	
+	<select id="getJczYclb" parameterType="java.util.List" resultType="hashmap">
+		select pkid,carpkid,carcardnumber, bc.stationshortname as checkstation,cc.name as checkmethod,decode(recheckinfo,0,'首检','第'||recheckinfo||'次复检') as recheckinfo,cl.linename as checkline,carbrand||carversion as carversion from ins_checkresultmain t left join bas_checkstation bc on t.stationpkid = bc.pkid left join cod_checkmethod cc on t.checkmethod = cc.code left join bas_checkline cl on t.checklinepkid = cl.pkid where recheckinfo > 6 and checkresult='合格' and to_char(t.checktime,'yyyy-MM') = #{checktime} and t.stationpkid = #{stationpkid} and rownum <![CDATA[ < ]]> 11 order by recheckinfo desc
+	</select>
+	
+	<select id="getlwqk" parameterType="java.util.List" resultType="hashmap">
+		SELECT * FROM TMP_YNLWQK
+	</select>
+	
+	<select id="getzslwqk" parameterType="java.util.List" resultType="hashmap">
+		SELECT * FROM TMP_DZLWQK WHERE AREACODE=#{areacode}
+	</select>
+	
+	<select id="getsxtlwqk" parameterType="java.util.List" resultType="hashmap">
+		select  a.camera1,a.camera2,b.linename,t.cameratype from bas_videocamera t  left join BAS_SPJK a on a.lineid=t.linecode left join bas_checkline b on a.lineid=b.pkid where t.linecode=b.pkid and b.belongtostation=#{belongtostation}  order by b.linename,t.cameratype
+	</select>
+	
+	<select id="getJczzs" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as c from bas_checkstation t 
+		<if test="region!=null and region!='' and region!='null'" >
+				where t.region = #{region}
+		</if>
+	</select>
+	
+	<select id="getWgalzs" parameterType="java.util.List" resultType="hashmap">
+		select TO_CHAR(count(*), 'FM099') c FROM ST_WGJJB s left join bas_checkstation b on  s.WGSTATIONPKID=b.pkid 
+		<if test="region!=null and region!='' and region!='null'" >
+				where b.region = #{region}
+		</if>
+	</select>
+	
+	<select id="getClxxzs" parameterType="java.util.List" resultType="hashmap">
+		select TO_CHAR(count(*), 'FM0999999') c FROM bas_carinfo
+	</select>
+	
+	<!--获取地市各县或区的name和code -->
+	<select id="getNameAndCode" parameterType="java.util.List" resultType="hashmap">
+		select c.code,c.name from bas_checkstation b inner join cod_region c on b.region = c.code group by c.code,c.name
+	</select>
+	
+	<select id="getbnjcl" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as zs,to_char(checktime,'yyyymm') as checktime from ins_checkresultmain where checktime <![CDATA[ >= ]]> to_date(#{sjd},'yyyyMM')  group by to_char(checktime,'yyyymm') order by checktime
+	</select>
+	
+	<!-- 根据天来加载数据 -->
+	<select id="getbnjclbyday" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as zs,to_char(checktime,'mm-dd') as checktime from ins_checkresultmain where checktime <![CDATA[ >= ]]> sysdate-30 group by to_char(checktime,'mm-dd') order by checktime
+	</select>
+	
+	<!-- 根据年来加载数据 
+	<select id="getbnjclbyday" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as zs,to_char(checktime,'yyyy-mm-dd') as checktime from ins_checkresultmain where checktime <![CDATA[ >= ]]> sysdate-30 group by to_char(checktime,'yyyy-mm-dd') order by checktime
+	</select>-->
+	
+	<select id="getqncyc" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as zs,b.stationshortname from ins_checkresultmain t left join bas_carinfo a on t.carpkid = a.pkid left join bas_checkstation b on t.stationpkid=b.pkid where a.fueltype='B' and to_char(checktime,'yyyy')=to_char(sysdate,'yyyy') group by b.stationshortname
+	</select>
+	
+	<select id="getjcfftj" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as zs,a.name from ins_checkresultmain t left join cod_checkmethod a on t.checkmethod=a.code group by t.checkmethod,a.name
+	</select>
+	
+	<select id="getSsjc" parameterType="java.util.List" resultType="hashmap">
+		select pkid,carcardnumber,checktime,carcardcolor,stationshortname,recheckinfo,checkresult,checkmethod from(select t.pkid,t.carcardnumber,to_char(t.checktime,'YYYY-MM-DD hh24:mi:ss') as checktime,
+		a.carcardcolor,t.checkresult,bc.stationshortname,decode(t.recheckinfo,0,'首检','第'||t.recheckinfo||'次复检') recheckinfo,cc.name checkmethod,bc.region  
+		from ins_checkresultmain t left join bas_carinfo a on t.carpkid=a.pkid 
+		left join bas_checkstation bc on t.stationpkid = bc.pkid 
+		left join cod_checkmethod cc on t.checkmethod = cc.code 
+		where checktime > sysdate-30
+		order by checktime desc) where 
+		<if test="region!=null and region!='' and region!='null'" >
+				region = #{region} and
+		</if>
+		  rownum <![CDATA[ < ]]> 101
+	</select>
+	
+	<select id="getYwsqByjcz" parameterType="java.util.List" resultType="hashmap">
+		select count(*) as zs,a.stationshortname as name from ins_applychangecheckmethod t left join bas_checkstation a on t.stationpkid=a.pkid group by t.stationpkid,a.stationshortname
+	</select>
+	
+	<select id="getJccsByCheckMethod" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as c,a.name as checkmethod from SJTJ_HGLTJ t left join cod_checkmethod a on t.checkmethod = a.code 
+		<where>
+			<if test="areacode!=null and areacode!=''">
+				t.areacode = #{areacode}
+			</if>
+			<if test="starttime!=null and starttime!=''">
+				and t.checktime <![CDATA[ >= ]]> to_date(#{starttime},'yyyy-MM-dd')
+			</if>
+			<if test="endtime!=nill and endtime!=''">
+				and t.checktime <![CDATA[ <= ]]> to_date(#{endtime},'yyyy-MM-dd') 
+			</if>
+		</where>
+		group by a.name
+	</select>
+	
+	<select id="getJccsByArea" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as c,areaname from SJTJ_HGLTJ t 
+		<where>
+			<if test="starttime!=null and starttime!=''">
+				and t.checktime <![CDATA[ >= ]]> to_date(#{starttime},'yyyy-MM-dd')
+			</if>
+			<if test="endtime!=nill and endtime!=''">
+				and t.checktime <![CDATA[ <= ]]> to_date(#{endtime},'yyyy-MM-dd') 
+			</if>
+		</where>
+		group by areaname
+	</select>
+	
+	<select id="getJccsByFjqk" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as c,CASE WHEN t.fjqk <![CDATA[ > ]]> 3 THEN 4 ELSE t.fjqk end fjqk 
+		from SJTJ_HGLTJ t 
+		<where>
+			<if test="starttime!=null and starttime!=''">
+				and t.checktime <![CDATA[ >= ]]> to_date(#{starttime},'yyyy-MM-dd')
+			</if>
+			<if test="endtime!=nill and endtime!=''">
+				and t.checktime <![CDATA[ <= ]]> to_date(#{endtime},'yyyy-MM-dd') 
+			</if>
+		</where>
+		group by CASE WHEN t.fjqk <![CDATA[ > ]]> 3 THEN 4 ELSE t.fjqk end order by fjqk
+	</select>
+	
+	<select id="getJchglByJcff" parameterType="java.util.List" resultType="hashmap">
+		select to_char(sum(case when checkmethod = 'DB' then hgs else 0 end)/decode(sum(case when checkmethod = 'DB' then zs else 0 end),0,1,sum(case when checkmethod = 'DB' then zs else 0 end)) *100,'FM99990.00') as dbhgl,to_char(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then hgs else 0 end)/decode(sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end),0,1,sum(case when (checkmethod = 'WT' or checkmethod = 'IG') then zs else 0 end)) *100,'FM99990.00') as wthgl,to_char(sum(case when checkmethod = 'TG' then hgs else 0 end)/decode(sum(case when checkmethod = 'TG' then zs else 0 end),0,1,sum(case when checkmethod = 'TG' then zs else 0 end)) *100,'FM99990.00') as tghgl,to_char(sum(case when checkmethod = 'LD' then hgs else 0 end)/decode(sum(case when checkmethod = 'LD' then zs else 0 end),0,1,sum(case when checkmethod = 'LD' then zs else 0 end)) *100,'FM99990.00') as ldhgl,to_char(sum(hgs)/decode(sum(zs),0,1,sum(zs)) *100,'FM99990.00') as zhgl from SJTJ_HGLTJ where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD')
+	</select>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.dsj.jxh">
+
+	<select id="getCheckLineDynamic" parameterType="java.util.List" resultType="hashmap">
+		SELECT jcz.JCZJC,jcx.JCXMC, lx.JC AS jcxlx,zt.JC AS jcxzt,pp.JC AS sbpp,SUM(CASE WHEN dj.jczt = '在检' THEN 1 ELSE 0 END) AS zjcl,COUNT(jg.pkid) AS jczs,SUM(CASE WHEN jg.jcjg = '通过' THEN 1 ELSE 0 END) AS hgs,IFNULL(CONCAT(LEFT(SUM(CASE WHEN jg.jcjg = '通过' THEN 1 ELSE 0 END)/(COUNT(jg.pkid))*100,5),'%'),0) AS hgl,DATEDIFF(jcx.jdyxqz,jcx.JDRQ) AS jdyxq,COUNT(bj.pkid) AS jcycsl FROM jc_jcz_jcxjbxx jcx LEFT JOIN jc_jcz_jczjbxx jcz ON jcx.SSJCZ = jcz.PKID LEFT JOIN dm_jc_jcxlx lx ON jcx.JCXLX = lx.PKID LEFT JOIN dm_gy_zt zt ON jcx.JCXZT = zt.PKID LEFT JOIN dm_jc_sbpp pp ON jcx.SBPP = pp.PKID LEFT JOIN yw_jc_djlb dj ON dj.jcx = jcx.PKID LEFT JOIN yw_jc_sj_jcjgzb jg ON jg.JCX = jcx.PKID LEFT JOIN yw_bj_bjxx bj ON bj.jcx = jcx.PKID WHERE jcz.PKID = ? AND DATE_FORMAT(jg.JCJSSJ,'%Y-%m-%d') = #{JCJSSJ} GROUP BY jcx.pkid
+	</select>
+	
+	<select id="jcffPercent" parameterType="java.util.List" resultType="hashmap">
+		SELECT j1.zhgl,j1.zhgs,j1.zjs,j2.jcff,j2.hgl,j2.hgs,j2.js FROM (SELECT jcz,SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END) zhgs,(COUNT(jg.pkid) - SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END)) AS zjs,IFNULL(CONCAT(LEFT(SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END) / (COUNT(jg.pkid)) * 100,5),'%'),0) AS zhgl FROM yw_jc_sj_jcjgzb jg WHERE jg.JCZ = #{JCZ} AND DATE_FORMAT(jg.JCJSSJ, '%Y-%m-%d') = #{JCJSSJ} GROUP BY jg.JCZ) j1,(SELECT ff.JC AS jcff,jcz,SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END) hgs,(COUNT(jg.pkid) - SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END)) AS js,IFNULL(CONCAT(LEFT(SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END) / (COUNT(jg.pkid)) * 100,5),'%'),0) AS hgl FROM yw_jc_sj_jcjgzb jg LEFT JOIN dm_jc_jcff ff ON ff.PKID = jg.JCFF WHERE jg.JCZ = #{JCZ1} AND DATE_FORMAT(jg.JCJSSJ, '%Y-%m-%d') = #{JCJSSJ1} GROUP BY jg.JCFF) j2 WHERE j1.jcz = j2.jcz
+	</select>
+	
+	<select id="jcxPercent" parameterType="java.util.List" resultType="hashmap">
+		SELECT jcx.JCXMC,SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END)/1000 AS hgs,SUM(CASE WHEN jcjg = '不通过' THEN 1 ELSE 0 END)/1000 AS bhgs,IFNULL(LEFT(SUM(CASE WHEN jcjg = '通过' THEN 1 ELSE 0 END) / (COUNT(jg.pkid)) * 100,5),0) AS hgl FROM yw_jc_sj_jcjgzb jg LEFT JOIN jc_jcz_jcxjbxx jcx ON jcx.PKID = jg.JCX WHERE jg.JCZ = #{JCZ} AND DATE_FORMAT(jg.JCJSSJ,'%Y-%m-%d') = #{JCJSSJ} GROUP BY jg.JCX
+	</select>
+	
+	<select id="getClzj" parameterType="java.util.List" resultType="hashmap">
+		SELECT j.CLZJ FROM yw_jc_sj_jcjgzb j WHERE j.PKID = #{PKID} 
+	</select>
+	
+	<select id="alarmInfo" parameterType="java.util.List" resultType="hashmap">
+		SELECT j.JCZJC,jcx.JCXMC,b.cphm,b.cpys,b.vin,b.lrrmc,b.jcrmc,b.jsrmc,l.bjmc,b.bjsm,CASE b.sfyzf WHEN '1' THEN '作废' ELSE '报警' END AS bj,f.jc AS jcff,DATE_FORMAT(b.jcwcsj,'%Y-%m-%d %H:%i:%s') AS jcwcsj,l.bjmc FROM yw_bj_bjxx b LEFT JOIN jc_jcz_jczjbxx j ON j.PKID = b.jcz LEFT JOIN jc_jcz_jcxjbxx jcx ON jcx.PKID = b.jcx LEFT JOIN yw_bj_bjlb l ON l.pkid = b.bjlb LEFT JOIN dm_jc_jcff f ON f.pkid = b.jcff WHERE b.pkid = #{pkid} 
+	</select>
+	
+	<select id="getCheckResultMain" parameterType="java.util.List" resultType="hashmap">
+		select * from ins_checkresultmain where pkid=#{pkid}
+	</select>
+	
+	<select id="getcheckPathInfo" parameterType="java.util.List" resultType="hashmap">
+		select to_char(checktime,'yyyy-mm-dd') as checktime,stationpkid,checklinepkid from ins_checkresultmain where pkid=#{pkid}
+	</select>
+	
+	<select id="getAlarmList" parameterType="java.util.List" resultType="hashmap">
+		SELECT b.pkid,l.bjmc,b.bjsm,b.sfyzf AS clfs FROM yw_bj_bjxx b LEFT JOIN yw_bj_bjlb l ON l.pkid = b.bjlb WHERE b.clzj = #{clzj} ORDER BY b.jcwcsj DESC 
+	</select>
+	
+	<select id="countEdit" parameterType="java.util.List" resultType="hashmap">
+		SELECT cl.xgclxx,ff.xgjcff,js.xgkzjs FROM (SELECT COUNT(pkid) xgclxx FROM yw_jc_sqxgclxx c WHERE c.clzj = #{clzj}) cl,(SELECT COUNT(pkid) xgjcff FROM yw_jc_sqxgjcff c WHERE c.clzj = #{clzj}) ff,(SELECT COUNT(pkid) xgkzjs FROM yw_jc_sqfccljs c WHERE c.clzj = #{clzj}) js
+	</select>
+	
+	<select id="editCarInfoList" parameterType="java.util.List" resultType="hashmap">
+		SELECT c.pkid,to_char(c.sqsj, yyyy-mm-dd') AS sqsj,'申请修改车辆信息' AS xg FROM yw_jc_sqxgclxx c WHERE c.clzj = #{clzj}
+	</select>
+	
+	<select id="editJcffList" parameterType="java.util.List" resultType="hashmap">
+		SELECT c.pkid,to_char(c.sqsj, yyyy-mm-dd') AS sqsj,'申请修改车辆信息' AS xg FROM yw_jc_sqxgjcff c WHERE c.clzj = #{clzj}
+	</select>
+	
+	<select id="editKzjsList" parameterType="java.util.List" resultType="hashmap">
+		SELECT c.pkid,to_char(c.sqsj, yyyy-mm-dd') AS sqsj,'申请修改车辆信息' AS xg FROM yw_jc_sqfccljs c WHERE c.clzj = #{clzj}
+	</select>
+	
+	<select id="checkResult" parameterType="java.util.List" resultType="hashmap">
+		SELECT clxh,LCBDS,to_char(cldjrq, yyyy-mm-dd') AS djrq FROM jc_cl_cljbxx WHERE pkid = #{pkid}
+	</select>
+	
+</mapper>

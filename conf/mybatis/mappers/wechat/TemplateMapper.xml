@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 模板消息mapper -->
+<mapper namespace="com.kmzc.dao.wechat.TemplateMapper">    
+	
+	<select id="getTemplateList" parameterType="java.util.List" resultType="hashmap">
+		select template_id, title, primary_industry, deputy_industry, content,DATE_FORMAT(t.tbsj,'%Y-%m-%d %H:%i:%s') as tbsj 
+		 from wx_message_mbxx t 
+		<where>
+			<if test="title != null and title != ''">
+				and t.title like #{title}
+			</if>
+        	
+		</where>
+	</select>
+	
+	<select id="getTemplateById" parameterType="java.util.List" resultType="hashmap">
+		select cr.name as region,stationname,stationshortname,longitude,latitude,stationaddress from bas_checkstation t 
+		left join cod_region cr on t.region = cr.code
+		<where>
+        	<if test="pkid != null and pkid != ''">
+            	pkid = #{pkid}
+        	</if>
+		</where>
+	</select>
+	
+	<!-- 新增模板消息 -->
+	<insert id="saveTemplate">
+		insert into wx_message_mbxx(template_id, title, primary_industry, deputy_industry, content, example,tbsj) values
+		(#{template_id},#{title},#{primary_industry},#{deputy_industry},#{content},#{example},now())
+	</insert>
+	
+	
+	
+	<!-- 删除模板消息(从数据库删除) -->
+	<delete id="deleteTemplate">
+		delete from wx_user_ygzyh 
+		<where>
+			<if test="id != null and id != ''">
+            	and id = #{id}
+        	</if>
+        	<if test="template_id != null and template_id != ''">
+            	and template_id = #{template_id}
+        	</if>
+		</where>
+	</delete>
+	
+	
+	<!-- 插入已经发送的模板消息 -->
+	<insert id="saveYfsmbxx">
+		insert into wx_message_fsmbxx(mbid, openid, mblx, errcode, errmsg,msgid,yylsh,status,fssj) values
+		(#{mbid},#{openid},#{mblx},#{errcode},#{errmsg},#{msgid},#{yylsh},'0',now())
+	</insert>
+	
+	<update id="updateYfsmbxx" >
+		update wx_message_fsmbxx set status=#{status},statusinfo=#{statusinfo},wxfhsj=now() 
+		where status = '0' and openid=#{openid}
+	</update>
+</mapper>

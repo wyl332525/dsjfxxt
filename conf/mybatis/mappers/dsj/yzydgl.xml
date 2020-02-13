@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.dsj.yzydgl">
+	<select id="jczList" parameterType="java.util.List" resultType="hashmap">
+		SELECT jcz.pkid,qh.JC AS xzqh,jczjc,qyfr,ZCRQ,lx.jc AS jjlx,zt.JC AS jczzt,jczlx FROM jc_jcz_jczjbxx jcz LEFT JOIN dm_gy_xzqh qh ON qh.pkid = jcz.XZQH LEFT JOIN dm_gy_zt zt ON zt.PKID = jczzt LEFT JOIN dm_gy_jjlx lx ON lx.pkid = jcz.JJLX
+		<where>
+			<if test="xzqh!=null and xzqh!=''">
+				xzqh=#{xzqh}
+			</if>
+			<if test="pkid!=null and pkid!=''">
+				and jcz.pkid=#{pkid}
+			</if>
+			<if test="jjlx!=null and jjlx!=''">
+				and jjlx=#{jjlx}
+			</if>
+			<if test="jczlx!=null and jczlx!=''">
+				and jczlx=#{jczlx}
+			</if>
+			<if test="jczzt!=null and jczzt!=''">
+				and jczzt=#{jczzt}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryJczByXzqh" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,jczjc FROM jc_jcz_jczjbxx WHERE XZQH = #{XZQH}
+	</select>
+	
+	<select id="countJcjg" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) FROM yw_jc_sj_jcjgzb WHERE jcz=#{jcz}
+	</select>
+	
+	<update id="cancleJcz" parameterType="java.util.List">
+		UPDATE jc_jcz_jczjbxx SET jczzt='4' WHERE pkid = #{pkid}
+	</update>
+	
+	<select id="bzwzInfoList" parameterType="java.util.List" resultType="hashmap">
+		SELECT wz.pkid,lx.JC AS bzwzlx,wz.xhgg,wz.zzdw,wz.jddw,wz.jdzqy,wz.jdyxq,wz.zt FROM jc_jcz_bzwzjbxx wz LEFT JOIN dm_jc_bzwzlx lx ON lx.PKID = wz.bzwzlx WHERE wz.shzt = '审核通过'$[1] AND wz.bzwzlx = #{bzwzlx} 
+			<if test="bzwzlx!=null and bzwzlx!=''">
+				and wz.bzwzlx=#{bzwzlx}
+			</if>
+			<if test="jdyxq!=null and jdyxq!=''">
+				and wz.jdyxq <![CDATA[ >= ]]> DATE_FORMAT(#{jdyxq},'%Y-%m-%d')
+			</if>
+			<if test="jdyxq!=null and jdyxq!=''">
+				and wz.jdyxq <![CDATA[ < ]]> DATE_FORMAT(#{jdyxq},'%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="zt!=null and zt!=''">
+				and wz.zt=#{zt}
+			</if>
+			<if test="jczzj!=null and jczzj!=''">
+				and wz.jczzj=#{jczzj}
+			</if>
+	</select>
+	
+	<select id="countClzt" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) FROM jc_jcz_sqxgxx WHERE (clzt='0' OR clzt='1') AND xgb=#{xgb} AND xgbzj=#{xgbzj}
+	</select>
+	
+	<insert id="insertZxdxgjczxx" parameterType="java.util.List" >
+		INSERT INTO JC_JCZ_ZXDXGJCZXX(pkid,xgb,xgbzj,xgnr,xgr,xgsj) VALUES(#{pkid},#{xgb},#{xgbzj},#{xgnr},#{xgr},NOW())
+	</insert>
+	
+	<insert id="insertZxdxgjczxxjl" parameterType="java.util.List">
+		INSERT INTO jc_jcz_zxdxgjczxxjl(pkid,oldvalue,newvalue,zhvalue,zhcolumn,encolumn,columntype) VALUES(#{pkid},#{oldvalue},#{newvalue},#{zhvalue},#{zhcolumn},#{encolumn},#{columntype})
+	</insert>
+	
+	<select id="queryBzwzInfo" parameterType="java.util.List" resultType="hashmap">
+		SELECT lx.JC AS bzwzlx,xhgg,zzdw,jddw,jdzqy,jdyxq,bz FROM jc_jcz_bzwzjbxx bz LEFT JOIN dm_jc_bzwzlx lx ON lx.PKID = bz.bzwzlx WHERE bz.pkid=#{pkid}
+	</select>
+	
+	<update id="deleteBzwz" parameterType="java.util.List">
+		UPDATE jc_jcz_bzwzjbxx SET zt='已删除' WHERE pkid=#{pkid}
+	</update>
+	
+	<select id="queryXgxx" parameterType="java.util.List" resultType="hashmap">
+		SELECT yh.YHMC AS xgr,DATE_FORMAT(xgsj,'%Y-%m-%d') AS xgsj,xgnr FROM jc_jcz_zxdxgjczxx xx LEFT JOIN xt_yh yh ON yh.PKID = xx.xgr
+		<where>
+			<if test="xgb!=null and xgb!=''">
+				xgb=#{xgb}
+			</if>
+			<if test="xgbzj!=null and xgbzj!=''">
+				and xgbzj=#{xgbzj}
+			</if>
+			<if test="xgr!=null and xgr!=''">
+				and xgr=#{xgr}
+			</if>
+			<if test="strattime!=null and strattime!=''">
+				and xgsj <![CDATA[ >= ]]> STR_TO_DATE(#{strattime},'%Y-%m-%d')
+			</if>
+			<if test="endtime!=null and endtime!=''">
+				and xgsj <![CDATA[ <= ]]> STR_TO_DATE(#{endtime},'%Y-%m-%d %H:%i:%s')
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryNvrList" parameterType="java.util.List" resultType="hashmap">
+		SELECT nvr.PKID,pp.JC AS sbpp,nvrip,dlyhm,dlmm,dkh FROM jc_jcz_jcznvrxx nvr LEFT JOIN dm_jc_nvrpp pp ON pp.PKID = nvr.SBPP
+		<where>
+			<if test="ssjcz!=null and ssjcz!=''">
+				nvr.ssjcz=#{ssjcz}
+			</if>
+			<if test="SBPP!=null and SBPP!=''">
+				and nvr.SBPP=#{SBPP}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryNvrInfo" parameterType="java.util.List" resultType="hashmap">
+		SELECT pp.JC AS sbpp,nvrip,dlyhm,dlmm,dkh,nvr.bz FROM jc_jcz_jcznvrxx nvr LEFT JOIN dm_jc_nvrpp pp ON pp.PKID = nvr.SBPP WHERE nvr.pkid = #{pkid}
+	</select>
+	
+	<select id="jcxList" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,jcxmc AS jc FROM jc_jcz_jcxjbxx WHERE ssjcz=#{ssjcz}
+	</select>
+	
+	<select id="spsbList" parameterType="java.util.List" resultType="hashmap">
+		select sxj.pkid,sxj.ssjcz,jcx.jcxmc as ssjcx,sxjmc,case sxjlx when '1' then '前摄像头' when '2' then '中摄像头' when '3' then '后摄像头' when '4' then '发标点摄像头' when '5' then '站场摄像头' when '6' then '大厅摄像头' when '7' then '工位摄像头' when '8' then '移动摄像头' when '9' then '其他摄像头' end as sxjlx,case sxjzt when '0' then '录像中' when '1' then '正在使用，没录像' when '2' then '无法连接' end as sxjzt,sxjip,sxjyhm,sxjmm,sxjdkh,sxjtdh from jc_jcz_jcxsxjxx sxj left join jc_jcz_jcxjbxx jcx on jcx.pkid = sxj.ssjcx where sfqy='1' $[1] AND sxjmc like ? $[1]$[2] and ssjcx = ? $[2]$[3] and sxjlx = ? $[3]$[4] and sxjzt = ? $[4]$[5] AND sxj.ssjcz = ? $[5]$[6] AND sxj.ssjcx = ? $[6]
+			<if test="sxjmc!=null and sxjmc!=''">
+				and sxjmc like #{sxjmc}
+			</if>
+			<if test="ssjcx!=null and ssjcx!=''">
+				and ssjcx=#{ssjcx}
+			</if>
+			<if test="sxjlx!=null and sxjlx!=''">
+				and sxjlx=#{sxjlx}
+			</if>
+			<if test="sxjzt!=null and sxjzt!=''">
+				and sxjzt=#{sxjzt}
+			</if>
+			<if test="ssjcz!=null and ssjcz!=''">
+				and sxj.ssjcz=#{ssjcz}
+			</if>
+			<if test="ssjcx!=null and ssjcx!=''">
+				and sxj.ssjcx=#{ssjcx}
+			</if>
+	</select>
+	
+	<select id="nvrListSelect" parameterType="java.util.List" resultType="hashmap">
+		SELECT pkid,dlyhm AS jc FROM jc_jcz_jcznvrxx WHERE ssjcz=#{ssjcz}
+	</select>
+	
+	<select id="spsbInfo" parameterType="java.util.List" resultType="hashmap">
+		SELECT sxj.SXJMC,nvr.DLYHM AS ssnvr,jcx.JCXMC AS ssjcx,sxj.SXJIP,sxj.SXJDKH,sxj.SXJTDH,sxj.SXJYHM,sxj.SXJMM,CASE sxj.sxjlx WHEN '1' THEN '前摄像头' WHEN '2' THEN '中摄像头' WHEN '3' THEN '后摄像头' WHEN '4' THEN '发标点摄像头' WHEN '5' THEN '站场摄像头' WHEN '6' THEN '大厅摄像头' WHEN '7' THEN '工位摄像头' WHEN '8' THEN '移动摄像头' ELSE '其他摄像头' END AS sxjlx,CASE sxj.sxjzt WHEN '0' THEN '录像中' WHEN '1' THEN '正在使用,没录像' ELSE '无法连接' END AS sxjzt,sxj.bz FROM jc_jcz_jcxsxjxx sxj LEFT JOIN jc_jcz_jcznvrxx nvr ON nvr.PKID = sxj.SSNVR LEFT JOIN jc_jcz_jcxjbxx jcx ON jcx.PKID = sxj.ssjcx WHERE sxj.pkid=#{pkid}
+	</select>
+	
+	<update id="deleteSpsb" parameterType="java.util.List" >
+		update jc_jcz_jcxsxjxx set zhxgsj=now(),sfqy='0',zhxgrzh=#{zhxgrzh},zhxgrmc=#{zhxgrmc} where pkid=#{pkid}
+	</update>
+	
+	<delete id="deleteNvr" parameterType="java.util.List">
+		DELETE FROM jc_jcz_jcznvrxx WHERE pkid=#{pkid}
+	</delete>
+	
+	<select id="countSxj" parameterType="java.util.List" resultType="hashmap">
+		SELECT COUNT(*) FROM jc_jcz_jcxsxjxx WHERE ssnvr=#{ssnvr} AND ssjcz=#{ssjcz}
+	</select>
+	
+	<select id="jcxInfoList" parameterType="java.util.List" resultType="hashmap">
+		select jcx.PKID,jcx.jcxmc,lx.JC as xlx,date_format(jcx.SXRQ,'%Y-%m-%d') as sxrq,pp.JC as gkrjs,zt.JC as xzt,jcx.IP from jc_jcz_jcxjbxx jcx left join dm_jc_jcxlx lx on lx.PKID = jcx.JCXLX left join dm_jc_sbpp pp on pp.PKID = jcx.SBPP left join dm_gy_zt zt on zt.PKID = jcx.JCXZT WHERE jcx.shzt = '审核通过' 
+		<if test="JCXMC!=null and JCXMC!=''">
+			and jcx.JCXMC like #{JCXMC}
+		</if>
+		<if test="jcxlx!=null and jcxlx!=''">
+			and jcx.jcxlx = #{jcxlx} 
+		</if>
+		<if test="JCXZT!=null and JCXZT!=''">
+			and jcx.JCXZT = #{JCXZT}
+		</if>
+		<if test="ssjcz!=null and ssjcz!=''">
+			and jcx.ssjcz = #{ssjcz}
+		</if>
+	</select>
+	
+	<update id="cancleJcx" parameterType="java.util.List">
+		update jc_jcz_jcxjbxx set jcxzt = '4' where pkid = #{pkid}
+	</update>
+	
+	<select id="getJcff" parameterType="java.util.List" resultType="hashmap">
+		select pkid,qc from dm_jc_jcff where sfqy = '1'
+	</select>
+	
+	<select id="queryJcxInfo" parameterType="java.util.List" resultType="hashmap">
+		SELECT jcz.JCZJC AS ssjcz,jcx.JCXMC,lx.JC AS jcxlx,zt.JC AS jcxzt,pp.jc AS sbpp,xz.jc AS sbxz,DATE_FORMAT(jcx.SXRQ,'%Y-%m-%d') AS sxrq,jcx.IP,jcx.MAC,jcx.SBXH,jcx.SFQYPZJY,jcx.JCXBZ,jcx.XKYW,jcx.JDDW,jcx.jdzsbh,jcx.JDJG,DATE_FORMAT(jcx.JDRQ,'%Y-%m-%d') AS jdrq,DATE_FORMAT(jcx.jdyxqz,'%Y-%m-%d') AS jdyxqz,jcx.JDYQTS,jcx.JDBZ,jcx.jdzs FROM jc_jcz_jcxjbxx jcx LEFT JOIN dm_jc_jcxlx lx ON lx.PKID = jcx.JCXLX LEFT JOIN dm_gy_zt zt ON zt.PKID = jcx.JCXZT LEFT JOIN dm_jc_sbpp pp ON pp.pkid = jcx.SBPP LEFT JOIN dm_jc_sbxz xz ON xz.pkid = jcx.SBXZ LEFT JOIN jc_jcz_jczjbxx jcz ON jcz.PKID = jcx.SSJCZ WHERE jcx.PKID = #{pkid}
+	</select>
+	
+	<select id="queryJczjbxx" parameterType="java.util.List" resultType="hashmap">
+		select * from jc_jcz_jczjbxx where pkid = #{pkid}
+	</select>
+	
+	<select id="jczyhInfoList" parameterType="java.util.List" resultType="hashmap">
+		select yh.PKID as yhzh,yh.YHMC,group_concat(js.JSMC) as yhjs,zt.JC as yhzt from xt_yh yh left join xt_yhjs yhjs on yh.PKID = yhjs.YHZH left join xt_js js on js.PKID = yhjs.JSID left join dm_gy_zt zt on zt.PKID = yh.YHZT where yh.YHLX = '1' and yh.shzt = '审核通过' GROUP BY yh.pkid
+		<if test="pkid!=null and pkid!=''">
+			 and yh.PKID like #{pkid}
+		</if>
+		<if test="yhmc!=null and yhmc!=''">
+			and yh.YHMC like #{yhmc}
+		</if>
+		<if test="jsid!=null and jsid!=''">
+			 and yh.pkid in (select yhzh from xt_yhjs ys where ys.JSID = #{jsid})
+		</if>
+		<if test="yhzt!=null and yhzt!=''">
+			 and yh.YHZT = #{yhzt}
+		</if>
+		<if test="ssjg!=null and ssjg!=''">
+			 and yh.SSJG = #{ssjg}
+		</if>
+	</select>
+	
+</mapper>

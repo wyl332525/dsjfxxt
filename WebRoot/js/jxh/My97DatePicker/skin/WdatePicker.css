@@ -1,0 +1,15 @@
+.Wdate{
+	border:#00cffd 1px solid;
+	height:30px;
+	background:#092B52 url(select-bottom.png) no-repeat right;
+    color:#00cffd;
+    width:130px;
+    background-position: 95% center; 
+    padding-left: 5;
+}
+.Wdate::-ms-clear{display:none;}
+
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}

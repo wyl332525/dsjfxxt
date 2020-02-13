@@ -1,0 +1,816 @@
+/*雅虎css reset*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre, 
+form,fieldset,input,textarea,p,blockquote,th,td { 
+    padding: 0; 
+    margin: 0; 
+} 
+table { 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+} 
+fieldset,img { 
+    border: 0; 
+} 
+address,caption,cite,code,dfn,em,strong,th,var { 
+    font-weight: normal; 
+    font-style: normal; 
+} 
+ol,ul { 
+    list-style: none; 
+} 
+caption,th { 
+    text-align: left; 
+} 
+h1,h2,h3,h4,h5,h6 { 
+    font-weight: normal; 
+    font-size: 100%; 
+} 
+q:before,q:after { 
+    content:""; 
+} 
+abbr,acronym { 
+    border: 0; 
+}
+/*整体样式*/
+html{
+	width: 100%;
+	height: 100%;
+	background: url(../../img/jxh/beijing.jpg);
+	background-size: cover;
+	color: #f1f1f1;
+	min-width: 1280px;
+}
+body{
+	width: 100%;
+	height: 100%;
+}
+#header{
+	width: 100%;
+	height: 10%;
+}
+#main{
+	height: 90%;
+	
+}
+#mainLeft{
+	width: 24%;
+	height: 100%;
+	margin-right:1%;
+	margin-left:2%;
+	float: left;
+}
+#mainRight{
+	width: 25%;
+	height: 100%;
+	margin-right: 1%;
+	margin-left: 1%;
+	float: left;
+	
+}
+#mainMiddle{
+	width: 45%;
+	height: 100%;
+	float: left;
+}
+.style1{
+	background-color: #0B2345;
+}
+/*头部样式*/
+.logo{
+	display: block;
+	width: 50%;
+    height: 80%;
+    margin: 0px auto;
+	background:url(../../img/jxh/logo_yzyd.png);
+	background-size:cover ;
+	margin-top:10px;
+}
+#mainLeftTop{
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;    
+}
+#mainLeftBottom{
+	margin-top:10px;
+	height: 48%;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;    
+}
+#mainRightTop{
+	height: 30%;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;    
+}
+#mainRightMiddle{
+	margin-top:10px;
+	height: 30%;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;    
+}
+#mainRightBottom{
+	margin-top:10px;
+	height: 30%;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;    
+}
+/*主体左侧样式*/
+.title{
+	height: 2.7rem;
+    line-height: 2.7rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    background-size: 23.7rem 2.6rem;
+    padding-left: 1rem;
+    
+}
+#textSum{
+	width: 100%;
+	height: 6rem;
+}
+.textSumDiv{
+	width: 30%;
+	height: 49%;
+	border: 1px solid #16273c;
+	margin-left: 4%;
+	float: left;
+	text-align: center;line-height: 3rem;
+}
+.textSumDiv1{
+	background-color: #AF6433;
+	font-size: 1.2rem;
+}
+.textSumDiv2{
+	margin-left:0;
+	background-color: #0E6FB4;
+	font-size: 1.2rem;
+}
+.textSumDiv5{
+	margin-left:0;
+	background-color: #40C67E;
+	font-size: 1.2rem;
+}
+.textSumDiv3{
+	background-color: #EA8746;
+	font-size: 2rem;
+}
+.textSumDiv4{
+	margin-left:0;
+	background-color: #1B9FFC;
+	font-size: 2rem;
+}
+.textSumDiv6{
+	margin-left:0;
+	background-color: #1CFA86;
+	font-size: 2rem;
+}
+#yield{
+	
+	height: 11.5rem;
+	width: 96%;
+	padding-top: 1rem;
+	margin-left:3%;
+}
+#yieldTable{
+	width: 100%;
+	border: none;
+}
+#yieldTable td{
+	padding: 1%;
+	padding-left: 3%;
+	color: #39B2C4;
+	border: none;
+	font-size: 1.0rem;
+}
+#yieldTable tr td:first-child{
+	color: #f1f1f1;
+}
+#textMessage{
+	height: 22rem;
+	margin-left:0.5%;
+	width: 100%;
+}
+#textMessageTable{
+	width: 99%;
+	border: none;
+	table-layout:fixed;
+}
+#textMessageTable tr{
+	border: 1px solid #2A87B9;
+}
+#textMessageTable td{
+	padding: 1%;
+	padding-left: 3%;
+	color: #f1f1f1;
+	border: none;
+	font-size: 1rem;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	word-wrap:break-word;
+}
+/*主体中部样式*/
+#chart3{
+	width: 100%;
+	height: 27rem;
+	display: inline-block;
+	border: 2px solid #00FFFF;
+    -moz-border-radius: 15px; 
+    -webkit-border-radius: 15px; 
+    border-radius:15px;
+}
+#chart3C{
+	width: 50rem;
+	height: 22rem;
+	display: inline-block;
+	
+}
+#chart3zhou{
+	float:left;
+	width: 50rem;
+	positive:relative;
+	height: 5rem;
+	display: inline-block;
+}
+
+#mainMessage{
+	height: 20rem;
+	overflow-y: hidden;
+	width: 100%;
+	
+}
+#ycydMainMessage{
+	margin-top:1%;
+	height: 19rem;
+	overflow-y: hidden;
+	width: 100%;
+	border: 2px solid #00FFFF;
+    border-radius: 15px; 
+}
+#ycMessage{
+	height: 16rem;
+	width: 100%;
+}
+#ycMessageTable{
+	width: 100%;
+	border: none;
+	table-layout:fixed;
+}
+#ycMessageTable tr{
+	border: 1px solid #2A87B9;
+}
+#ycMessageTable td{
+	padding: 0.5%;
+	padding-left: 3%;
+	color: #f1f1f1;
+	border: none;
+	font-size: 0.8rem;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	word-wrap:break-word;
+	text-align:center;
+}
+#mleft1{
+	margin-top:1%;
+	margin-left:1%;
+	height: 19rem;
+	overflow-y: hidden;
+	width: 48%;
+	float:left;
+	border: 2px solid #00FFFF;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px;
+}
+#mleft2{
+	margin-top:1%;
+	margin-left:1%;
+	height: 19rem;
+	float:left;
+	width: 48%;
+	position:relative;
+	border: 2px solid #00FFFF;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px;
+}
+#mlefttop1{
+	width: 100%;
+	margin-left:3px;
+	border: 1px solid #00FFFF;
+    height: 2.7rem;
+    line-height: 2.7rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    text-align:center;
+}
+#mlefttop2{
+	width: 100%;
+	margin-left:3px;
+	border: 1px solid #00FFFF;
+    height: 2.7rem;
+    line-height: 2.7rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    text-align:center;
+}
+#mainMessageTable{
+	width: 100%;
+	border: none;
+	table-layout:fixed;
+}
+#mainMessageTable tr{
+	border: 1px solid #2A87B9;
+}
+#mainMessageTable td{
+	padding: 0.3%;
+	text-align: center;
+	color: #FFFFFF;
+	opacity: 0.8;
+	border: none;
+	font-size: 1.2rem;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	
+}
+#mainMessageTable .opaque td{
+	opacity: 1;
+}
+.barstyle{
+	position: absolute;
+	left: -0.3rem!important;
+}
+/*主体右侧样式*/
+.title2{
+	height: 2.7rem;
+    line-height: 2.7rem;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    background-size: 27.4rem 2.6rem;
+    padding-left: 2rem;
+}
+#chartx{
+	width: 29rem;
+	height: 20rem;
+	display: inline-block;
+}
+#yzydChartUp{
+	width: 29rem;
+	height: 14rem;
+	display: inline-block;
+}
+#yzydChartMiddle{
+	width: 29rem;
+	height: 14rem;
+	display: inline-block;
+}
+#yzydChartBottom{
+	width: 29rem;
+	height: 14rem;
+	display: inline-block;
+}
+#chart1{
+	width: 9rem;
+	height: 10rem;
+	float: left;
+	display: inline-block;
+}
+#chart15{
+	width: 9rem;
+	height: 10rem;
+	float: left;
+	display: inline-block;
+}
+#chart16{
+	width: 9rem;
+	height: 10rem;
+	float: left;
+	display: inline-block;
+}
+#chart17{
+	width: 9rem;
+	height: 10rem;
+	float: left;
+	display: inline-block;
+}
+#chart18{
+	width: 9rem;
+	height: 10rem;
+	float: left;
+	display: inline-block;
+}
+#chart19{
+	width: 9rem;
+	height: 10rem;
+	float: left;
+	display: inline-block;
+}
+#chart2{
+	margin-left:1%;
+	width: 95%;
+	height: 18rem;
+	display: inline-block;
+}
+#alarmMessage{
+	height: 10.5rem;
+	width: 100%;
+	padding-top: 1rem;
+}
+#alarmMessageTable{
+	width: 100%;
+	border: none;
+	table-layout:fixed;
+}
+#alarmMessageTable tr{
+	border: 1px solid #2A87B9;
+}
+#alarmMessageTable td{
+	padding: 0.5%;
+	padding-left: 3%;
+	color: #FFFFFF;
+	opacity: 0.7;
+	border: none;
+	font-size: 1.2rem;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+#alarmMessageTable .opaque td{
+	opacity: 1;
+}
+/*滑动插件样式*/
+.power-ranger{
+	opacity: 1!important;
+	width: 90%;
+}
+.power-ranger .range-min,.power-ranger .range-max{
+	display: none;
+}
+.power-ranger .range-handle{
+	height: 9px;
+	top: -3px;
+	width: 10px;
+	background-color: yellow;
+	box-shadow: 0px 0px 3px yellow;
+}
+.power-ranger .range-bar{
+	border: 1px solid;
+	width: 93%;
+	background-color: inherit;
+}
+.power-ranger .range-quantity{
+	background-color: #1BFCBF;
+}
+
+.power-ranger2{
+	opacity: 1!important;
+	width: 60%;
+	float: left;
+	top: 6px;
+}
+.fstNub{
+	font-size: 0.9rem;
+	float: left;
+	margin-left: 0.3rem;
+	color: #1B9ffc;
+}
+.power-ranger2 .range-min,.power-ranger2 .range-max{
+	display: none;
+}
+.power-ranger2 .range-handle{
+	height: 8px;
+	top: -2px;
+	width: 8px;
+	background-color: #4deefd;
+	box-shadow: 0px 0px 3px #4deefd;
+}
+.power-ranger2 .range-bar{
+	border: 1px solid;
+	width: 93%;
+	background-color: inherit;
+}
+.power-ranger2 .range-quantity{
+	background-color: #1B9ffc;
+}
+
+.power-ranger3{
+	opacity: 1!important;
+	width: 60%;
+	float: left;
+	top: 6px;
+}
+.secNub{
+	font-size: 0.9rem;
+	float: left;
+	margin-left: 0.3rem;
+	color: #16c8d3;
+}
+.power-ranger3 .range-min,.power-ranger3 .range-max{
+	display: none;
+}
+.power-ranger3 .range-handle{
+	height: 8px;
+	top: -2px;
+	width: 8px;
+	background-color: #c7ffb3;
+	box-shadow: 0px 0px 3px #c7ffb3;
+}
+.power-ranger3 .range-bar{
+	border: 1px solid;
+	width: 93%;
+	background-color: inherit;
+}
+.power-ranger3 .range-quantity{
+	background-color: #16c8d3;
+}
+
+.power-ranger4{
+	opacity: 1!important;
+	width: 60%;
+	float: left;
+	top: 6px;
+}
+.morNub{
+	font-size: 0.9rem;
+	float: left;
+	margin-left: 0.3rem;
+	color: #de9124;
+}
+.power-ranger4 .range-min,.power-ranger4 .range-max{
+	display: none;
+}
+.power-ranger4 .range-handle{
+	height: 8px;
+	top: -2px;
+	width: 8px;
+	background-color: #fffbce;
+	box-shadow: 0px 0px 3px #fffbce;
+}
+.power-ranger4 .range-bar{
+	border: 1px solid;
+	width: 93%;
+	background-color: inherit;
+}
+.power-ranger4 .range-quantity{
+	background-color: #de9124;
+}
+
+#timeline{
+	position: relative;
+	margin: 0 auto;
+    top: 0rem;
+    height: 4.8rem;
+    width: 33rem;
+    background: url(../../img/jxh/shijianzhou.png) no-repeat;
+	background-size: 33.7rem 4.9rem;
+	border-radius: 0.5rem;
+}
+#line1{
+	position: absolute;
+    width: 21rem;
+    top: 2.4rem;
+    left: 3.6rem;
+    border: 1px solid #1f87ca;
+}
+#butleft{
+	position: absolute;
+    top: 1.4rem;
+    left: 0.3rem;
+    width: 1.5rem;
+    height: 2rem;
+    background: url(../../img/jxh/zuojiantou.png) no-repeat;
+    background-size: 1.5rem 2rem;
+}
+#butright{
+	position: absolute;
+    top: 1.4rem;
+    left: 27rem;
+    width: 1.5rem;
+    height: 2rem;
+    background: url(../../img/jxh/youjiantou.png) no-repeat;
+    background-size: 1.5rem 2rem;
+}
+#ztbut{
+	position: absolute;
+    top: 0.9rem;
+    left: 29rem;
+    width: 3rem;
+    height: 3rem;
+    background: url(../../img/jxh/zanting.png) no-repeat;
+    background-size: 3rem 3rem;
+}
+#bfbut{
+	position: absolute;
+    top: 0.9rem;
+    left: 28rem;
+    width: 3rem;
+    height: 3rem;
+    background: url(../../img/jxh/action.png) no-repeat;
+    background-size: 3rem 3rem;
+}
+
+
+#time1,#time2,#time3,#time4,#time5{
+	position: absolute;
+    height: 3.7rem;
+    width: 1.4rem;
+
+}
+#time1{
+    left: 2.6rem;
+    top: 0.5rem;
+}
+#time2{
+    left: 7.85rem;
+    top: 0.5rem;
+}
+#time3{
+    left: 13.1rem;
+    top: 0.5rem;
+}
+#time4{
+    left: 18.35rem;
+    top: 0.5rem;
+}
+#time5{
+    left: 23.6rem;
+    top: 0.5rem;
+}
+.timelinePoint1Out,.timelinePoint2Out,.timelinePoint3Out,.timelinePoint4Out,.timelinePoint5Out{
+	position: absolute;
+    top: 1.4rem;
+    left: 0.7rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 1.1rem;
+   /* background-color: #4ef0ff;*/
+}
+.timelinePoint1,.timelinePoint2,.timelinePoint3,.timelinePoint4,.timelinePoint5{
+	position: absolute;
+    top: 0.3rem;
+    left: 0.3rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #1f87cf;
+}
+
+.timePk .checkPoint{
+	position: absolute;
+	top: 0.2rem;
+	left: 0.25rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 0.7rem;
+    background-color: #4ef0ff;
+}
+.timePk .checkPointOut{
+	background-color: #4490AD;
+}
+.timePk .checkPointNub{
+	color: #4ef0ff!important;
+}
+.timelineNub1,.timelineNub2,.timelineNub3,.timelineNub4,.timelineNub5{
+	width: 4rem;
+	height: 1.2rem;
+	position: absolute;
+	top: 2.7rem;
+    left: -0.65rem;
+    color: #1f87cf;
+}
+.chart1td1{
+	width:200px;
+	height:50px;
+	background:#FFF;
+	z-Index:1000000;
+}
+#mleftmiddle1{
+	width: 100%;
+	margin-left:3px;
+    height: 3.7rem;
+    line-height: 2.7rem;
+    top:3.5rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    text-align:center;
+}
+#mleftmiddle2{
+	width: 100%;
+	margin-left:3px;
+    height: 3.7rem;
+    line-height: 2.7rem;
+    top:3.5rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    text-align:center;
+}
+#mleftbottom1{
+	width: 100%;
+	margin-left:3px;
+    height: 10.7rem;
+    top:8rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    text-align:center;
+}
+#mleftbottom2{
+	width: 100%;
+	margin-left:3px;
+    height: 10.7rem;
+    top:8rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    text-align:center;
+}
+#leftTable{
+	width:100%;
+}
+#leftTable th{
+	padding: 1%;
+	padding-left:5%;
+	width:25%;
+	color: #00FFFF;
+	border: none;
+	font-size: 1.0rem;
+	text-align:center;
+}
+#leftTable td{
+	padding: 1%;
+	padding-left:5%;
+	width:25%;
+	color: #00FFFF;
+	border: none;
+	font-size: 1.0rem;
+}
+#rightTable{
+	width:100%;
+}
+
+#rightTable td{
+	padding: 1%;
+	padding-left:5%;
+	color: #00FFFF;
+	border: none;
+	font-size: 1.0rem;
+}
+#number1{
+	width: 65%;
+	margin-left:5px;
+    height: 3.7rem;
+    line-height: 2.7rem;
+    margin-top:3%;
+    font-size: 1.3rem;
+    margin:0 auto;
+}
+#number2{
+	width: 65%;
+	margin-left:5px;
+    height: 3.7rem;
+    line-height: 2.7rem;
+    margin-top:3%;
+    font-size: 1.3rem;
+    margin:0 auto;
+}
+#carnum{
+	margin-top:2%;
+	margin-left:1%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	font-size: 1.3rem;
+	color:#00FFFF;
+	position:relative;
+	float:left;
+	width: 2rem;
+	border: 1px solid #00FFFF;
+	border-radius: 0.5rem;
+}
+
+.ywxtBg{
+	float:right;
+	margin-right:-35%;
+	margin-top:5%;
+	background-image:url(../../img/jxh/ywxtBg.png);
+	background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-size:1.3rem;
+    font-family:myFirstFont1;
+    font-style:normal;
+    color:#59FFFF;
+    text-align:center;
+    line-height:2.5rem;
+    width:9rem;
+    height:2.5rem;
+    cursor: pointer;
+}
+
+.ywxtBg:hover{
+	background-color:#014195;
+	color:#FFF;
+}

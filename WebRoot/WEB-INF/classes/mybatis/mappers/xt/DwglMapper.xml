@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.xt.DwglMapper">
+	<!-- 单位管理列表 -->
+	<select id="dwList" resultType="map">
+		SELECT dw.pkid,dwmc,qh.JC AS ssqy,
+		CASE jglx WHEN '1' THEN '机动车处室' WHEN '2' THEN '参公管理' WHEN '3' THEN '事业管理' ELSE '其他' END AS jglx,
+		clrq,fzr
+		FROM xt_yhdw dw LEFT JOIN dm_gy_xzqh qh ON qh.PKID = dw.ssqh
+		<where>
+			1=1
+			<if test="dwmc!=null and dwmc!=''">
+				and dw.dwmc like #{dwmc}
+			</if>
+			<if test="ssqh!=null and ssqh!=''">
+				and ssqh =#{ssqh}
+			</if>
+
+			<if test="jglx!=null and jglx!=''">
+				and jglx =#{jglx}
+			</if>
+
+		</where>
+		<trim prefix="order by" prefixOverrides="">
+			<if test="orderBy!=null">
+				${orderBy}
+			</if>
+		</trim>
+	</select>
+
+	<!-- #查询单位信息 -->
+	<select id="dwInfo" resultType="map">
+		SELECT dw.dwmc,qh.JC AS ssqh,CASE
+		dw.jglx WHEN '1' THEN '机动车处室' WHEN '2' THEN '参公管理' WHEN '3' THEN
+		'事业管理' ELSE '其他' END AS jglx,
+		w.dwmc as
+		sjdw,dw.fzr,dw.lxr,dw.bzsl,dw.sjrs,dw.clrq,dw.lxdh,dw.cz,dw.yx,dw.yzbm,dw.dwdz,dw.bz
+		FROM xt_yhdw dw LEFT JOIN dm_gy_xzqh qh ON qh.PKID = dw.ssqh LEFT JOIN
+		xt_yhdw w ON w.pkid = dw.sjdw
+		WHERE dw.pkid=#{pkid}
+	</select>
+
+
+	<!-- #添加单位 -->
+	<insert id="addDw">
+		INSERT INTO 
+		xt_yhdw(pkid,dwmc,ssqh,jglx,sjdw,fzr,lxr,bzsl,sjrs,clrq,lxdh,cz,yx,yzbm,dwdz,bz)
+		VALUES(#{pkid},#{dwmc},#{ssqh},#{jglx},#{sjdw},#{fzr},#{lxr},
+		${bzsl},${sjrs},${clrq},#{lxdh},#{cz},#{yx},#{yzbm},#{dwdz},#{bz})
+	</insert>
+	<!-- 修改单位 -->
+	<update id="editInfo">
+		update xt_yhdw set dwmc=#{dwmc},
+		<if test="ssqh !=null and ssqh!='' ">
+		ssqh=#{ssqh},
+		</if>
+		<if test="jglx!=null and jglx!=''">
+		jglx=#{jglx},
+		</if>
+		<if test="sjdw!=null and sjdw!=''">
+		sjdw=#{sjdw},
+		</if>
+		fzr=#{fzr},
+		lxr=#{lxr},bzsl=${bzsl},sjrs=${sjrs},clrq=${clrq},lxdh=#{lxdh},cz=#{cz},yx=#{yx},
+		yzbm=#{yzbm},dwdz=#{dwdz},bz=#{bz}
+		where pkid=#{pkid}
+	</update>
+
+	<!-- 删除单位 -->
+	<delete id="delDw">
+		DELETE FROM xt_yhdw WHERE pkid = #{pkid}
+	</delete>
+	<!-- 查询行政区划列表 -->
+	<select id="xzqhSelect" resultType="map">
+		SELECT pkid,jc FROM dm_gy_xzqh
+	</select>
+
+	<!-- 查询已选择行政区划列表 -->
+	<select id="yxxzqhSelect" resultType="map">
+		SELECT pkid,jc FROM dm_gy_xzqh xz LEFT JOIN xt_glqhyxzqh xt ON xt.xzqh =
+		xz.PKID WHERE xt.glqh = #{glqh}
+	</select>
+
+	<!-- 删除已选行政区划列表 -->
+	<delete id="delYxxzqh">
+		DELETE FROM xt_glqhyxzqh WHERE glqh = #{glqh}
+	</delete>
+
+	<!-- 插入已选择的行政区划列表 -->
+	<insert id="insYxxzqh">
+		INSERT INTO xt_glqhyxzqh(glqh,xzqh) VALUES(#{glqh},#{xzqh})
+	</insert>
+
+	<!-- 插入已选择的行政区划列表 -->
+	<select id="queryYxxxqh" resultType="map">
+		select  xzqh from xt_glqhyxzqh where glqh=#{glqh}
+	</select>
+	<!-- #查询登录日志 -->
+	<select id="selectRzgl" resultType="map">
+		SELECT dw.dwmc as SSJG,t.`DLDNIP`,t.`dlzh`,t.`dlmc`,DATE_FORMAT(t.dlsj,'%Y-%m-%d %H:%i:%s') dlsj ,
+		DATE_FORMAT(t.tcsj,'%Y-%m-%d %H:%i:%s') tcsj  ,t.`tcfs` 
+		FROM  xt_rz_yhdltc t  LEFT JOIN xt_yhdw dw ON dw.`pkid`=t.`SSJG`  
+		<where>
+			(t.`YHLX` ='2' OR t.`YHLX`='3')
+			<if test="dlmc!=null and dlmc!=''">
+				and t.dlmc like '%${dlmc}%'
+			</if>
+			<if test="dlzh!=null and dlzh!=''">
+				and t.dlzh like '%${dlzh}%'
+			</if>
+			<if test="ssjg !=null and ssjg!=''">
+			and t.ssjg=#{ssjg}
+			</if>
+			<if test="dlsjq!=null and dlsjq!=''">
+				and DATE_FORMAT(t.dlsj, '%Y-%m-%d')>=#{dlsjq}
+			</if>
+			<if test="dlsjz!=null and dlsjz!=''">
+				and DATE_FORMAT(t.dlsj, '%Y-%m-%d') &lt;=#{dlsjz}
+			</if>
+			<if test="dldnip!=null and dldnip!=''">
+				and t.dldnip like '%${dldnip}%'
+			</if>
+		</where>
+	</select>
+	<!-- 查询所有的单位用于搜索条件 -->
+	<select id="selectDw" resultType="map">
+		select pkid , dwmc from xt_yhdw
+	</select>
+	
+	<!-- #查询账号被锁情况 -->
+	<select id="selectYhdlJs" resultType="map">
+		select t.pkid,t.yhmc,IFNULL(dw.dwmc,jcz.JCZJC) AS
+		ssjg,DATE_FORMAT(t.ZHYCDLSJ,'%Y-%m-%d %H:%i:%s') as zhycdlsj
+		from xt_yh t LEFT JOIN xt_yhdw dw ON dw.`pkid`=t.`SSJG` LEFT JOIN
+		jc_jcz_jczjbxx jcz ON jcz.`PKID`=t.`SSJG`
+		<where>
+			1=1
+			<if test="yhlx!=null and yhlx!=''">
+				and t.yhlx=#{yhlx}
+			</if>
+			<if test="dllxsbcs!=null and dllxsbcs!=''">
+				and t.DLLXSBCS>=${dllxsbcs}
+			</if>
+		</where>
+	</select>
+
+	<!-- #解锁该账号 -->
+	<update id="updateYHSd">
+		update xt_yh t set t.DLLXSBCS=0 where t.pkid=#{pkid}
+	</update>
+
+	<!-- #获取操作日志 -->
+	<select id="selectCzSql" resultType="map">
+		SELECT t.pkid,IFNULL(yh.`YHMC`,t.`CZRZH`) AS czrzh,
+		DATE_FORMAT(t.CZSJ,'%Y-%m-%d %H:%i:%s') as czsj,czyj,CASE WHEN yjcs IS NULL THEN '' END AS yjcs
+		FROM xt_rz_czsjkrz t LEFT JOIN xt_yh yh ON yh.`PKID`=t.`CZRZH`
+		<where>
+			1=1
+			<if test="czsjq!=null and czsjq!=''">
+				and t.czsj>=str_to_date('${czsjq}','%Y-%m-%d')
+			</if>
+			<if test="czsjz!=null and czsjz!=''">
+				and t.czsj &lt;=str_to_date('${czsjz}','%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="czyj!=null and czyj!='' ">
+				and t.czyj like #{czyj}
+			</if>
+		</where>
+	</select>
+
+	<!--#查询设备故障及维修信息列表 -->
+	<select id="gzList" resultType="map">
+		SELECT gz.pkid,jcz.jczjc jczmc,jcx.jcxmc,lx.JC AS sblx,pp.JC AS
+		sbpp,DATE_FORMAT(gz.whsj,'%Y-%m-%d %H:%i:%s') AS whsj
+		FROM jc_jcz_jcsbgzxx gz LEFT JOIN jc_jcz_jczjbxx jcz ON gz.ssjcz =jcz.PKID
+		LEFT JOIN jc_jcz_jcxjbxx jcx ON gz.ssjcx = jcx.PKID 
+		LEFT JOIN dm_jc_sblx lx ON gz.sblx = lx.PKID
+		LEFT JOIN dm_jc_sbpp pp ON gz.sbpp = pp.PKID
+		<where>
+			gz.sfsc = '0'
+			<if test="ssjcz!=null and ssjcz!=''">
+				gz.ssjcz =#{ssjcz}
+			</if>
+			<if test="ssjcx!=null and ssjcx!=''">
+				gz.ssjcx =#{ssjcx}
+			</if>
+			<if test="sblx!=null and sblx!=''">
+				gz.sblx =#{sblx}
+			</if>
+			<if test="sbpp!=null and sbpp!=''">
+				gz.sbpp =#{sbpp}
+			</if>
+			<if test="whsjq!=null and whsjq!=''">
+				gz.whsj >= STR_TO_DATE(#{whsjq}, '%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="whsjz!=null and whsjz!=''">
+				gz.whsj &lt;= STR_TO_DATE(#{whsjz}, '%Y-%m-%d %H:%i:%s')
+			</if>
+
+		</where>
+	</select>
+
+	<!-- 查询设备故障及维护信息 -->
+	<select id="gzInfo" resultType="map">
+		SELECT jcz.JCZMC,jcx.JCXMC,lx.JC AS sblx,pp.JC AS
+		sbpp,gz.nr,gz.yy,gz.jjbf,gz.jg,
+		DATE_FORMAT(gz.whsj,'%Y-%m-%d %H:%i:%s') whsj,gz.whrmc,gz.zhxgrmc,DATE_FORMAT(gz.zhxgsh,'%Y-%m-%d %H:%i:%s') as zhxgsh
+		FROM jc_jcz_jcsbgzxx gz LEFT JOIN jc_jcz_jczjbxx jcz ON gz.ssjcz =jcz.PKID
+		LEFT JOIN jc_jcz_jcxjbxx jcx ON gz.ssjcx = jcx.PKID LEFT JOIN dm_jc_sblx lx ON gz.sblx = lx.PKID
+		LEFT JOIN dm_jc_sbpp pp ON gz.sbpp = pp.PKID
+		<where>
+			gz.sfsc = '0'
+			<if test="pkid!=null and pkid!=''">
+				and gz.pkid=#{pkid}
+			</if>
+		</where>
+	</select>
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.MyAppointmentMapper">
+
+	<select id="getwdyy" parameterType="java.util.List" resultType="hashmap">
+		select t.id,t.yylsh,t.cphm,t.yyrq,t.yyzt,a.stationshortname,t.sjhm,t.yysj from
+		wx_yy_jcyy t
+		left join bas_checkstation a on t.jczbh=a.pkid
+		<where>
+			<if test="id != null and openid != ''">
+				and t.openid = #{id} and (t.yyzt='3' or t.yyzt='0')
+			</if>
+		</where>
+	</select>
+
+	<select id="getwdyyxx" parameterType="java.util.List"
+		resultType="hashmap">
+		select openid,
+		t.cphm,t.yyrq,t.yyzt,a.stationshortname,a.stationname,t.vin,t.czxm,t.clpp,t.sjhm,t.yysj,t.yybh
+		from wx_yy_jcyy t left join bas_checkstation a on t.jczbh=a.pkid
+		<where>
+			<if test="yylsh != null and yylsh != ''">
+				and t.yylsh = #{yylsh}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getwdyyxxByid" parameterType="java.util.List"
+		resultType="hashmap">
+		select
+		t.cphm,t.yyrq,t.yyzt,a.stationshortname,t.vin,t.czxm,t.clpp,t.sjhm,t.yysj,t.yybh 
+		from wx_yy_jcyy t left join bas_checkstation a on t.jczbh=a.pkid
+		<where>
+			<if test="yyid != null and yyid != ''">
+				and t.id = #{yyid}
+			</if>
+		</where>
+	</select>
+	
+	<update id="wcyy">
+		update wx_yy_jcyy t set t.yyzt=#{yyzt},t.cgyysj=now() where t.yylsh =
+		#{yylsh}
+	</update>
+
+	<update id="qxyy">
+		update wx_yy_jcyy t set t.yyzt=#{yyzt} where t.yylsh =
+		#{yylsh}
+	</update>
+</mapper>

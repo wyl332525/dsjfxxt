@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.wechat.twglMapper">    
+	
+<select id="getdtw" parameterType="java.util.List" resultType="hashmap">
+		select t.id,t.Title,t.Description,t.PicUrl,t.Url,t.crecateTime,a.yhmc from wx_wechat_ArticleManage t left join xt_yh a on t.userid=a.pkid
+		<where>
+			<if test="title != null and title != ''">
+				and t.title like #{title} 
+			</if>
+			<if test="id != null and id != ''">
+				and t.id like #{id} 
+			</if>
+		</where>
+	</select> 
+	
+	<insert id="setdtw">
+		insert into wx_wechat_ArticleManage(Title,Description,PicUrl,Url,Userid,crecateTime)
+		 values(#{title},#{description},#{picurl},#{url},#{userid},now())
+	</insert>
+	
+	<update id="updatedtw">
+		update wx_wechat_ArticleManage set Title=#{title},Description=#{description},PicUrl=#{picurl},Url=#{url}
+		 where id=#{id}
+	</update>
+	
+	<delete id="deletedtw">
+		delete from wx_wechat_ArticleManage where id=#{id}
+	</delete>
+	
+</mapper>

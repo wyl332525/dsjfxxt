@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.xx.XxMapper">
+	<!-- 信息阅读列表 -->
+	<select id="datagrid" resultType="map">
+		SELECT zb.pkid,zb.xxid,zb.xxbt,zb.xxnr,zb.sfyfj,zb.sfxyhf,zb.hfsm,
+		DATE_FORMAT(zb.ydsj,'%Y-%m-%d %H:%i:%s') AS
+		ydsj,zb.czym,zb.ywid,zb.bz,lb.jc AS xxlb,
+		zb.fsrmc,DATE_FORMAT(zb.fssj,'%Y-%m-%d %H:%i:%s') AS
+		fssj,zb.ydqk,sq.clzt,sq.clr
+		FROM xx_xxjszb zb LEFT JOIN dm_xx_xxlb lb ON zb.xxlb=lb.pkid
+		LEFT JOIN jc_jcz_sqxgxx sq ON zb.ywid=sq.pkid
+		<where>
+			1=1
+			<if test="userId!=null and userId!=''">
+				and zb.jszzh= #{userId}
+			</if>
+			<if test="xxbt!=null and xxbt!=''">
+				and xxbt like #{xxbt}
+			</if>
+			<if test="xxnr!=null and xxnr!=''">
+				and xxnr like #{xxnr}
+			</if>
+			<if test="xxlb!=null and xxlb!=''">
+				and xxlb = #{xxlb}
+			</if>
+			<if test="fjqk!=null and fjqk!=''">
+				and sfyfj = #{fjqk}
+			</if>
+			<if test="hfqk!=null and hfqk!=''">
+				and sfxyhf = #{hfqk}
+			</if>
+			<if test="ydqk!=null and ydqk!=''">
+				and ydqk = #{ydqk}
+			</if>
+			<if test="rqq!=null and rqq!='' ">
+				and fssj >=STR_TO_DATE(#{rqq},'%Y-%m-%d')
+			</if>
+			<if test="rqz!=null and rqz!=''">
+				and STR_TO_DATE(#{rqz},'%Y-%m-%d %H:%i:%s')>=fssj
+			</if>
+			<if test="ydrqq!=null and ydrqq !='' ">
+				and ydsj >=STR_TO_DATE(#{ydrqq},'%Y-%m-%d')
+			</if>
+			<if test="ydrqz!=null and ydrqz!='' ">
+				and STR_TO_DATE(#{ydrqz},'%Y-%m-%d %H:%i:%s')>=ydsj
+			</if>
+		</where>
+		<trim prefix="order by" prefixOverrides="">
+			<if test="orderBy!=null">
+				${orderBy}
+			</if>
+		</trim>
+	</select>
+
+	<!-- #信息清理页面用到的语句 -->
+	<select id="xxqlCountXnum" resultType="map">
+		select count(*) as zs,sum(case when ydqk='未阅读' then 1 else 0 end) as
+		wyd from xx_xxjszb
+		<where>
+			1=1
+			<if test="userId!=null and userId!=''">
+				and jszzh= #{userId}
+			</if>
+			<if test="xxbt!=null and xxbt!=''">
+				and xxbt like #{xxbt}
+			</if>
+			<if test="xxnr!=null and xxnr!=''">
+				and xxnr like #{xxnr}
+			</if>
+			<if test="xxlb!=null and xxlb!=''">
+				and xxlb = #{xxlb}
+			</if>
+			<if test="fjqk!=null and fjqk!=''">
+				and sfyfj = #{fjqk}
+			</if>
+			<if test="hfqk!=null and hfqk!=''">
+				and sfxyhf = #{hfqk}
+			</if>
+			<if test="ydqk!=null and ydqk!=''">
+				and ydqk = #{ydqk}
+			</if>
+			<if test="rqq!=null and rqq!='' ">
+				and fssj >=STR_TO_DATE(#{rqq},'%Y-%m-%d')
+			</if>
+			<if test="rqz!=null and rqz!=''">
+				and STR_TO_DATE(#{rqz},'%Y-%m-%d %H:%i:%s')>=fssj
+			</if>
+			<if test="ydrqq!=null and ydrqq !='' ">
+				and ydsj >=STR_TO_DATE(#{ydrqq},'%Y-%m-%d')
+			</if>
+			<if test="ydrqz!=null and ydrqz!='' ">
+				and STR_TO_DATE(#{ydrqz},'%Y-%m-%d %H:%i:%s')>=ydsj
+			</if>
+		</where>
+	</select>
+
+
+
+	<insert id="insertXxBak">
+		INSERT INTO xx_xxjszb_bak
+		(pkid,xxid,xxbt,xxnr,sfyfj,sfxyhf,zhhfsj,ydsj,hfsm,jszzh,jszmc,czym,ywid,bz,xxlb,fsrzh,fsrmc,fssj,ydqk)
+		SELECT
+		pkid,xxid,xxbt,xxnr,sfyfj,sfxyhf,zhhfsj,ydsj,hfsm,jszzh,jszmc,czym,ywid,bz,xxlb,fsrzh,fsrmc,fssj,ydqk
+		FROM xx_xxjszb
+		<where>
+			1=1
+			<if test="pkid!=null and pkid!='' ">
+				and pkid in('${pkid}')
+			</if>
+			<if test="userId!=null and userId!=''">
+				and jszzh= #{userId}
+			</if>
+			<if test="xxbt!=null and xxbt!=''">
+				and xxbt like #{xxbt}
+			</if>
+			<if test="xxnr!=null and xxnr!=''">
+				and xxnr like #{xxnr}
+			</if>
+			<if test="xxlb!=null and xxlb!=''">
+				and xxlb = #{xxlb}
+			</if>
+			<if test="fjqk!=null and fjqk!=''">
+				and sfyfj = #{fjqk}
+			</if>
+			<if test="hfqk!=null and hfqk!=''">
+				and sfxyhf = #{hfqk}
+			</if>
+			<if test="ydqk!=null and ydqk!=''">
+				and ydqk = #{ydqk}
+			</if>
+			<if test="rqq!=null and rqq!='' ">
+				and fssj >=STR_TO_DATE(#{rqq},'%Y-%m-%d')
+			</if>
+			<if test="rqz!=null and rqz!=''">
+				and STR_TO_DATE(#{rqz},'%Y-%m-%d %H:%i:%s')>=fssj
+			</if>
+			<if test="ydrqq!=null and ydrqq !='' ">
+				and ydsj >=STR_TO_DATE(#{ydrqq},'%Y-%m-%d')
+			</if>
+			<if test="ydrqz!=null and ydrqz!='' ">
+				and STR_TO_DATE(#{ydrqz},'%Y-%m-%d %H:%i:%s')>=ydsj
+			</if>
+		</where>
+	</insert>
+	<update id="updateOne">
+		UPDATE xx_xxjszb SET ydqk='已阅读',ydsj=now() WHERE pkid=#{pkid}
+	</update>
+
+	<delete id="delXx">
+		delete from xx_xxjszb
+		<where>
+			<if test="pkid!=null and pkid!='' ">
+				and pkid in('${pkid}')
+			</if>
+			<if test="userId!=null and userId!=''">
+				and jszzh= #{userId}
+			</if>
+			<if test="xxbt!=null and xxbt!=''">
+				and xxbt like #{xxbt}
+			</if>
+			<if test="xxnr!=null and xxnr!=''">
+				and xxnr like #{xxnr}
+			</if>
+			<if test="xxlb!=null and xxlb!=''">
+				and xxlb = #{xxlb}
+			</if>
+			<if test="fjqk!=null and fjqk!=''">
+				and sfyfj = #{fjqk}
+			</if>
+			<if test="hfqk!=null and hfqk!=''">
+				and sfxyhf = #{hfqk}
+			</if>
+			<if test="ydqk!=null and ydqk!=''">
+				and ydqk = #{ydqk}
+			</if>
+			<if test="rqq!=null and rqq!='' ">
+				and fssj >=STR_TO_DATE(#{rqq},'%Y-%m-%d')
+			</if>
+			<if test="rqz!=null and rqz!=''">
+				and STR_TO_DATE(#{rqz},'%Y-%m-%d %H:%i:%s')>=fssj
+			</if>
+			<if test="ydrqq!=null and ydrqq !='' ">
+				and ydsj >=STR_TO_DATE(#{ydrqq},'%Y-%m-%d')
+			</if>
+			<if test="ydrqz!=null and ydrqz!='' ">
+				and STR_TO_DATE(#{ydrqz},'%Y-%m-%d %H:%i:%s')>=ydsj
+			</if>
+		</where>
+	</delete>
+
+<!-- 
+	<select id="xxcx_cx_xxhf" resultType="map">
+	SELECT hfrmc,DATE_FORMAT(hfsj,'%Y-%m-%d %H:%i:%s') AS hfsj,hfnr 
+	FROM xx_xxhf WHERE xxid=#{xxid} AND hfrzh=#{hfrzh} ORDER BY hfsj ASC
+	</select>
+	<select id="xxcx_cx_xxfj" resultType="map">
+	SELECT fjmc,fjlj,fjsxh FROM xx_xxfj WHERE xxid=#{xxid} 
+	ORDER BY fjsxh ASC
+	</select> -->
+	
+	
+	<insert id="xxzy_ins_xxhf">
+	INSERT INTO xx_xxhf(pkid,xxid,hfnr,hfsj,hfrmc,hfrzh) VALUES(#{pkid},#{xxid},#{hfnr},NOW(),#{hfrmc},#{hfrzh})
+	</insert>
+	
+	<update id="xxzy_edit_zhhfsj">
+	UPDATE xx_xxjszb SET zhhfsj=(SELECT hfsj from xx_xxhf where pkid=#{pkid}) WHERE pkid=#{opkid}
+	</update>
+	
+	<!-- 发送信息页面用到加载角色 -->
+	<select id="xxfs_load_dw" resultType="map">
+		select dwmc as text,pkid as id from xt_yhdw
+	</select>
+	<select id="xxfs_load_yh" resultType="map">
+		SELECT pkid AS id,yhmc AS text,ssjg FROM xt_yh WHERE yhlx=#{yhlx} order by ssjg
+	</select>
+	<select id="xxfs_load_js" resultType="map">
+		select jsmc as text,pkid as id from xt_js where sfqy='1' and jslx=#{jslx}
+	</select>
+	<select id="xxfs_load_jcz" resultType="map">
+		select jczjc as text,pkid as id from jc_jcz_jczjbxx where jczzt='1'
+	</select>
+	
+	<!-- #信息查询页面用到的 -->
+	<select id="xxcx_load_xxInfo" resultType="map">
+		SELECT m.pkid,m.xxbt,m.xxnr,m.sfyfj,b.jc AS xxlb,m.fsrmc AS fszzh,m.sfxyhf,
+		m.hfsm,m.jszmc,m.jszlx,DATE_FORMAT(m.fssj,'%Y-%m-%d %H:%i:%s') AS fssj,
+		m.bz FROM xx_xxfszb m LEFT JOIN dm_xx_xxlb b ON m.xxlb=b.pkid 
+		<where>
+			<if test="xxbt != null and xxbt != ''">
+				and xxbt like '%${xxbt}%'
+			</if>
+			<if test="xxnr != null and xxnr !=''">
+				and xxnr like '%${xxnr}%'
+			</if>
+			<if test="sfyfj != null and sfyfj != ''">
+				and sfyfj = #{sfyfj}
+			</if>
+			<if test="xxlb != null and xxlb != ''">
+				and m.xxlb = #{xxlb}
+			</if>
+			<if test="sfxyhf != null and sfxyhf != ''">
+				and sfxyhf = #{fjqk}
+			</if>
+			<if test="fssjq != null and fssjq != '' ">
+				<![CDATA[ and m.fssj >= STR_TO_DATE(#{fssjq}, '%Y-%m-%d %H:%i:%s') ]]>
+			</if>
+			<if test="fssjz != null and fssjz != '' ">
+				<![CDATA[ and m.fssj <= STR_TO_DATE(#{fssjz}, '%Y-%m-%d %H:%i:%s') ]]>
+			</if>
+			<if test="fsrzh != null and fsrzh != ''">
+				and fsrzh = #{fsrzh}
+			</if>
+		</where>
+	</select>
+	
+	<select id="xxcx_cx_xxfj" resultType="map">
+		SELECT fjmc,fjlj,fjsxh FROM xx_xxfj WHERE xxid=#{xxid} ORDER BY fjsxh ASC
+	</select>
+	
+	<select id="xxcx_cx_xxhf" resultType="map">
+		SELECT hfrmc,DATE_FORMAT(hfsj,'%Y-%m-%d %H:%i:%s') AS hfsj,hfnr FROM xx_xxhf WHERE xxid=#{xxid} 
+		<where>
+			<if test="hfrzh != null and hfrzh != '' ">
+				and hfrzh = #{hfrzh}
+			</if>
+		</where>
+		ORDER BY hfsj ASC
+	</select>
+	
+	<select id="xxxq_cx_xxinfo" resultType="map">
+		SELECT m.pkid,m.xxbt,m.xxnr,m.sfyfj,b.jc AS xxlb,m.fsrmc AS fszzh,
+		m.sfxyhf,m.hfsm,m.jszmc,m.jszlx,DATE_FORMAT(m.fssj,'%Y-%m-%d %H:%i:%s') AS fssj,
+		m.bz FROM xx_xxfszb m LEFT JOIN dm_xx_xxlb b ON m.xxlb=b.pkid WHERE m.pkid=#{pkid}
+	</select>
+	
+	
+</mapper>

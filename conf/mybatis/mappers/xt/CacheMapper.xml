@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.xt.CacheMapper">
+  <select id="selectDevicesAll" resultType="Map">
+  		select sbid from xt_app_sbid
+  </select>
+  
+  <select id="getAllCacheTable" resultType="map">
+  		select pkid from dm_gy_hcdmb where sfzxdhc='1' and flag = '1'
+  </select>
+  
+  <select id="getSysConfigCache" resultType="map">
+  		select pkid,cs1,cs2,cs3,cs4 from xt_cspz
+  </select>
+  
+  <select id="getAllCacheMapper" resultType="map">
+  		select pkid from dm_gy_hcdmb where sfzxdhc='1' and flag = '2'
+  </select>
+  
+  <select id="getCodeCache" resultType="map" parameterType="String">
+  		select * from ${_parameter} where sfqy='1' order by px asc
+  </select>
+  
+  <select id="getCodeCaches" resultType="map" >
+  		select * from ${tn}  
+  		<where>
+  			1=1
+  			<if test="pkid!=null and pkid!=''">
+  			 and pkid=#{pkid}
+  			</if>
+  		</where>
+  		order by pkid asc
+  </select>
+  <delete id="delCodeCacheByPkid">
+  		delete from ${tn} where pkid=#{pkid}
+  </delete>
+  <update id="updateCodeCacheByPkid">
+	update ${tn} set pkid=#{pkid}
+	<if test="jc!=null and jc!=''">
+		,jc=#{jc}
+	</if>
+	<if test="qc!=null and qc!=''">
+		,qc=#{qc}
+	</if>
+	<if test="sfqy!=null and sfqy!=''">
+		,sfqy=#{sfqy}
+	</if>
+	<if test="px!=null and px!=''">
+		,px=#{px}
+	</if>
+  where pkid=#{pkid}
+  </update>
+  <insert id="addCodeCache">
+	insert into ${tn} (pkid
+	<if test="jc!=null and jc!=''">,jc</if>
+	<if test="qc!=null and qc!=''">,qc</if>
+	<if test="sfqy!=null and sfqy!=''">,sfqy</if>
+	<if test="px !=null and px!=''">,px</if>
+	)
+	values(#{pkid}
+	<if test="jc!=null and jc!=''">
+		,#{jc}
+	</if>
+	<if test="qc!=null and qc!=''">
+		,#{qc}
+	</if>
+	<if test="sfqy!=null and sfqy!=''">
+		,#{sfqy}
+	</if>
+	<if test="px!=null and px!=''">
+		,#{px}
+	</if>
+	)
+</insert>
+  
+  
+  <!-- 检测站下拉 -->
+  <select id="jczselect" resultType="map">
+  		SELECT pkid,stationshortname as jczjc FROM bas_checkstation
+  </select>
+  
+  <!-- 检测线下拉 -->
+  <select id="jcxselect" resultType="map">
+  		SELECT pkid,jcxmc FROM jc_jcz_jcxjbxx
+  </select>
+
+  <!-- 检测站类型下拉 -->
+  <select id="jczlxselect" resultType="map">
+  		SELECT pkid,jczlx FROM jc_jcz_jczjbxx
+  </select>
+  
+  <!-- 根据检测站行政区划获取检测站列表 -->
+  <select id="jc_jcz_jczjbxx" resultType="map">
+  		SELECT pkid,jczjc FROM jc_jcz_jczjbxx t where t.xzqh = #{xzqh}
+  </select>
+  <!-- 根据检测站获取检测线列表 -->
+  <select id="jcx_select" resultType="map">
+  		SELECT pkid,jcxmc FROM jc_jcz_jcxjbxx t where t.ssjcz= #{ssjcz}
+  </select>
+  
+   <!-- 上级单位列表 -->
+  <select id="sjdwselect" resultType="map">
+  		SELECT pkid,dwmc FROM xt_yhdw GROUP BY pkid 
+  </select>
+  
+  <!-- 巡查任务管理负责人列表 -->
+   <select id="xcfzrselect" resultType="map">
+  		SELECT pkid,yhmc FROM xt_yh WHERE yhlx != '1'
+  </select>
+  
+  <!-- 选择巡查人员列表 -->
+   <select id="xcryselect" resultType="map">
+  		SELECT pkid,yhmc FROM xt_yh WHERE yhlx != '1'
+  </select>
+  
+  <!-- #中心端用户角色列表 -->
+  <select id="zxjsselect" resultType="map">
+  select pkid,jsmc from xt_js where jslx = '2' and sfqy = '1'
+  </select>
+  <!-- #用户单位列表 -->
+  <select id="yhdwselect" resultType="map">
+  select  pkid,dwmc FROM  xt_yhdw 
+  </select>
+  
+  <!-- #打印人员列表 -->
+  <select id="dyryselect" resultType="map">
+  	SELECT yh.pkid,yh.yhmc FROM xt_yh yh LEFT JOIN xt_yhjs js ON js.YHZH = yh.PKID WHERE yh.yhlx ='1' 
+  	AND js.JSID = 'jcz07'
+  </select>
+  <select id="dyryselect1" resultType="map">
+  	SELECT yh.pkid,yh.yhmc FROM xt_yh yh LEFT JOIN xt_yhjs js ON js.YHZH = yh.PKID WHERE yh.yhlx ='1' 
+  	AND js.JSID = 'jcz07'and yh.SSJG = #{jczzj}
+  </select>
+</mapper>

@@ -1,0 +1,579 @@
+/*雅虎css reset*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre, 
+form,fieldset,input,textarea,p,blockquote,th,td { 
+    padding: 0; 
+    margin: 0; 
+} 
+table { 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+} 
+fieldset,img { 
+    border: 0; 
+} 
+address,caption,cite,code,dfn,em,strong,th,var { 
+    font-weight: normal; 
+    font-style: normal; 
+} 
+ol,ul { 
+    list-style: none; 
+} 
+caption,th { 
+    text-align: left; 
+} 
+h1,h2,h3,h4,h5,h6 { 
+    font-weight: normal; 
+    font-size: 100%; 
+} 
+q:before,q:after { 
+    content:""; 
+} 
+abbr,acronym { 
+    border: 0; 
+}
+/*整体样式*/
+html{
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	min-width: 1280px;
+}
+body{
+	width: 100%;
+	height: 100%;
+}
+.modelComment{
+	background-color: #ffffff;
+	box-shadow: 0px 2px 5px 0px 
+		rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+	margin-bottom: 1rem;
+}
+#header{
+	height: 38px;
+	line-height: 38px;
+	color: #FFFFFF;
+	background-color: #6792d6;
+	padding-left: 20px;
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	font-weight: bold;
+	overflow: hidden;
+	margin-bottom: 1%;
+}
+#header > p{
+	float: left;
+}
+.close{
+	float: right;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.close:hover{
+	opacity: 0.8;
+	zoom: 1;
+}
+#main{
+	height: 40rem;
+}
+#footer{
+	height: 23%;
+}
+#mainLeft{
+	width: 21%;
+	height: 100%;
+	margin-right: 1%;
+	margin-left: 1%;
+	float: left;
+	
+}
+#mainRight{
+	width: 24%;
+	height: 100%;
+	margin-left: 1%;
+	float: left;
+	
+}
+#mainMiddle{
+	width: 51%;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+
+/*头部样式*/
+.logo{
+	display: block;
+	width: 33%;
+    height: 83%;
+    margin: 0px auto;
+	background:url(../img/logo.png);
+	background-size:cover ;
+}
+/*主体左侧样式*/
+.title{
+	height: 2.4rem;
+    line-height: 2.4rem;
+    font-size: 1.2rem;
+    position: relative;
+    padding-left: 2rem;
+	background-color: #f1f7ff;
+	border-radius: 2px 2px 0px 0px;
+	font-weight: bold;
+	color: #4c4c4c;
+}
+.title:before{
+	content: "";
+	width: 4px;
+	height: 20px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top:0.3rem;
+}
+.RealTimeTestData .title:before{
+	background: #ffa200;
+}
+.monitorDataLiang .title:before{
+	background: #4ace76;
+}
+.passPrecent .title:before{
+	background: #ffa200;
+}
+.vehiclePass .title:before{
+	background: #4ace76;
+}
+.testLineTitle{
+	font-size: 1.2rem;
+	padding-left: 2rem;
+	position: relative;
+	font-weight: bold;
+	color: #4c4c4c;
+}
+.testLineTitle:before{
+	content: "";
+	width: 7px;
+	height: 100%;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	background: #cdffe1;
+}
+.testLineTitle:after{
+	content: "";
+	width: 4px;
+	height: 80%;
+	display: inline-block;
+	position: absolute;
+	left: 1px;
+	top: 10%;
+	background: #20c1ed;
+}
+#realTime{
+	height: 16rem;
+	width: 100%;
+}
+#realTimeTable{
+	width: 96%;
+	margin: 0 auto;
+	border: none;
+}
+
+#realTimeTable tbody tr td{
+	border-bottom: solid 1px #f4f4f4;
+}
+#realTimeTable td{
+	padding: 3% 1.5% 3% 3%;
+	border: none;
+	font-size: 1rem;
+	text-align: center;
+}
+.plateNub1{
+	width: 6rem;
+	height: 1.7rem;
+	line-height: 1.7rem;
+	margin: 0 auto;
+	border: 1px solid #3b7ace;
+	border-radius: 3px;
+}
+.plateNub2{
+	width: 6rem;
+	height: 1.7rem;
+	line-height: 1.7rem;
+	margin: 0 auto;
+	border: 1px solid #e4b615;
+	border-radius: 3px;
+	color: #333333;
+}
+#chart4{
+	width: 24rem;
+	height: 12rem;
+	display: inline-block;
+}
+#chart4Nub{
+	width: 24rem;
+	height: 2rem;
+	display: inline-block;
+}
+.chart4Nub1{
+	width: 12rem;
+	text-align: center;
+	font-size: 1rem;
+	color: #fdd853;
+	float: left;
+}
+.chart4Nub2{
+	width: 12rem;
+	text-align: center;
+	font-size: 1rem;
+	color: #fd4d46;
+	float: left;
+}
+/*主体中部样式*/
+#chart3{
+	width: 57rem;
+	height: 34.4rem;
+	margin-left: 0.5rem;
+	display: inline-block;
+	position: relative;
+	background-color: #999999;
+}
+#gisMessage{
+	height: 19rem;
+    float: left;
+    width: 37rem;
+    position: absolute;
+	top: 5rem;
+    left: 10.6rem;
+    background: url(../img/chartbg.png) no-repeat;
+    background-size: 37rem 19rem;
+   	background-color: #FFFFFF;
+}
+#tableHeader{
+	margin-left: 0.3rem;
+    margin-top: 0.3rem;
+	width: 98.3%;
+	text-align: center;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	font-size: 1.2rem;
+	border: none;
+	background-color: rgba(194, 218, 255, 0.7);
+	border-radius: 4px 4px 0px 0px;
+}
+#tableHeader div{
+	width: 25%;
+	float: left;
+	text-align: center;
+	border: none;
+}
+#tableroll{
+	height: 15.3rem;
+    overflow: hidden;
+}
+.barstyle{
+	position: absolute;
+	right: 0.8rem!important;
+	top: 0.8rem!important;
+}
+#gisMessageTable{
+	margin-left: 0.6rem;
+	width: 96.5%;
+	table-layout:fixed;
+	background-color: #FFFFFF;
+}
+
+#gisMessageTable td{
+	padding: 0.7rem;
+
+	/*color: #f1f1f1;*/
+	border: none;
+	font-size: 1rem;
+	text-align: center;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+#gisMessageTable tr:nth-child(2n){
+	background-color: rgba(240, 247, 255, 0.65); 
+}
+
+
+
+
+#toolsleft{
+	position: absolute;
+	top: 17rem;
+    right: 2rem;
+	width: 3rem;
+	height: 12rem;
+	background: #FFFFFF;
+	background-size: 3rem 12rem ;
+	box-shadow: 0px 2px 5px 0px 
+		rgba(6, 0, 1, 0.48);
+	border-radius: 4px;
+}
+
+#toolsleft1,#toolsleft2,#toolsleft3,#toolsleft4,#toolsleft5{
+	width: 3rem;
+	height: 3rem;
+	background-size: 3rem 3rem;
+	cursor: pointer;
+}
+#toolsleft1{
+	background: url(../img/jia.png) no-repeat center;
+}
+#toolsleft2{
+	background: url(../img/jian.png) no-repeat center;
+}
+#toolsleft3{
+	background: url(../img/mian.png) no-repeat center;
+}
+#toolsleft4{
+	background: url(../img/ceju.png) no-repeat center;
+}
+#toolsleft5{
+	box-shadow: 0px 2px 5px 0px 
+		rgba(6, 0, 1, 0.48);
+	border-radius: 4px;
+	margin-top: 20px;
+	background: url(../img/qingchu.png) no-repeat center;
+}
+#timeline{
+	position: absolute;
+    top: 28rem;
+    left: 11rem;
+    height: 4.9rem;
+    width: 33rem;
+    background: url(../img/shijianzhou.png) no-repeat;
+	background-size: 33.7rem 4.9rem;
+	border-radius: 0.5rem;
+}
+#line1{
+	position: absolute;
+    width: 21rem;
+    top: 2.4rem;
+    left: 3.1rem;
+    border: 1px solid #1f87ca;
+}
+#butleft{
+	position: absolute;
+    top: 1.4rem;
+    left: 0.8rem;
+    width: 1.5rem;
+    height: 2rem;
+    background: url(../img/zuojiantou.png) no-repeat;
+    background-size: 1.5rem 2rem;
+	cursor: pointer;
+}
+#butright{
+	position: absolute;
+    top: 1.4rem;
+    left: 26rem;
+    width: 1.5rem;
+    height: 2rem;
+    background: url(../img/youjiantou.png) no-repeat;
+    background-size: 1.5rem 2rem;
+	cursor: pointer;
+}
+#ztbut{
+	position: absolute;
+    top: 0.9rem;
+    left: 28rem;
+    width: 3rem;
+    height: 3rem;
+    background: url(../img/zanting.png) no-repeat;
+    background-size: 3rem 3rem;
+	cursor: pointer;
+}
+
+
+#time1,#time2,#time3,#time4,#time5{
+	position: absolute;
+    height: 3.7rem;
+    width: 1.4rem;
+
+}
+#time1{
+    left: 2.6rem;
+    top: 0.5rem;
+}
+#time2{
+    left: 7.85rem;
+    top: 0.5rem;
+}
+#time3{
+    left: 13.1rem;
+    top: 0.5rem;
+}
+#time4{
+    left: 18.35rem;
+    top: 0.5rem;
+}
+#time5{
+    left: 23.6rem;
+    top: 0.5rem;
+}
+.timelinePoint1Out,.timelinePoint2Out,.timelinePoint3Out,.timelinePoint4Out,.timelinePoint5Out{
+	position: absolute;
+    top: 1.4rem;
+    left: 0.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 1.1rem;
+}
+.timelinePoint1,.timelinePoint2,.timelinePoint3,.timelinePoint4,.timelinePoint5{
+	position: absolute;
+    top: 0.3rem;
+    left: 0.3rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #1f87cf;
+}
+
+.timePk .checkPoint{
+	position: absolute;
+	top: 0.2rem;
+	left: 0.25rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 0.7rem;
+    background-color: #4ef0ff;
+}
+.timePk .checkPointOut{
+	background-color: #4490AD;
+}
+.timePk .checkPointNub{
+	color: #4ef0ff!important;
+}
+.timelineNub1,.timelineNub2,.timelineNub3,.timelineNub4,.timelineNub5{
+	width: 3rem;
+	height: 1.2rem;
+	position: absolute;
+	top: 2.7rem;
+    left: -0.65rem;
+    color: #1f87cf;
+}
+.timeP{
+	cursor: pointer;
+}
+
+#mainMessage{
+	height: 15rem;
+	overflow-y: scroll;
+	width: 100%;
+	
+}
+#mainMessageTable{
+	width: 100%;
+	border: none;
+	table-layout:fixed;
+}
+#mainMessageTable tr{
+	border: 1px solid #2A87B9;
+}
+#mainMessageTable td{
+	padding: 0.3%;
+	text-align: center;
+	color: #f1f1f1;
+	border: none;
+	font-size: 1.2rem;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	
+}
+/*主体右侧样式*/
+
+#chart1{
+	/*width: 24.7rem;*/
+	width: 100%;
+	height: 12rem;
+	display: inline-block;
+}
+#chart1Nub{
+	width: 24.7rem;
+	height: 4rem;
+	display: inline-block;
+	color: #444444;
+	margin-bottom: 0.5rem;
+}
+.chart1Nub1,.chart1Nub2,.chart1Nub3,.chart1Nub4,.chart1Nub5,.chart1Nub6{
+	float: left;
+	width: 12.3rem;
+}
+
+.chart1NubW{
+	display: inline-block;
+	width: 9.6rem;
+	text-align: right;
+}
+#chart2{
+	width: 100%;
+	height: 15.8rem;
+	display: inline-block;
+}
+
+/*底部样式*/
+#dynamic{
+	height: 12.5rem;
+	width: 100%;
+	padding-top: 0.2rem;
+	margin-bottom: 1rem;
+}
+#dynamicTable{
+	width: 98%;
+	margin: 0 auto;
+	border: none;
+	
+}
+#dynamicTable tr {
+	border-left: 1px solid #f2f2f2;
+	border-right: 1px solid #f2f2f2;
+}
+#dynamicTable tbody tr:last-child{
+	border-bottom: 1px solid #f2f2f2;
+}
+#dynamicTable td{
+	padding:0.5rem 0.5rem 0.5rem 1rem;
+	border: none;
+	font-size: 1rem;
+	text-align: center;
+}
+#dynamicTable thead tr{
+	background-color: rgba(238, 245, 255, 0.8);
+	opacity: 0.8;
+}
+
+#dynamicTable tr.avtive{
+	background-color: #091B30;
+}
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 10px; 
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #dcdcdc;
+    border-radius: 10px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #dcdcdc;
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #dcdcdc;
+}
+/*横向滚动条样式*/ 
+::-webkit-scrollbar:horizontal{  
+   height: 5px;  
+}  
+/*@media only screen and (min-width: 0px) and (max-width: 1350px) {
+	#chart3{
+		width: 54rem;
+	}
+}*/

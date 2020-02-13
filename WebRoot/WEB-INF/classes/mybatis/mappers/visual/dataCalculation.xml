@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.visual.dataCalculation">
+	<select id="getAreaJclByFuelType" resultType="Map">
+		select tb.* from(select '汽油车' as fueltype,cr.name as regionname,sum(case when cf.name = '汽油' then '1' else '0' end) as cyc 
+		from ins_checkresultmain ic left join bas_carinfo bc on ic.carpkid = bc.pkid 
+		left join cod_fueltype cf on bc.fueltype = cf.code left join bas_checkstation bck
+		on ic.stationpkid = bck.pkid left join cod_region cr on bck.region = cr.code group by cr.name
+		union all  
+		select '柴油车' as fueltype,cr.name as regionname,sum(case when cf.name = '柴油' then '1' else '0' end) as cyc 
+		from ins_checkresultmain ic left join bas_carinfo bc on ic.carpkid = bc.pkid 
+		left join cod_fueltype cf on bc.fueltype = cf.code
+		left join bas_checkstation bck
+		on ic.stationpkid = bck.pkid left join cod_region cr on bck.region = cr.code group by cr.name)tb order by tb.fueltype,tb.regionname
+	</select>
+</mapper>

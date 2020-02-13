@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.dsj.Survey">
+
+	<select id="SurveyList" parameterType="java.util.List" resultType="hashmap">
+		select trunc(count(recheckinfo)/(select count(*) from ins_checkresultmain)*100,2)as Percentage,areacode,name from ins_checkresultmain left join cod_region on code=areacode where (recheckinfo=0 or recheckinfo is null) group by areacode,name order by areacode
+	</select>
+	
+	<select id="SurveyListOne" parameterType="java.util.List" resultType="hashmap">
+		select trunc(count(recheckinfo)/(select count(*) from ins_checkresultmain)*100,2)as Percentage,areacode,name from ins_checkresultmain left join cod_region on code=areacode where recheckinfo=1 group by areacode,name order by areacode
+	</select>
+	
+	<select id="SurveyListTwo" parameterType="java.util.List" resultType="hashmap">
+		select trunc(count(recheckinfo)/(select count(*) from ins_checkresultmain)*100,2) as Percentage,areacode,name from ins_checkresultmain left join cod_region on code=areacode where recheckinfo=2 group by areacode,name order by areacode
+	</select>
+	
+	<select id="SurveyListThree" parameterType="java.util.List" resultType="hashmap">
+		select trunc(count(recheckinfo)/(select count(*) from ins_checkresultmain)*100,2) as Percentage,areacode,name from ins_checkresultmain left join cod_region on code=areacode where recheckinfo=3 group by areacode,name order by areacode
+	</select>
+	
+	<select id="SurveyListThreeUp" parameterType="java.util.List" resultType="hashmap">
+		select trunc(count(recheckinfo)/(select count(*) from ins_checkresultmain)*100,2) as Percentage,areacode,name from ins_checkresultmain left join cod_region on code=areacode where recheckinfo>3 group by areacode,name order by areacode
+	</select>
+	
+	<select id="SurveyAll" parameterType="java.util.List" resultType="hashmap">
+		select to_char(sum(case when (fjqk=0 or fjqk is null) then hgs else 0 end)/decode(sum(case when (fjqk=0 or fjqk is null) then zs else 0 end),0,1,sum(case when (fjqk=0 or fjqk is null) then zs else 0 end)) *100,'FM99990.00') as firstCheck,to_char(sum(case when fjqk=1 then hgs else 0 end)/decode(sum(case when fjqk=1 then zs else 0 end),0,1,sum(case when fjqk=1 then zs else 0 end)) *100,'FM99990.00') as oneCheck,to_char(sum(case when fjqk=2 then hgs else 0 end)/decode(sum(case when fjqk=2 then zs else 0 end),0,1,sum(case when fjqk=2 then zs else 0 end)) *100,'FM99990.00') as twoCheck,to_char(sum(case when fjqk=3 then hgs else 0 end)/decode(sum(case when fjqk=3 then zs else 0 end),0,1,sum(case when fjqk=3 then zs else 0 end)) *100,'FM99990.00') as therrCheck,to_char(sum(case when fjqk <![CDATA[ > ]]> 3 then hgs else 0 end)/decode(sum(case when fjqk>3 then zs else 0 end),0,1,sum(case when fjqk <![CDATA[ > ]]> 3 then zs else 0 end)) *100,'FM99990.00') as therrCheckUp,areaname from SJTJ_HGLTJ where checktime <![CDATA[ >= ]]> to_date(#{strattime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by areaname
+	</select>
+	
+	<select id="QualifiedAll" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as total,to_char((sum(hgs)/decode(sum(zs),0,1,sum(zs))) *100,'FM99990.00') qualified,areaname as name from SJTJ_HGLTJ t where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by areaname
+	</select>
+	
+	<select id="QualifiedCity" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as total,to_char((sum(hgs)/decode(sum(zs),0,1,sum(zs))) *100,'FM99990.00') qualified,stationname from SJTJ_HGLTJ t where areaname = #{areaname} and checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by stationname
+	</select>
+	
+	<select id="QualifiedStation" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as total,to_char((sum(hgs)/decode(sum(zs),0,1,sum(zs))) *100,'FM99990.00') qualified,stationname from SJTJ_HGLTJ t where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by stationname
+	</select>
+	
+	<select id="SurveyCity" parameterType="java.util.List" resultType="hashmap">
+		select to_char(sum(case when (fjqk=0 or fjqk is null) then hgs else 0 end)/decode(sum(case when (fjqk=0 or fjqk is null) then zs else 0 end),0,1,sum(case when (fjqk=0 or fjqk is null) then zs else 0 end)) *100,'FM99990.00') as firstCheck,to_char(sum(case when fjqk=1 then hgs else 0 end)/decode(sum(case when fjqk=1 then zs else 0 end),0,1,sum(case when fjqk=1 then zs else 0 end)) *100,'FM99990.00') as oneCheck,to_char(sum(case when fjqk=2 then hgs else 0 end)/decode(sum(case when fjqk=2 then zs else 0 end),0,1,sum(case when fjqk=2 then zs else 0 end)) *100,'FM99990.00') as twoCheck,to_char(sum(case when fjqk=3 then hgs else 0 end)/decode(sum(case when fjqk=3 then zs else 0 end),0,1,sum(case when fjqk=3 then zs else 0 end)) *100,'FM99990.00') as therrCheck,to_char(sum(case when fjqk <![CDATA[ > ]]> 3 then hgs else 0 end)/decode(sum(case when fjqk <![CDATA[ > ]]> 3 then zs else 0 end),0,1,sum(case when fjqk <![CDATA[ > ]]> 3 then zs else 0 end)) *100,'FM99990.00') as therrCheckUp,stationname from SJTJ_HGLTJ where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by stationname
+	</select>
+	
+	<select id="visual2Car" parameterType="java.util.List" resultType="hashmap">
+		select a.carcardnumber,b.name as hpzl,c.name as rlzl,d.name as cllx,a.vin,e.name as syxz,a.carversion,a.engineversion,to_char(a.registerdate,'yyyy-MM-dd') as registerdate,a.mileagenum,to_char(a.outfactorydate,'yyyy-MM-dd') as outfactorydate from bas_carinfo a  left join cod_cardtype b on a.cardtype=b.code left join cod_fueltype c on a.fueltype=c.code left join cod_carmode d on a.carmode=d.code left join cod_usedquality e on a.usedquality=e.code where a.pkid=#{pkid}
+	</select>
+	
+	<select id="visual2Cartest" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when d.checkresult='合格' then 1 else 0 end)/count(*)*100,2) as cxhgl,trunc(sum(case when d.checkresult='合格' and t.mileagenum <![CDATA[ <= ]]> #{endmileagenum} and t.mileagenum <![CDATA[ >= ]]> #{startmileagenum} then 1 else 0 end)/count(*)*100,2) as lchgl,trunc(sum(case when d.checkresult='合格' and t.registerdate <![CDATA[ > ]]> to_date(#{strattime},'yyyy-mm-dd') and t.registerdate<![CDATA[ <= ]]>to_date(#{endtime},'yyyy-mm-dd') then 1 else 0 end)/count(*)*100,2) as djrqhgl from bas_carinfo t left join ins_checkresultmain d on t.pkid=d.carpkid where t.carversion=#{carversion}
+	</select>
+	
+	<select id="visual2CarRecord" parameterType="java.util.List" resultType="hashmap">
+		select t.pkid,t.checktime,t.checkmethod,case when t.checkmethod='DB' then '双怠速法' when t.checkmethod='WT' then '稳态工况法' when t.checkmethod='LD' then '加载减速工况法' when t.checkmethod='TG' then '不透光烟度法' when t.checkmethod='IG' then '简易瞬态工况法 ' end as jcff, case when t.recheckinfo=0 then '首检' else t.recheckinfo||'次复检' end as jccs,t.checkresult,d.stationshortname,t.mileagenum,e.staffname,t.checkmethod from ins_checkresultmain t left join BAS_CHECKSTATION d on t.stationpkid=d.pkid left join sys_user_station e on t.userid=e.loginaccount where carpkid=#{carpkid} order by t.recheckinfo
+	</select>
+	
+	<select id="getWgxx" parameterType="java.util.List" resultType="hashmap">
+		select t.pkid,m.vin,cf.name as fueltype,cs.stationshortname as station,cs.stationname as stationname,m.carbrand||m.carversion as carversion,to_char(m.registerdate,'yyyy-MM-dd') as registerdate,cc.name as cardtype,cm.name as carmode,t.wglx,t.wgstationpkid,to_char(t.wgsj,'yyyy-MM-dd hh24:mi:ss') wgsj,t.wgcphm,t.wgxxsm,t.videopath,t.reportpath,t.carpkid,t.wgjcid,d.staffname,e.linename from st_wgjjb t left join ins_checkresultmain m on t.wgjcid = m.pkid left join bas_carinfo c on t.carpkid = c.pkid left join cod_fueltype cf on c.fueltype = cf.code left join cod_cardtype cc on c.cardtype = cc.code left join cod_carmode cm on c.carmode = cm.code left join bas_checkstation cs on t.wgstationpkid = cs.pkid left join sys_user_station d on m.userid=d.loginaccount left join bas_checkline e on  e.pkid=m.checklinepkid where m.carpkid= t.carpkid and m.checktime=t.wgsj 
+		<if test="pkid!=null and pkid!=''">
+			and t.pkid = #{pkid} 
+		</if>
+	</select>
+	
+	<select id="getCljcjl" parameterType="java.util.List" resultType="hashmap">
+		select s100str,s90str,s80str,powstr,t.checkresult,to_char(t.checktime,'yy.MM.dd hh24:mi') checktime,decode(t.recheckinfo,0,'首检',t.recheckinfo||'次复检') recheckinfo from ins_checkresultmain t left join ins_dt_loaddowndata dl on t.pkid = dl.businessid where t.carpkid = #{carpkid}
+	</select>
+	
+	<select id="getwgcl" parameterType="java.util.List" resultType="hashmap">
+		select a.pkid,a.wgcphm,a.wgsj,a.stationshortname,a.wglx from (select t.pkid,t.wgcphm,t.wgsj,a.stationshortname,t.wglx,rownum as rn from st_wgjjb t left join bas_checkstation a on t.wgstationpkid=a.pkid where 1=1
+			<if test="wgcphm!=null and wgcphm!=''">
+				and t.wgcphm like #{wgcphm}
+			</if>
+			<if test="stationshortname!=null and stationshortname!=''">
+				and t.stationshortname like #{stationshortname}
+			</if>
+			<if test="region!=null and region!='' and region!='null'" >
+				and a.region = #{region}
+			</if>
+			) a 
+	</select>
+	
+	<select id="getycsjxx" parameterType="java.util.List" resultType="hashmap">
+		select a.pkid,a.carpkid,a.carcardnumber,a.checktime,a.fueltype,a.stationshortname,a.name,a.yyxx from (select t.pkid, t.carpkid,a.carcardnumber,to_char(t.checktime,'yyyy-MM-dd hh24:mi:ss') checktime,b.name as fueltype,c.stationshortname,o.name,((CASE WHEN t.clxx = '0' THEN '车辆信息分析失败' when t.clxx='2' then '车辆信息不合理' when t.clxx='3' then '修改额定功率' when t.clxx='4' then '修改其他车辆信息' END )||','||(CASE WHEN t.jgsj = '0' THEN '结果数据分析失败' when t.jgsj='2' then '数值为0' when t.jgsj='3' then '数值为负数' when t.jgsj='4' then '结果判定错误' END )||','||(CASE WHEN t.gcsj = '0' THEN '过程数据分析失败' when t.gcsj='2' then 'CO+CO2 <![CDATA[ < ]]>6%' when t.gcsj='3' then '检测数值全程恒定' when t.gcsj='4' then '结果判定错误' when t.gcsj='5' then '汽车尾气排放量低于2L/S（简易瞬态）' when t.gcsj='6' then '稀释流量低于95L/S（简易瞬态）' END )||','||(CASE WHEN t.jcff = '0' THEN '检测方法分析失败' when t.jgsj='2' then '检测方法使用错误' when t.jgsj='3' then '更换检测方法' END)||','||(CASE WHEN t.jcxz = '0' THEN '检测限值分析失败' when t.jcxz='2' then '检测限值错误' when t.jcxz='3' then '修改最大轮边功率限值' END))as yyxx,rownum as rn from ins_checkresultmain t left join bas_carinfo a on t.carpkid=a.pkid left join cod_fueltype b on a.fueltype=b.code left join bas_checkstation c on t.stationpkid=c.pkid left join cod_checkmethod o on t.checkmethod = o.code where 1=1 and t.ycsjfxqk='1' AND t.checktime  <![CDATA[ >= ]]>  to_date('2019-01-01','YYYY-MM-DD') 
+		 	<if test="carcardnumber!=null and carcardnumber!=''">
+				and t.carcardnumber like #{carcardnumber}
+			</if>
+			<if test="stationshortname!=null and stationshortname!=''">
+				and c.stationshortname like #{stationshortname}
+			</if>
+			<if test="region!=null and region!='' and region!='null'" >
+				and c.region = #{region} 
+			</if>
+			) a order by a.checktime desc
+	</select>
+	
+	
+	<!-- 统计各个检测站的检测量和工况率 -->
+	<select id="getJCLandGKL" parameterType="java.util.List" resultType="hashmap">
+		select trunc((a.s1/a.s2*100),2) as qualified,a.s2 as total,a.stationname as name from (select sum(case when checkmethod = 'WT' or  checkmethod = 'LD' then zs else 0 end) as s1,
+		sum(zs) as s2,stationname from SJTJ_HGLTJ where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND checktime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') 
+		group by stationname) a
+	</select>
+	
+	<!-- 统计各个检测站的柴油车检测量和合格率 -->
+	<select id="getCycJCLandHGL" parameterType="java.util.List" resultType="hashmap">
+		select sum(case when (checkmethod = 'TG' or checkmethod = 'LD') then zs else 0 end) as zs,
+		to_char(sum(case when (checkmethod = 'TG' or checkmethod = 'LD') then hgs else 0 end)/decode(sum(case when (checkmethod = 'TG' or checkmethod = 'LD') then zs else 0 end),0,1,sum(case when (checkmethod = 'TG' or checkmethod = 'LD') then zs else 0 end)) *100,'FM99990.00') as cychgl,
+		stationname from SJTJ_HGLTJ t where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD')
+		group by stationname
+	</select>
+	
+	<!-- 统计各个检测站的检测量和合格率 -->
+	<select id="getJCLandHGL" parameterType="java.util.List" resultType="hashmap">
+		select sum(zs) as zs,
+		to_char(sum(hgs)/decode(sum(zs),0,1,sum(zs)) *100,'FM99990.00') as zhgl,
+		stationname from SJTJ_HGLTJ t where checktime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD')
+		group by stationname
+	</select>
+	
+	<!-- 获取异常数据的个数 -->
+	<!-- <select id="getYcsjzs" parameterType="java.util.List" resultType="hashmap">
+		select TO_CHAR(count(*), 'FM099') c from st_ycjjb
+	</select> -->
+	<!-- 获取异常数据的个数 -->
+	<select id="getYcsjzs" parameterType="java.util.List" resultType="hashmap">
+		select TO_CHAR(count(*), 'FM09999') c from ins_checkresultmain s left join bas_checkstation b on  s.stationpkid=b.pkid where s.ycsjfxqk='1' AND s.checktime <![CDATA[ >= ]]> to_date('2019-01-01','YYYY-MM-DD') 
+		<if test="region!=null and region!='' and region!='null'" >
+				and b.region = #{region}
+		</if>
+	</select>
+	
+	<!-- 各个检测站申请车辆信息的数量 -->
+	<select id="getSqclxx" parameterType="java.util.List" resultType="hashmap">
+		 select count(*) zs ,b.stationshortname as name from ins_applychangecarinfo i inner join bas_checkstation b on i.stationpkid = b.pkid group by b.stationshortname order by zs desc
+	</select>
+	
+	<!-- 各个检测站申请检测方法的数量 -->
+	<select id="getSqjcff" parameterType="java.util.List" resultType="hashmap">
+		  select count(*) zs ,b.stationshortname as name from Ins_Applychangecheckmethod i inner join bas_checkstation b on i.stationpkid = b.pkid group by b.stationshortname order by zs desc
+	</select>
+	
+	<!-- 各个检测站申请车辆信息的数量 -->
+	<select id="getSqclxx2" parameterType="java.util.List" resultType="hashmap">
+		 select count(*) zs ,b.stationshortname as name from ins_applychangecarinfo i inner join bas_checkstation b on i.stationpkid = b.pkid where i.applytime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND i.applytime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by b.stationshortname order by b.stationshortname desc
+	</select>
+	
+	<!-- 各个检测站申请检测方法的数量 -->
+	<select id="getSqjcff2" parameterType="java.util.List" resultType="hashmap">
+		  select count(*) zs ,b.stationshortname as name from Ins_Applychangecheckmethod i inner join bas_checkstation b on i.stationpkid = b.pkid where i.applytime <![CDATA[ >= ]]> to_date(#{starttime},'YYYY-MM-DD') AND i.applytime <![CDATA[ <= ]]> to_date(#{endtime},'YYYY-MM-DD') group by b.stationshortname order by b.stationshortname desc
+	</select>
+	<!-- 获取双怠速法的检测值 -->
+	<select id="getDB" parameterType="java.util.List" resultType="hashmap">
+		select COLOWVALUE,HCLOWVALUE,COHIGHVALUE,HCHIGHVALUE,LAMBDAVALUE,LAMBDAVALUEEL,LAMBDAVALUEED,COLOWVALUEEL,HCLOWVALUEEL,COHIGHVALUEEL,HCHIGHVALUEEL,LAMBDAVALUE,COLOWVALUEED,HCLOWVALUEED,COHIGHVALUEED,HCHIGHVALUEED from ins_dt_doubleidledata 
+		 where BUSINESSID = #{businessid}
+	</select>
+	
+	<!-- 获取稳态法的检测值 -->
+	<select id="getWT" parameterType="java.util.List" resultType="hashmap">
+		select CO5025,HC5025,NO5025,CO2540,HC2540,NO2540,CO5025EL,HC5025EL,NO5025EL,CO2540EL,HC2540EL,NO2540EL,CO5025ED,HC5025ED,NO5025ED,CO2540ED,HC2540ED,NO2540ED from ins_dt_stdstatedata 
+		 where BUSINESSID = #{businessid}
+	</select>
+	
+	<!-- 获取简易瞬态的检测值 -->
+	<select id="getIG" parameterType="java.util.List" resultType="hashmap">
+		select VALUECO,VALUEHC,VALUENO,COEL,HCEL,NOEL,COED,HCED,NOED from INS_DT_VMASDATA
+		 where BUSINESSID = #{businessid}
+	</select>
+	
+	<!-- 获取不透光的检测值 -->
+	<select id="getTG" parameterType="java.util.List" resultType="hashmap">
+		select SMOKEVALUE1,SMOKEVALUE2,SMOKEVALUE3,AVGSMOKEVALUE,SMOKEVALUEEL,ED from INS_DT_LIGHTPROOFSMOKEDATA 
+		 where BUSINESSID = #{businessid}
+	</select>
+	
+	<!-- 获取加载减速检测值 -->
+	<select id="getLD" parameterType="java.util.List" resultType="hashmap">
+		select SMOKEK100,SMOKEK90,SMOKEK80,POWER,EL100,EL90,EL80,POWEREL,ED100,ED90,ED80,POWERED from INS_DT_LOADDOWNDATA
+		 where BUSINESSID = #{businessid}
+	</select>
+	
+	<!-- 获取柴油车的-->
+	<select id="getCyctjbycode" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when (checkmethod = 'TG' or checkmethod = 'LD') and checkresult='合格' then 1 else 0 end)/sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end)*100,2) as cychgl,sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end) cycjcl,trunc(avg(maxweight)) as pjzzl,trunc(avg(MILEAGENUM)) as pjlcs,trunc(sum(case when (checkmethod = 'LD') then 1 else 0 end)/sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end)*100,2) as gkl,name，b.code 
+		 from ins_checkresultmain t left join BAS_CHECKSTATION a on a.pkid=t.stationpkid  left join cod_region b on b.code=a.region where (checkmethod = 'TG' or checkmethod = 'LD') and checktime<![CDATA[ >= ]]>to_date(#{starttime},'YYYY-MM-DD') AND checktime<![CDATA[ <= ]]>to_date(#{endtime},'YYYY-MM-DD') group by b.code,name order by b.code
+	</select>
+	
+	<!-- 获取柴油车的-->
+	<select id="getCyctjbystation" parameterType="java.util.List" resultType="hashmap">
+		select trunc(sum(case when (checkmethod = 'TG' or checkmethod = 'LD') and checkresult='合格' then 1 else 0 end)/sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end)*100,2) as cychgl,
+		sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end) cycjcl,trunc(avg(maxweight)) as pjzzl,
+		trunc(avg(MILEAGENUM)) as pjlcs,
+		trunc(sum(case when (checkmethod = 'LD') then 1 else 0 end)/sum(case when (checkmethod = 'TG' or checkmethod = 'LD')  then 1 else 0 end)*100,2) as gkl,
+		a.stationshortname as name 
+		 from ins_checkresultmain t left join BAS_CHECKSTATION a on a.pkid=t.stationpkid  left join cod_region b on b.code=a.region where (checkmethod = 'TG' or checkmethod = 'LD') and checktime <![CDATA[ >= ]]>to_date(#{starttime},'YYYY-MM-DD') AND checktime<![CDATA[ <= ]]>to_date(#{endtime},'YYYY-MM-DD') and b.code = #{code} group by t.stationpkid,a.stationshortname order by a.stationshortname
+	</select>
+	
+	<!-- 获取异常数据信息 -->
+	<select id="getycsj" parameterType="java.util.List" resultType="hashmap">
+		select t.pkid,t.carpkid,t.carcardnumber,cc.name as cardtype,b.name as fueltype,m.name as carmode,a.vin,a.CARVERSION,to_char(a.REGISTERDATE,'yyyy-MM-dd') REGISTERDATE,c.stationname,to_char(t.checktime,'yyyy-MM-dd hh24:mi:ss') checktime,d.staffname,e.linename,t.checkmethod,t.clxxycsm,t.jgsjycsm,decode(t.gcsjycsm,null,'分析失败',t.gcsjycsm) gcsjycsm,t.jcffycsm,t.jcxzycsm from ins_checkresultmain t  left join bas_carinfo a on t.carpkid=a.pkid  left join cod_fueltype b on a.fueltype=b.code  left join bas_checkstation c on t.stationpkid=c.pkid left join cod_carmode m on m.code = a.CARMODE left join sys_user_station d on t.userid=d.loginaccount left join cod_cardtype cc on a.cardtype = cc.code  left join bas_checkline e on  e.pkid=t.checklinepkid where t.ycsjfxqk='1'  
+		 <if test="pkid!=null and pkid!=''">
+				and  t.pkid = #{pkid}
+		</if>
+	</select>
+	
+	<!-- 获取双怠速法的检测信息 -->
+	<select id="getDBXX" parameterType="java.util.List" resultType="hashmap">
+		select dl.businessid,COLOWVALUE,HCLOWVALUE,COHIGHVALUE,HCHIGHVALUE,LAMBDAVALUE,t.checkresult,to_char(t.checktime,'yy.MM.dd hh24:mi') checktime,decode(t.recheckinfo,0,'首检',t.recheckinfo||'次复检') recheckinfo from ins_checkresultmain t left join ins_dt_doubleidledata dl on t.pkid = dl.businessid where t.carpkid = #{carpkid} group by dl.businessid,COLOWVALUE,HCLOWVALUE,COHIGHVALUE,HCHIGHVALUE,LAMBDAVALUE,t.checkresult,checktime,recheckinfo order by checktime
+	</select>
+	
+	<!-- 获取稳态法的检测信息 -->
+	<select id="getWTXX" parameterType="java.util.List" resultType="hashmap">
+		select dl.businessid,CO5025,HC5025,NO5025,CO2540,HC2540,NO2540,t.checkresult,to_char(t.checktime,'yy.MM.dd hh24:mi') checktime,decode(t.recheckinfo,0,'首检',t.recheckinfo||'次复检') recheckinfo from ins_checkresultmain t left join ins_dt_stdstatedata dl on t.pkid = dl.businessid where t.carpkid = #{carpkid} group by dl.businessid,CO5025,HC5025,NO5025,CO2540,HC2540,NO2540,t.checkresult,checktime,recheckinfo order by checktime
+	</select>
+	
+	<!-- 获取简易瞬态法的检测信息 -->
+	<select id="getIGXX" parameterType="java.util.List" resultType="hashmap">
+		select dl.businessid,VALUECO,VALUEHC,VALUENO,t.checkresult,to_char(t.checktime,'yy.MM.dd hh24:mi') checktime,decode(t.recheckinfo,0,'首检',t.recheckinfo||'次复检') recheckinfo from ins_checkresultmain t left join INS_DT_VMASDATA dl on t.pkid = dl.businessid where t.carpkid = #{carpkid} group by dl.businessid,VALUECO,VALUEHC,VALUENO,t.checkresult,checktime,recheckinfo order by checktime
+	</select>
+	
+	<!-- 获取不透光法的检测信息 -->
+	<select id="getTGXX" parameterType="java.util.List" resultType="hashmap">
+		select dl.businessid,SMOKEVALUE1,SMOKEVALUE2,SMOKEVALUE3,AVGSMOKEVALUE,t.checkresult,to_char(t.checktime,'yy.MM.dd hh24:mi') checktime,decode(t.recheckinfo,0,'首检',t.recheckinfo||'次复检') recheckinfo from ins_checkresultmain t left join INS_DT_LIGHTPROOFSMOKEDATA dl on t.pkid = dl.businessid where t.carpkid = #{carpkid} group by dl.businessid,SMOKEVALUE1,SMOKEVALUE2,SMOKEVALUE3,AVGSMOKEVALUE,t.checkresult,checktime,recheckinfo order by checktime
+	</select>
+	
+	<!-- 获取加载减速法检测信息 -->
+	<select id="getLDXX" parameterType="java.util.List" resultType="hashmap">
+		select dl.businessid,s100str,s90str,s80str,powstr,t.checkresult,to_char(t.checktime,'yy.MM.dd hh24:mi') checktime,decode(t.recheckinfo,0,'首检',t.recheckinfo||'次复检') recheckinfo from ins_checkresultmain t left join ins_dt_loaddowndata dl on t.pkid = dl.businessid where t.carpkid = #{carpkid} group by dl.businessid,s100str,s90str,s80str,powstr,t.checkresult,checktime,recheckinfo order by checktime
+	</select>
+	
+	
+</mapper>

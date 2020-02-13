@@ -1,0 +1,52 @@
+13-Feb-2020 10:46:14.124 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\spring], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.134 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\spring], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.139 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\mybatis], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.139 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\mybatis], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.140 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\common], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.141 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\common], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.142 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\dbDriver], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.143 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\dbDriver], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.144 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\cxf], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:14.145 警告 [main] org.apache.catalina.startup.ClassLoaderFactory.validateFile Problem with directory [D:\codes\zccp\libs\cxf], exists: [false], isDirectory: [false], canRead: [false]
+13-Feb-2020 10:46:16.168 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.29
+13-Feb-2020 10:46:16.169 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 5 2018 13:11:12 UTC
+13-Feb-2020 10:46:16.172 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.29.0
+13-Feb-2020 10:46:16.173 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 8.1
+13-Feb-2020 10:46:16.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.3
+13-Feb-2020 10:46:16.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+13-Feb-2020 10:46:16.175 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             D:\Program Files\Java\jdk1.7.0_67\jre
+13-Feb-2020 10:46:16.178 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.7.0_67-b01
+13-Feb-2020 10:46:16.179 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+13-Feb-2020 10:46:16.180 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\codes\zccp\dsjfxxtnew\tomcat
+13-Feb-2020 10:46:16.191 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         D:\codes\zccp\dsjfxxtnew\tomcat
+13-Feb-2020 10:46:16.193 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\codes\zccp\dsjfxxtnew\tomcat\conf\logging.properties
+13-Feb-2020 10:46:16.194 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Feb-2020 10:46:16.197 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Xms550m
+13-Feb-2020 10:46:16.199 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Xmx1250m
+13-Feb-2020 10:46:16.209 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -XX:PermSize=550m
+13-Feb-2020 10:46:16.211 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -XX:MaxPermSize=1250m
+13-Feb-2020 10:46:16.212 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+13-Feb-2020 10:46:16.213 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+13-Feb-2020 10:46:16.215 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+13-Feb-2020 10:46:16.216 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\codes\zccp\dsjfxxtnew\tomcat
+13-Feb-2020 10:46:16.218 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=D:\codes\zccp\dsjfxxtnew\tomcat
+13-Feb-2020 10:46:16.230 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\codes\zccp\dsjfxxtnew\tomcat\temp
+13-Feb-2020 10:46:16.231 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library [1.2.16] using APR version [1.6.3].
+13-Feb-2020 10:46:16.233 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+13-Feb-2020 10:46:16.234 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+13-Feb-2020 10:46:17.453 信息 [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 1.0.2m  2 Nov 2017]
+13-Feb-2020 10:46:17.816 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-6539"]
+13-Feb-2020 10:46:17.891 信息 [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Feb-2020 10:46:17.918 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+13-Feb-2020 10:46:17.933 信息 [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Feb-2020 10:46:17.934 信息 [main] org.apache.catalina.startup.Catalina.load Initialization processed in 3695 ms
+13-Feb-2020 10:46:20.242 信息 [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+13-Feb-2020 10:46:20.242 信息 [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.29
+13-Feb-2020 10:46:38.780 信息 [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Feb-2020 10:46:39.732 严重 [localhost-startStop-1] org.apache.catalina.core.StandardContext.startInternal One or more listeners failed to start. Full details will be found in the appropriate container log file
+13-Feb-2020 10:46:39.734 严重 [localhost-startStop-1] org.apache.catalina.core.StandardContext.startInternal Context [/dsj] startup failed due to previous errors
+13-Feb-2020 10:46:40.108 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [D:\codes\zccp\dsjfxxtnew\tomcat\webapps\ROOT]
+13-Feb-2020 10:46:41.717 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [D:\codes\zccp\dsjfxxtnew\tomcat\webapps\ROOT] has finished in [1,607] ms
+13-Feb-2020 10:46:41.732 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-6539"]
+13-Feb-2020 10:46:41.757 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+13-Feb-2020 10:46:41.767 信息 [main] org.apache.catalina.startup.Catalina.start Server startup in 23831 ms

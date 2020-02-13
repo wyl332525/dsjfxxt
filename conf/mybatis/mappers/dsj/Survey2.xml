@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmzc.dao.dsj.Survey2">
+
+	<select id="getStations" parameterType="java.util.List" resultType="hashmap">
+		select a.* from (select rownum as rn,t.pkid,t.stationname,t.stationshortname,c.name as area,cc.name as region,cs.name as stationstate,to_char(t.registdate,'yyyy-MM-dd') as registdate,t.stationaddress,t.legalperson,t.hbjcfzr,t.fzrphone from bas_checkstation t left join cod_region c on t.region = c.code left join cod_region cc on t.region = cc.code left join cod_state cs on t.stationstate = cs.code where 1=1
+			<if test="name!=null and name!=''">
+				and c.name like #{name}
+			</if>
+			<if test="stationname!=null and stationname!=''">
+				and t.stationname like #{stationname}
+			</if>
+			<if test="region!=null and region!='' and region!='null'" >
+				and t.region = #{region}
+			</if>
+			) a 
+	</select>
+	
+	<select id="getCars" parameterType="java.util.List" resultType="hashmap">
+		select a1.rn,a1.pkid,a1.carcardnumber,a1.vin,a1.rlzl,a1.cllx from (select rownum as rn,a.pkid,a.carcardnumber,a.vin,c.name as rlzl,d.name as cllx from bas_carinfo a  left join cod_cardtype b on a.cardtype=b.code left join cod_fueltype c on a.fueltype=c.code left join cod_carmode d on a.carmode=d.code where 1=1 
+			<if test="rownum!=null and rownum!=''">
+				and rownum <![CDATA[ <= ]]> #{rownum}
+			</if>
+			<if test="carcardnumber!=null and carcardnumber!=''">
+				and a.carcardnumber like #{carcardnumber}
+			</if>
+			) a1
+	</select>
+</mapper>
