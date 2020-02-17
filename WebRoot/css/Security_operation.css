@@ -24,19 +24,19 @@ html{
 }
 
 .left_cage{
-    width: 22%;
+    width: 25%;
     height: 100%;
     margin-left: 0.3%;
     float: left;
 }
 .center_cage{
-    width: 55.1%;
+    width: 49%;
     height: 100%;
     margin-left: 0.3%;
     float: left;
 }
 .right_cage{
-    width: 22%;
+    width: 25%;
     height: 100%;
     margin-left: 0.3%;
     float: right;

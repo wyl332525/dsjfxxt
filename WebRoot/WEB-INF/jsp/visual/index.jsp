@@ -143,7 +143,7 @@
             </div>
 
             <div class="center_cage">
-                <div class="dataAllBorder01 cage_cl" style="margin-top: 3.5% !important; height: 62.7%; position: relative;">
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 4.5% !important; height: 62.7%; position: relative;">
                     <div class="dataAllBorder02" style="position: relative; overflow: hidden;">
                         <!--标题栏-->
                         <div class="map_title_box" style="height: 6%">
@@ -413,63 +413,11 @@
             </div>
 
         </div>
-		<!-- 异常信息 -->
+        
+        
+		<!-- 检测统计分析 -->
         <div class="inner" style="display: none;" >
-            <div class="data_left01">
-                <div class="dataAll maginS">
-                    <div class="dataAllBorder01">
-                        <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxx分析</div>
-                            <div class="data_chart" id="buyTime"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="dataAll">
-                    <div class="dataAllBorder01">
-                        <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxx类型分析</div>
-                            <p class="data_chart" id="Package01"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dataAll">
-                    <div class="dataAllBorder01">
-                        <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxx分析</div>
-                            <p class="data_chart" id="rode01"></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="data_left01">
-                <div class="dataAll maginS">
-                    <div class="dataAllBorder01">
-                        <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxxx分析</div>
-                            <p class="data_chart" id="bookAret"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dataAll">
-                    <div class="dataAllBorder01">
-                        <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxxxx分析</div>
-                            <p class="data_chart" id="bookBmonth"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dataAll">
-                    <div class="dataAllBorder01">
-                        <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxxxx分析</div>
-                            <p class="data_chart" id="whearAbook"></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="data_left02">
+        	<div class="data_left02" style="width:28%;">
                 <div class="dataAll01">
                     <div class="dataAllBorder01">
                         <div class="dataAllBorder02">
@@ -533,7 +481,62 @@
                     </div>
                 </div>
             </div>
-            <div class="data_left01">
+            <div class="data_left01" style="width:23%;">
+                <div class="dataAll maginS">
+                    <div class="dataAllBorder01">
+                        <div class="dataAllBorder02">
+                            <div class="data_tit1">xxxxx分析</div>
+                            <div class="data_chart" id="buyTime"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataAll">
+                    <div class="dataAllBorder01">
+                        <div class="dataAllBorder02">
+                            <div class="data_tit1">xxxxx类型分析</div>
+                            <p class="data_chart" id="Package01"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataAll">
+                    <div class="dataAllBorder01">
+                        <div class="dataAllBorder02">
+                            <div class="data_tit1">xxxxx分析</div>
+                            <p class="data_chart" id="rode01"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="data_left01" style="width:23%;">
+                <div class="dataAll maginS">
+                    <div class="dataAllBorder01">
+                        <div class="dataAllBorder02">
+                            <div class="data_tit1">xxxxxx分析</div>
+                            <p class="data_chart" id="bookAret"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataAll">
+                    <div class="dataAllBorder01">
+                        <div class="dataAllBorder02">
+                            <div class="data_tit1">xxxxxxx分析</div>
+                            <p class="data_chart" id="bookBmonth"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataAll">
+                    <div class="dataAllBorder01">
+                        <div class="dataAllBorder02">
+                            <div class="data_tit1">xxxxxxx分析</div>
+                            <p class="data_chart" id="whearAbook"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="data_left01" style="width:23%;">
                 <div class="dataAll maginS">
                     <div class="dataAllBorder01">
                         <div class="dataAllBorder02">
