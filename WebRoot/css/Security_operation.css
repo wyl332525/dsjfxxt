@@ -395,16 +395,18 @@ html{
     color: white;
 }
 .data_show_box{
-    height: 42%;
-    width: 76%;
+    height: 30%;
+    width: 95%;
     margin: auto;
     text-decoration: none;
 }
+.allnav_one{width:45%;height:100%;}
+.allnav_two{width:45%;height:100%;margin-left:50%;}
 .data_cage{
     display: block;
     background-image: url("../img/data_bg.png");
     height: 100%;
-    width: 16%;
+    width: 14%;
     float: left;
     margin-left: 1px;
     color: white;
@@ -418,7 +420,7 @@ html{
     color: #dbe9f1;
 }
 @font-face {
-    font-family: data_Number; src: url("../fonts/data_Number.ttf");
+    font-family: data_Number; src: url("../font/data_Number.ttf");
 }
 .depart_number_box{
     height: 28%;

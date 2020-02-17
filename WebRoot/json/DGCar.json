@@ -1,44 +1,44 @@
-﻿{
-  "data": [
+{
+	"data": [
     {
-      "id": "23134",
-      "carno": "川A23521",
-      "company": "xxxxx厂",
-      "content": "xxxxx",
-      "speed": "68",
-      "load": "6000KG"
+      "id": "231342",
+      "carno": "云A23521",
+      "company": "澄江佳利检测站",
+      "content": "2020-01-02 14:12:12",
+      "speed": "加载减速工况法",
+      "load": "合格"
     },
     {
-      "id": "72631",
-      "carno": "川C23412",
-      "company": "xxxxx厂",
-      "content": "xxxxx",
-      "speed": "68",
-      "load": "6000KG"
+      "id": "231343",
+      "carno": "云A23521",
+      "company": "澄江佳利检测站",
+      "content": "2020-01-02 14:12:12",
+      "speed": "加载减速工况法",
+      "load": "合格"
     },
     {
-      "id": "12343",
-      "carno": "川A32D1",
-      "company": "xxxxx厂",
-      "content": "xxxxx",
-      "speed": "68",
-      "load": "6000KG"
+      "id": "231344",
+      "carno": "云A23521",
+      "company": "澄江佳利检测站",
+      "content": "2020-01-02 14:12:12",
+      "speed": "加载减速工况法",
+      "load": "合格"
     },
     {
-      "id": "5231",
-      "carno": "川A92342",
-      "company": "xxxxx厂",
-      "content": "xxxxx",
-      "speed": "68",
-      "load": "6000KG"
+      "id": "231345",
+      "carno": "云A23521",
+      "company": "澄江佳利检测站",
+      "content": "2020-01-02 14:12:12",
+      "speed": "加载减速工况法",
+      "load": "合格"
     },
-   {
-      "id": "5231",
-      "carno": "川A92342",
-      "company": "xxxxx厂",
-      "content": "xxxxx",
-      "speed": "68",
-      "load": "6000KG"
+    {
+      "id": "231346",
+      "carno": "云A23521",
+      "company": "澄江佳利检测站",
+      "content": "2020-01-02 14:12:12",
+      "speed": "加载减速工况法",
+      "load": "合格"
     }
 
   ]

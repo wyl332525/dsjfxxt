@@ -4,6 +4,8 @@
 
 $(function(){
     // index();
+	//loadCyslByMethod();
+	//loadQyslByMethod();
     $(".index_nav ul li").each(function(index){
         $(this).click(function(){
             $(this).addClass("nav_active").siblings().removeClass("nav_active");
@@ -35,7 +37,265 @@ $(function(){
         })
     });
 
+    initYcsjlb();
+    initJdcCycJcl();
+    initZtjchgl();
 });
+
+function loadCyslByMethod() {
+	var barChart = echarts.init(document.getElementById('areaCyslByMethod'));
+
+	// 从redis调取数据
+	var data = fromRedisGetData({
+		key : "getAreaJclByFuelType"
+	})
+	// 为环状图配置参数数据装配
+	var option = assembleAreaCyslByMethod(data);
+	barChart.setOption(option);
+}
+
+function loadQyslByMethod() {
+	var qyCheckmethod = []; //汽油车检测图例
+	var barChart = echarts.init(document.getElementById("areaQyslByMethod"));
+
+	//从redis调取数据
+	var data = fromRedisGetData({
+		key : "getAreaJclByFuelType"
+	});
+	//为环状图配置参数数据装配
+	var option = assembleAreaQyslByMethod(data, qyCheckmethod);
+	barChart.setOption(option);
+}
+
+/**
+ * 加载异常数据列表
+ */
+function initYcsjlb(){
+	var html = "";
+	for (var i=0;i<5;i++) {
+		html += "<div class='message_scroll'>";
+		html += "<div class='scroll_top'>";
+		html += "<span class='scroll_title'>异常数据分析异常</span>";
+		html += "<span class='scroll_level scroll_level03'>异常</span>";
+		//html += "<a class='localize'></a><span class='scroll_timer'>17-09-13/9:52</span>";
+		html += "<span class='scroll_timer'>2020-01-02 14:12:10</span>";
+		html += "</div>";
+		html += "<div class='msg_cage'><a class='localize_title'>过程数据分析异常</a></div>";
+		html += "<div class='msg_cage'><a class='localize_msg'>过程数据分析到CO+CO2<6%</a></div>";
+		html += "</div>";
+	}
+	
+	$("#ycsjlb").append(html);
+}
+
+/**
+ * 加载各地区机动车/柴油车检测量柱状图
+ */
+function initJdcCycJcl(){
+	var jdcCycCharts = echarts.init(document.getElementById("jdcCycJcl"));
+	var myChart = echarts.init($("#rodeAbook")[0]);
+        option = {
+            tooltip : {
+                trigger: 'axis'
+            },
+            grid: {
+                x: 46,
+                y:30,
+                x2:30,
+                y2:20,
+                borderWidth: 0
+            },
+
+            calculable : false,
+            legend: {
+                data:['汽油车','柴油车'],
+                textStyle:{
+                    color:"#e9ebee"
+
+                }
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['红塔','江川','团山','澄江','易门','新平','峨山'],
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#a4a7ab',
+                            align: 'center'
+                        }
+                    }
+
+                }
+            ],
+            yAxis : [
+//                {
+//                    type : 'value',
+//                    name : '订单量',
+//                    axisLabel : {
+//                        formatter: '{value} ',
+//                        textStyle: {
+//                            color: '#a4a7ab',
+//                            align: 'right'
+//                        }
+//                    },
+//                    splitLine: {
+//                        show: false
+//                    },
+//                },
+                {
+                    type : 'value',
+                    name : '检测量',
+                    axisLabel : {
+                        formatter: '{value} ',
+                        textStyle: {
+                            color: '#a4a7ab',
+                            align: 'right'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                },
+
+            ],
+            series : [
+
+                {
+                    name:'柴油车',
+                    type:'bar',
+                    stack: '检测量',
+                    data:[120, 132, 101, 134, 90, 230, 210],
+                    itemStyle: {
+                        normal: {
+                            color:"#ffcb89"
+                        }
+                    }
+                },
+                {
+                    name:'汽油车',
+                    type:'bar',
+                    stack: '检测量',
+                    data:[220, 232, 301, 234, 190, 330, 210],
+                    itemStyle: {
+                        normal: {
+                            color:"#005ea1"
+                        }
+                    }
+                }
+            ]
+        };
+	
+	jdcCycCharts.setOption(option);
+}
+
+function initZtjchgl(){
+	var zthglCharts = echarts.init(document.getElementById("ztjchglgkl"));
+	option = {
+		    tooltip : {
+		        formatter: "{a} <br/>{c} {b}"
+		    },
+//		    toolbox: {
+//		        show : true,
+//		        feature : {
+//		            mark : {show: true},
+//		            restore : {show: true},
+//		            saveAsImage : {show: true}
+//		        }
+//		    },
+		    series : [
+		        {
+		            name:'总体检测工况率',
+		            type:'gauge',
+		            center : ['70%', '50%'],
+		            z: 3,
+		            min:30,
+		            max:100,
+		            startAngle:140,
+		            splitNumber:7,
+		            axisLine: {            // 坐标轴线
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    width: 10
+		                }
+		            },
+		            axisTick: {            // 坐标轴小标记
+		                length :15,        // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    color: 'auto'
+		                }
+		            },
+		            splitLine: {           // 分隔线
+		                length :20,         // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+		                    color: 'auto'
+		                }
+		            },
+		            title : {
+		                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder',
+		                    fontSize: 15,
+		                  	color:'#FFFFFF'
+		                }
+		            },
+		            detail : {
+		                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder'
+		                }
+		            },
+		            data:[{value: 79.65, name: '总体工况率'}]
+		        },
+		        {
+		            name:'总体检测合格率',
+		            type:'gauge',
+		            center : ['30%', '50%'],    // 默认全局居中
+		   
+		            min:0,
+		            max:100,
+		            //endAngle:45,
+		            splitNumber:10,
+		            axisLine: {            // 坐标轴线
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    width: 8
+		                }
+		            },
+		            axisTick: {            // 坐标轴小标记
+		                length :12,        // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    color: 'auto'
+		                }
+		            },
+		            splitLine: {           // 分隔线
+		                length :20,         // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+		                    color: 'auto'
+		                }
+		            },
+		            pointer: {
+		                width:5
+		            },
+		            title : {
+		              	textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder',
+		                    fontSize: 15,
+		                  	color:'#FFFFFF'
+		                }
+		                //offsetCenter: [0, '-30%'],       // x, y，单位px
+		            },
+		            detail : {
+		                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder'
+		                }
+		            },
+		            data:[{value: 68.56, name: '总体检测合格率'}]
+		        }
+		    ]
+		};
+	zthglCharts.setOption(option);
+}
+
 
 function user(){
     //游客来源分析

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="<%=rootPath %>/js/artDialog/skins/default.css" type="text/css"/>
     <script src="<%=rootPath %>/js/laydate.js"></script>
     <script src="<%=rootPath %>/js/Home_page.js"></script>
-    
+    <script src="<%=rootPath %>/js/sjtj/qualifiedCharts.js" type="text/javascript"></script>
     <meta charset="UTF-8">
 
 </head>
@@ -24,12 +24,12 @@
 <div class="data_bodey">
     <div class="index_nav" >
         <ul style="height: 30px; margin-bottom: 0px;">
-            <li class="l_left total_chose_fr nav_active">实时监测</li>
-            <li class="l_left total_chose_pl" >统计分析一</li>
-            <li class="l_left total_chose_pl">统计分析二</li>
-            <li class="r_right total_chose_pl">统计分析三</li>
-            <li class="r_right total_chose_pl">统计分析四</li>
-            <li class="r_right total_chose_pl">统计分析五</li>
+            <li class="l_left total_chose_fr nav_active">首页展示</li>
+            <li class="l_left total_chose_pl">检测统计分析</li>
+            <li class="l_left total_chose_pl">异常数据分析</li>
+            <li class="r_right total_chose_pl">相关其他分析</li>
+            <li class="r_right total_chose_pl">数据排名分析</li>
+            <li class="r_right total_chose_pl">数据预警分析</li>
         </ul>
         <div class="total_chose_box" style="display: none;">
             <div style="height: 32px;"></div>
@@ -73,95 +73,64 @@
         <div class="clear"></div>
     </div>
     <div class="index_tabs" >
-        <!--安防运作-->
+        <!-- 首页展示 -->
         <div class="inner" style="height: 109%;">
 
             <div class="left_cage">
-                <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 24%;">
-                    <video autoplay="autoplay" loop="loop" class="dataAllBorder02 video_cage">
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 32%;">
+                    <!-- <video autoplay="autoplay" loop="loop" class="dataAllBorder02 video_cage">
                         <source class="video" title="主监控位" src="video/test_mv02.mov"/>
-                    </video>
+                    </video> -->
+                    <div class="dataAllBorder02" id="cage_cl" >
+                        <div class="data_tit1">检测数据汇总</div>
+                        <ul class="data_show_box">
+                            <li class="data_cage">3</li>
+                            <li class="data_cage">0</li>
+                            <li class="data_cage">1</li>
+                            <li class="data_cage">2</li>
+                            <li class="data_cage">2</li>
+                            <li class="data_cage">9</li>
+                            <li class="data_cage">9</li>
+                        </ul>
+                        <div class="depart_number_box">
+                            
+                            <ul class="depart_number_cage">
+                                <li class="depart_name">检验机构数量：</li>
+                                <li class="depart_number">36</li>
+                            </ul>
+                            <ul class="depart_number_cage">
+                                <li class="depart_name">检测线总数量：</li>
+                                <li class="depart_number">159</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">总检测车辆数：</li>
+                                <li class="depart_number">512034</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">当年机动车检测数：</li>
+                                <li class="depart_number">40321</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">当月机动车检测数：</li>
+                                <li class="depart_number">6042</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="margin-bottom: 0px;width:100%;">
+                                <li class="depart_name">今日机动车检测数：</li>
+                                <li class="depart_number">163</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="dataAllBorder01 cage_cl" style="margin-top: 1.5% !important; height: 38%;">
-                    <div class="dataAllBorder02 video_cage">
-                        <img class="video_around video_around_chose" src="video/video.jpg">
-                        <img class="video_around" src="video/video.jpg">
-                        <img class="video_around" src="video/video.jpg">
-                        <img class="video_around" src="video/video.jpg">
-                        <!--<video autoplay="autoplay" loop="loop" class="video_around video_around_chose" title="循环监控01" style="margin-right: 1%; margin-bottom: 1%">-->
-                            <!--<source class="video" title="主监控位" src="video/video.jpg"/>-->
-                        <!--</video>-->
-                        <!--<video autoplay="autoplay" loop="loop"  class="video_around" title="循环监控02"  style="margin-bottom: 1%">-->
-                            <!--<source class="video" title="主监控位" src="video/test_mv03.mov"/>-->
-                        <!--</video>-->
-                        <!--<video autoplay="autoplay" loop="loop"  class="video_around" title="循环监控03" style="margin-right: 1%">-->
-                            <!--<source class="video" title="主监控位" src="video/test_mv03.mov"/>-->
-                        <!--</video>-->
-                        <!--<video autoplay="autoplay" loop="loop"  class="video_around" title="循环监控04">-->
-                            <!--<source class="video" title="主监控位" src="video/test_mv05.mov"/>-->
-                        <!--</video>-->
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 1.5% !important; height: 30%;">
+                    <div class="dataAllBorder02 video_cage" id="jdcCycJcl">
+                       
                     </div>
                 </div>
                 <div class="dataAllBorder01 cage_cl" style="margin-top: 1.5% !important; height: 32%; position: relative;">
                     <div class="dataAllBorder02" style="padding: 1.2%; overflow: hidden">
 
-                        <div class="message_scroll_box">
-                            <div class="message_scroll">
-                            <div class="scroll_top">
-                                <span class="scroll_title">数据流量警示</span>
-                                <span class="scroll_level scroll_level01">一级</span>
-                                <a class="localize"></a>
-                                <span class="scroll_timer">17-09-13/9:52</span>
-                            </div>
-                            <div class="msg_cage">
-                                <a class="localize_title">下载大量视频</a>
-                            </div>
-                            <div class="msg_cage">
-                                <a class="localize_msg">xxx视频网站</a>
-                            </div>
-                        </div>
-                            <div class="message_scroll">
-                                <div class="scroll_top">
-                                    <span class="scroll_title">数据流量警示</span>
-                                    <span class="scroll_level scroll_level03">三级</span>
-                                    <a class="localize"></a>
-                                    <span class="scroll_timer">17-09-13/9:52</span>
-                                </div>
-                                <div class="msg_cage">
-                                    <a class="localize_title">下载大量视频</a>
-                                </div>
-                                <div class="msg_cage">
-                                    <a class="localize_msg">xxx视频网站</a>
-                                </div>
-                            </div>
-                            <div class="message_scroll">
-                                <div class="scroll_top">
-                                    <span class="scroll_title">数据流量警示</span>
-                                    <span class="scroll_level scroll_level02">二级</span>
-                                    <a class="localize"></a>
-                                    <span class="scroll_timer">17-09-13/9:52</span>
-                                </div>
-                                <div class="msg_cage">
-                                    <a class="localize_title">下载大量视频</a>
-                                </div>
-                                <div class="msg_cage">
-                                    <a class="localize_msg">xxx视频网站</a>
-                                </div>
-                            </div>
-                            <div class="message_scroll">
-                                <div class="scroll_top">
-                                    <span class="scroll_title">数据流量警示</span>
-                                    <span class="scroll_level scroll_level01">一级</span>
-                                    <a class="localize"></a>
-                                    <span class="scroll_timer">17-09-13/9:52</span>
-                                </div>
-                                <div class="msg_cage">
-                                    <a class="localize_title">下载大量视频</a>
-                                </div>
-                                <div class="msg_cage">
-                                    <a class="localize_msg">xxx视频网站</a>
-                                </div>
-                            </div>
+                        <div class="message_scroll_box" id="ycsjlb">
+                            
                         </div>
 
                     </div>
@@ -318,13 +287,7 @@
                     <div class="dataAllBorder02" id="map_title_innerbox">
                         <div class="map_title_box">
                             <div class="map_title_innerbox">
-                                <div class="map_title" style="background-image: url(img/second_title.png);">分析数据一</div>
-                            </div>
-                            <div >
-                                <select id="selLayer" style="width:100px;">
-                                    <option value="">车辆</option>
-                                    <option value="">企业</option>
-                                </select>
+                                <div class="map_title" style="background-image: url(<%=rootPath %>>/img/second_title.png);">车辆实时检测列表</div>
                             </div>
                         </div>
                         <table id="table" style="width: 100%"></table>
@@ -353,510 +316,92 @@
 
             <div class="right_cage">
                 <!--顶部切换位置-->
-                <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 24%">
-                    <div class="dataAllBorder02" id="cage_cl" >
-                        <div class="analysis">一天流量：</div>
-                        <ul  class="data_show_box">
-                            <li class="data_cage">0</li>
-                            <li class="data_cage">0</li>
-                            <li class="data_cage" style="background-image: none;">,</li>
-                            <li class="data_cage">0</li>
-                            <li class="data_cage">0</li>
-                            <li class="data_cage">2</li>
-                        </ul>
-                        <div class="depart_number_box">
-                            <ul class="depart_number_cage">
-                                <li class="depart_name">流量一：</li>
-                                <li class="depart_number">3,238</li>
-                            </ul>
-                            <ul class="depart_number_cage">
-                                <li class="depart_name">流量二：</li>
-                                <li class="depart_number">1,630</li>
-                            </ul>
-                            <ul class="depart_number_cage" style="margin-bottom: 0px;">
-                                <li class="depart_name">流量三：</li>
-                                <li class="depart_number">4,251</li>
-                            </ul>
-                            <ul class="depart_number_cage" style="margin-bottom: 0px;">
-                                <li class="depart_name">流量四：</li>
-                                <li class="depart_number">24</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="dataAllBorder02 over_hide" id="cage_cl1" style="display: none" >
-                        <div class="analysis">点位基础信息：</div>
+                <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 32%">
+                    
+                    <div class="dataAllBorder02 over_hide" id="cage_cl1" >
+                       <!--  <div class="analysis">点位基础信息：</div>
                         <ul class="location_msg_box">
                             <li class="location_msg01 location_single">事件级别：<a href="#" style="color: #dc0000;">一级</a></li>
                             <li class="location_msg02 location_single">事件级别：化学气体泄漏</a></li>
                             <li class="location_msg02 location_double">案发时间：<a href="#" style="color: #cdd6db;">2017-09-10<br>11:40</a></li>
                             <li class="location_msg01 location_double">地址：北京市成华区一环路南三段45#</a></li>
                             <li class="location_msg01 location_single" style="width: 100%; height: 40%">案件关联：“131”抢劫、2014-05-13火灾、2013-12-08毒气   泄漏。</a></li>
-                        </ul>
+                        </ul> -->
+                        <div class="data_tit1">大数据分析概览</div>
+                        <div class="data_chart">
+                        	<!-- <div class="allnav_one" id="areaCyslByMethod"></div>
+							<div class="allnav_two" id="areaQyslByMethod"></div> -->
+							<ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">近一年复检次数最多的检验机构：</li>
+                                <li class="depart_number">XXXXXX检测站</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">平均复检次数最多的车型：</li>
+                                <li class="depart_number">宇通牌DI30123X</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">检测次数最多的车型：</li>
+                                <li class="depart_number">东风本田牌CIVIC</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">柴油车排放检验超标最多的企业：</li>
+                                <li class="depart_number">一汽重工</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">检测高排放车最多的检验机构：</li>
+                                <li class="depart_number">YYYYYY检测站</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">检测工况率最低的检验机构：</li>
+                                <li class="depart_number">AAAAAA检测站</li>
+                            </ul>
+                            <ul class="depart_number_cage" style="width:100%;">
+                                <li class="depart_name">平均复检时间最短的检验机构：</li>
+                                <li class="depart_number">ZZZZZZ检测站</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="dataAllBorder01 cage_cl check_increase" style=" margin-top: 1.5% !important;">
+                <div class="dataAllBorder01 cage_cl check_increase" style=" margin-top: 1.5% !important;height: 30%;">
                     <!--切换01-->
-                    <div class="dataAllBorder02 over_hide dataAllBorder20" id="over_hide">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th style="width: 18%">名称</th>
-                                <th>归属</th>
-                                <th>程度</th>
-                                <th>范围)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>200m-5km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>4km-80km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>400m-2km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>1km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>2km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>500m-2km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>500m-10km</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th style="width: 18%">名称</th>
-                                <th>归属</th>
-                                <th>程度</th>
-                                <th>范围(r=?)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>全城</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>车站</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>xxxxxxx</td>
-                                <td>-</td>
-                            </tr>
-
-
-
-                            </tbody>
-                        </table>
+                    
+                    <div class="dataAllBorder02 over_hide dataAllBorder20">
+                        <div class="data_tit1">总体合格率/工况率</div>
+                        <div class="data_chart" id="ztjchglgkl"></div>
                     </div>
-                    <!--切换02-->
-                    <div class="dataAllBorder02 over_hide dataAllBorder20" id="over_hide1"  style="display: none">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th style="width: 18%">名称</th>
-                                <th>级别</th>
-                                <th>流量</th>
-                                <th>范围(r=?)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>下载文本</td>
-                                <td>三级</td>
-                                <td>5t</td>
-                                <td>200m-5km</td>
-                            </tr>
-                            <tr>
-                                <td>浏览图片</td>
-                                <td>三级...</td>
-                                <td>3t</td>
-                                <td>4km-80km</td>
-                            </tr>
-                            <tr>
-                                <td>浏览视频</td>
-                                <td>一级</td>
-                                <td>20t</td>
-                                <td>400m-2km</td>
-                            </tr>
-                            <tr>
-                                <td>下载图片</td>
-                                <td>一级</td>
-                                <td>10t</td>
-                                <td>1km</td>
-                            </tr>
-                            <tr>
-                                <td>下载视频</td>
-                                <td>一级</td>
-                                <td>4t</td>
-                                <td>2km</td>
-                            </tr>
-                            <tr>
-                                <td>在线处理</td>
-                                <td>一级</td>
-                                <td>3t</td>
-                                <td>500m-2km</td>
-                            </tr>
-                            <tr>
-                                <td>在线查询</td>
-                                <td>一级</td>
-                                <td>10M2</td>
-                                <td>500m-10km</td>
-                            </tr>
-                            <tr>
-                                <td>xxx</td>
-                                <td>一级</td>
-                                <td>5t</td>
-                                <td>200m-5km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxxx</td>
-                                <td>一级</td>
-                                <td>6t</td>
-                                <td>4km-80km</td>
-                            </tr>
-                            <tr>
-                                <td>xxxx</td>
-                                <td>一级</td>
-                                <td>11t</td>
-                                <td>400m-2km</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <!--地址检索切换03-->
-                    <div class="dataAllBorder02 addition_check_in" style="display: none;position: relative" >
-                        <div class="analysis" style="height: 34px;%">地址检索：</div>
-                        <div class="search_plate_box">
-                            <ul class="search_separate">
-                                <li class="search_title">地址类型：</li>
-                                <select class="search_input_box search_chose_box">
-                                    <option>全部</option>
-                                    <option>居民区</option>
-                                    <option>街道</option>
-                                    <option>建筑物</option>
-                                    <option>园区</option>
-                                </select>
-                            </ul>
-                            <ul class="search_separate">
-                                <li class="search_title">地址名称：</li>
-                                <li class="search_input_box"><input class="search_input" type="text"></li>
-                            </ul>
-                            <button class="search_btn">开始检索</button>
-                        </div>
-                        <!--检索结果板块-->
-                        <div class="search_sesult_box">
-                            <ul  class="search_result">
-                                <li class="search_result_add">资阳汽车客运中心</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="操作"></li>
-                                <li class="search_result_road">资阳市>雁江区>书台路与骏兴路交叉口西侧</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">成都大学金牛校区</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="操作"></li>
-                                <li class="search_result_road">北京市>朝阳>东六巷</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">二十二中</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="操作"></li>
-                                <li class="search_result_road">北京市>朝阳>育苗路</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">红盛生态园</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="操作"></li>
-                                <li class="search_result_road">北京市>xxx>惠王陵东路</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">资阳汽车客运中心</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="操作"></li>
-                                <li class="search_result_road">资阳市>雁江区>书台路与骏兴路交叉口西侧</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">黄忠公园</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="操作"></li>
-                                <li class="search_result_road">北京市>朝阳>同德街</li>
-                            </ul>
-                        </div>
-                        <!--翻页模块-->
-                        <div class="tcdPageCode"></div>
-                    </div>
-                    <!--危化品检索切换04-->
-                    <div class="dataAllBorder02 chemistry_check_in" id="chemistry_check_in" style="display: none;position: relative" >
-                        <div class="analysis" style="height: 34px;">检索：</div>
-                        <div class="search_plate_box">
-                            <ul class="search_separate">
-                                <li class="search_title">编码类型：</li>
-                                <select class="search_input_box search_chose_box">
-                                    <option>全部</option>
-                                    <option>商品码</option>
-                                    <option>企业码</option>
-                                </select>
-                            </ul>
-                            <ul class="search_separate">
-                                <li class="search_title">输入编码：</li>
-                                <li class="search_input_box"><input class="search_input" type="text"></li>
-                            </ul>
-                            <button class="search_btn">开始检索</button>
-                        </div>
-                        <!--检索结果板块-->
-                        <div class="search_sesult_box">
-                            <ul  class="search_result">
-                                <li class="search_result_add danger_result">xxxxxx</li>
-                                <li class="danger_level level03">三级</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="生命周期" onclick="showLife()"></li>
-                                <li class="search_result_car car_personal">xxxxxxx</li>
-                                <li class="search_result_car car_time">xxxxxxx</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add danger_result">xxxxxx</li>
-                                <li class="danger_level level03">三级</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="生命周期"></li>
-                                <li class="search_result_car car_personal">xxxxxx</li>
-                                <li class="search_result_car car_time">xxxxxxx</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add danger_result">xxxxxx</li>
-                                <li class="danger_level level02">二级</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="生命周期"></li>
-                                <li class="search_result_car car_personal">xxxxxx</li>
-                                <li class="search_result_car car_time">xxxxxx制造厂</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add danger_result">烟花爆竹</li>
-                                <li class="danger_level level02">二级</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="生命周期"></li>
-                                <li class="search_result_car car_personal">xxxxxx）</li>
-                                <li class="search_result_car car_time">xxxxxx建地化工厂</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add danger_result">xxxxxx</li>
-                                <li class="danger_level level03">三级</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="生命周期"></li>
-                                <li class="search_result_car car_personal">xxxxxxx</li>
-                                <li class="search_result_car car_time">xxxxxxx</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add danger_result">xxxxxx</li>
-                                <li class="danger_level level01">一级</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" title="生命周期"></li>
-                                <li class="search_result_car car_personal">xxxxxxx</li>
-                                <li class="search_result_car car_time">xxxxxxx</li>
-                            </ul>
-                        </div>
-                        <!--翻页模块-->
-                        <div class="chemistry_tcdPageCode"></div>
-                    </div>
-                    <!--企业检索切换05-->
-                    <div class="dataAllBorder02 enterprise_check_in" id="enterprise_check_in" style="display: none;position: relative" >
-                        <div class="analysis" style="height: 34px;">企业检索：</div>
-                        <div class="search_plate_box">
-                            <ul class="search_separate">
-                                <li class="search_title">行业选择：</li>
-                                <select class="search_input_box search_chose_box">
-                                    <option>物流企业</option>
-                                    <option>食品生产制造</option>
-                                    <option>服务行业</option>
-                                    <option>工业生产</option>
-                                    <option>电子产品制造</option>
-                                    <option>科技服务</option>
-                                </select>
-                            </ul>
-                            <ul class="search_separate">
-                                <li class="search_title">企业名字：</li>
-                                <li class="search_input_box"><input class="search_input" type="text"></li>
-                            </ul>
-                            <ul class="search_separate">
-                                <li class="search_title">登记号：</li>
-                                <li class="search_input_box"><input class="search_input" type="text"></li>
-                            </ul>
-                            <button class="search_btn">开始检索</button>
-                        </div>
-                        <!--检索结果板块-->
-                        <div class="search_sesult_box">
-                            <ul  class="search_result">
-                                <li class="search_result_add">便利店总部（350298100000405）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" onclick="people()" title="操作"></li>
-                                <li class="search_result_road">北京市>武侯区>新希望路223号4楼</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">红旗连锁（260220100003523）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" onclick="people()" title="操作"></li>
-                                <li class="search_result_road">北京市>朝阳>建业路244号</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">蓝海旅行社（260220100003523）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" onclick="people()" title="操作"></li>
-                                <li class="search_result_road">北京市>朝阳>育苗路</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">吴铭火锅（350298100000405）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" onclick="people()" title="操作"></li>
-                                <li class="search_result_road">北京市>xxx>惠王陵东路</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">阿杰发艺连锁（260220100003523）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" onclick="people()" title="操作"></li>
-                                <li class="search_result_road">书台路与骏兴路交叉口西侧</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">黄忠公园（350298100000405）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_eddit" onclick="people()" title="操作"></li>
-                                <li class="search_result_road">北京市>朝阳>同德街</li>
-                            </ul>
-                        </div>
-                        <!--翻页模块-->
-                        <div class="enterprise_tcdPageCode"></div>
-                    </div>
-                    <!--车辆检索切换06-->
-                    <div class="dataAllBorder02" id="car_check_in" style="display: none;position: relative" >
-                        <div class="analysis" style="height: 34px;">车辆检索：</div>
-                        <div class="search_plate_box">
-                            <ul class="search_separate">
-                                <li class="search_title">车牌号码：</li>
-                                <li class="search_input_box"><input class="search_input" type="text"></li>
-                            </ul>
-                            <ul class="search_separate">
-                                <li class="search_title">车主姓名：</li>
-                                <li class="search_input_box"><input class="search_input" type="text"></li>
-                            </ul>
-                            <button class="search_btn">检索</button>
-                        </div>
-                        <!--检索结果板块-->
-                        <div class="search_sesult_box">
-                            <ul  class="search_result">
-                                <li class="search_result_add">川A·K5H12（陈浩）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_guiji"  title="轨迹回放"></li>
-                                <li class="search_result_car car_personal">福特（福克斯两厢）</li>
-                                <li class="search_result_car car_time">乘用车（5座)</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">川A·14AG2（张正涛）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_guiji" title="轨迹回放"></li>
-                                <li class="search_result_car car_personal">福特（金牛座）</li>
-                                <li class="search_result_car car_time">乘用车（5座)</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">川B·2563K（李雪）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_guiji" title="轨迹回放"></li>
-                                <li class="search_result_car car_personal">上海大众（迈腾）</li>
-                                <li class="search_result_car car_time">乘用车（5座)</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">川A·SH273（刘红）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_guiji" title="轨迹回放"></li>
-                                <li class="search_result_car car_personal">菲亚特（菲翔）</li>
-                                <li class="search_result_car car_time">乘用车（5座)</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">川A·K5H12（陈浩）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_guiji" title="轨迹回放"></li>
-                                <li class="search_result_car car_personal">奔驰（C200）</li>
-                                <li class="search_result_car car_time">乘用车（5座)</li>
-                            </ul>
-                            <ul  class="search_result">
-                                <li class="search_result_add">川A·K5H12（张起国）</li>
-                                <li class="search_location" title="定位"></li>
-                                <li class="search_guiji" title="轨迹回放"></li>
-                                <li class="search_result_car car_personal">东风商用车（天龙）</li>
-                                <li class="search_result_car car_time">载货卡车（100t)</li>
-                            </ul>
-                        </div>
-                        <!--翻页模块-->
-                        <div class="car_tcdPageCode"></div>
-                    </div>
+                    
                 </div>
 
                 <div class="dataAllBorder01 cage_cl check_decrease" style="margin-top: 1.5% !important; height: 32%; position: relative;">
                     <div class="dataAllBorder02 over_hide" style="padding: 1.2%;">
-                        <div class="analysis">xxxxx构成因素占比：</div>
+                        <div class="data_tit1">车辆排放标准概况</div>
                         <div class="danger_contain_box">
                             <div id="container_huan" style="height: 90%;width: 100%"></div>
                         </div>
                         <div class="danger_depart_box">
 
                             <ul class="danger_depart">
-                                <li class="danger_ico" style="background-image: url(img/images/pic_ico_01.png); background-position-x: 0px"></li>
-                                <li class="data_name">xxxxx综合</li>
+                                <li class="danger_ico" style="background-image: url(<%=rootPath %>/img/images/pic_ico_01.png); background-position-x: 0px"></li>
+                                <li class="data_name">国3柴油月均检测量</li>
                                 <li class="data data01">652</li>
                                 <li class="data data02">↑&nbsp&nbsp1.2%</li>
                             </ul>
                             <ul class="danger_depart">
-                                <li class="danger_ico" style="background-image: url(img/images/pic_ico_02.png); background-position-x: 0px"></li>
-                                <li class="data_name">统计一</li>
+                                <li class="danger_ico" style="background-image: url(<%=rootPath %>/img/images/pic_ico_02.png); background-position-x: 0px"></li>
+                                <li class="data_name">国3柴油月均首检合格率</li>
                                 <li class="data data01">97</li>
                                 <li class="data data02" style="color: #ff2865;">↓&nbsp&nbsp0.3%</li>
                             </ul>
                             <ul class="danger_depart danger_depart01">
-                                <li class="danger_ico" style="background-image: url(img/images/pic_ico_03.png); background-position-x: 0px"></li>
-                                <li class="data_name">统计二</li>
+                                <li class="danger_ico" style="background-image: url(<%=rootPath %>/img/images/pic_ico_03.png); background-position-x: 0px"></li>
+                                <li class="data_name">国1汽油月均检测量</li>
                                 <li class="data data01">423</li>
                                 <li class="data data02">↑&nbsp&nbsp1%</li>
                             </ul>
                             <ul class="danger_depart danger_depart01">
-                                <li class="danger_ico" style="background-image: url(img/images/pic_ico_01.png); background-position-x: 0px"></li>
-                                <li class="data_name">统计三</li>
+                                <li class="danger_ico" style="background-image: url(<%=rootPath %>/img/images/pic_ico_01.png); background-position-x: 0px"></li>
+                                <li class="data_name">国1汽油月均首检合格率</li>
                                 <li class="data data01">218</li>
                                 <li class="data data02">↑&nbsp&nbsp0.3%</li>
                             </ul>
@@ -868,7 +413,7 @@
             </div>
 
         </div>
-
+		<!-- 异常信息 -->
         <div class="inner" style="display: none;" >
             <div class="data_left01">
                 <div class="dataAll maginS">
@@ -982,7 +527,7 @@
                 <div class="dataAll02">
                     <div class="dataAllBorder01">
                         <div class="dataAllBorder02">
-                            <div class="data_tit1">xxxxx分析</div>
+                            <div class="data_tit1">xxxxx分析1</div>
                             <p class="data_chart" id="rodeAbook"></p>
                         </div>
                     </div>
@@ -1143,7 +688,7 @@
             </div>
         </div>
 
-        <div class="inner" style="display: none">
+        <div class="inner" style="display: none;">
             <div class="manage_left l_left">
                 <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
                 <div class="manage_line1">
@@ -1497,7 +1042,7 @@
             method: "get",
             striped: true,
             singleSelect: false,
-            url: "json/DGCar.json",
+            url: rootPath+"/json/DGCar.json",
             dataType: "json",
             pagination: true, //分页
             pageSize: number,
@@ -1514,37 +1059,39 @@
 //                    valign: 'middle'
 //                },
                 {
-                    title: '车牌号',
+                    title: '车牌号码',
                     field: 'carno',
-                    width:80,
+                    width: 120,
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '所属企业',
+                    title: '检验机构',
                     field: 'company',
                     align: 'center',
                     valign: 'middle'
                 },
 
                 {
-                    title: '运输内容',
+                    title: '检测时间',
                     field: 'content',
                     align: 'center'
                 },
 
                 {
-                    title: '行驶速度',
+                    title: '检测方法',
                     field: 'speed',
-                    width:80,
+                    width: 200,
                     align: 'center'
                 },
                 {
-                    title: '车辆载重',
+                    title: '检测结果',
                     field: 'load',
-                    width:80,
+                    width: 120,
                     align: 'center'
-                },
+                }
+               	/*
+                ,
                 {
                     title: '操作',
                     field: 'load',
@@ -1554,7 +1101,7 @@
                         var d = '<a  href="javascript:void(0)" title="" onclick="analiysis(\'' + row.id + '\')">车辆定位</a> ';
                         return e + d;
                     }
-                }
+                }*/
 
             ]
         });
@@ -1650,7 +1197,7 @@
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data:['民用爆炸','射钉器材','危化品','寄递物流','旅店'],
+                data:['国I','国II','国III','国IV','国V'],
                 textStyle:{
                     color:"#e9ebee"
                 }
@@ -1686,11 +1233,11 @@
                         }
                     },
                     data:[
-                        {value:335, name:'民用爆炸'},
-                        {value:310, name:'射钉器材'},
-                        {value:234, name:'危化品'},
-                        {value:135, name:'寄递物流'},
-                        {value:1548, name:'旅店'}
+                        {value:335, name:'国I'},
+                        {value:310, name:'国II'},
+                        {value:234, name:'国III'},
+                        {value:135, name:'国IV'},
+                        {value:1548, name:'国V'}
                     ]
                 }
             ]
@@ -1767,7 +1314,7 @@
 <script>
     // 百度地图API功能
     var map = new BMap.Map("map");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    map.centerAndZoom(new BMap.Point(102.46, 25.04), 13);  // 初始化地图,设置中心点坐标和地图级别
     //添加地图类型控件
     map.addControl(new BMap.MapTypeControl({
         mapTypes:[
@@ -1778,7 +1325,7 @@
         style:"dark"
     };
     map.setMapStyle(mapStyle);
-    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.setCurrentCity("昆明");          // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);
 </script>
 
