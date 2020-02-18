@@ -13,4 +13,64 @@
 		left join bas_checkstation bck
 		on ic.stationpkid = bck.pkid left join cod_region cr on bck.region = cr.code group by cr.name)tb order by tb.fueltype,tb.regionname
 	</select>
+	
+	<select id="getCheckNum" resultType="Map">
+		select count(*) as jdczs,sum(case when to_char(checktime,'yyyy') = to_char(sysdate,'yyyy') then 1 else 0 end) as dnjdcs,
+		sum(case when to_char(checktime,'yyyy-mm') = to_char(sysdate,'yyyy-mm') then 1 else 0 end) as dyjcds,
+		sum(case when to_char(checktime,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then 1 else 0 end) as drjcds 
+		from ins_checkresultmain
+	</select>
+	
+	<select id="getCheckLineNum" resultType="Map">
+		select count(*) as jcxsl from bas_checkline
+	</select>
+	
+	<select id="getCheckStationNum" resultType="Map">
+		select count(*) as jczsl from bas_checkstation
+	</select>
+	
+	<select id="getJclByFueltype" resultType="Map">
+	  select tb.* from (select m.*,round(m.hgs/m.zs*100,2) as hgl from(select a.region,
+      cr2.name as regionname,t.fueltype,SUM(CASE WHEN t.checkresult='合格' THEN 1 ELSE 0 END)AS hgs,
+      SUM(CASE WHEN t.checkresult='不合格' THEN 1 ELSE 0 END)AS bhgs,count(*)AS zs from ins_checkresultmain t 
+      left join bas_checkstation a on t.stationpkid = a.pkid left join bas_checkline b on t.checklinepkid = b.pkid 
+      left join cod_region cr2 on a.region = cr2.code where t.fueltype in('汽油','柴油')
+      group by a.region,cr2.name,t.fueltype)m) tb  order by NLSSORT(tb.fueltype,'nls_sort=schinese_pinyin_m'),tb.regionname
+	</select>
+	
+	<select id="getJclAndGkl" resultType="Map">
+		select m.*,round(m.hgs/m.zs*100,2) as hgl,round(m.zgk/m.zs*100,2) as gkl from(select count(*) as zs,
+		sum(case when checkresult = '合格' then 1 else 0 end) as hgs,sum(case when checkmethod in('WT','IG','LD') then 1 else 0 end) as zgk 
+		from ins_checkresultmain) m
+	</select>
+	
+	<select id="getJccsByCarversion" resultType="Map">
+		select * from(select carbrand,carversion,count(*) as jccs from ins_checkresultmain
+		group by carbrand,carversion order by jccs desc) where rownum &lt;=10
+	</select>
+	
+	<select id="getJcgkl" resultType="Map">
+		select m.*,round(m.zgk/m.zs*100,2) as gkl from(select bc.stationname,bc.stationshortname,count(*) as zs,
+		sum(case when ic.checkmethod in ('WT','LD','IG') then 1 else 0 end) as zgk
+		from ins_checkresultmain ic left join bas_checkstation
+		bc on ic.stationpkid = bc.pkid group by bc.stationname,bc.stationshortname)m order by gkl asc
+	</select>
+	
+	<select id="getPjfjByCarversion" resultType="Map">
+		select * from(select tb.*,round(tb.times/tb.carnum,2) as avgtimes 
+	   	from(select ic.carbrand,ic.carversion,count(distinct carpkid) as carnum,
+	   	count(*) as times from ins_checkresultmain ic left join bas_carinfo bc 
+	   	on ic.carpkid = bc.pkid where ic.recheckinfo!=0 group by ic.carbrand,ic.carversion)tb 
+	   	order by avgtimes desc) where rownum &lt;=10
+	</select>
+	
+	<select id="getJczjccs" resultType="Map">
+		select tb.*,round(tb.times/tb.carnum,2) as avgtimes 
+	 	from(select bc.stationname,bc.stationshortname,count(distinct carpkid) as carnum,
+	 	count(*) as times from ins_checkresultmain ic left join bas_checkstation bc 
+	 	on ic.stationpkid = bc.pkid where ic.recheckinfo!=0 and checktime <![CDATA[>=]]> add_months(sysdate,-12)
+		and checktime <![CDATA[<=]]>sysdate and bc.stationshortname is not null
+	 	group by bc.stationname,bc.stationshortname)tb 
+	 	order by tb.times desc
+	</select>
 </mapper>

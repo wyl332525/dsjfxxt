@@ -83,7 +83,7 @@
                     </video> -->
                     <div class="dataAllBorder02" id="cage_cl" >
                         <div class="data_tit1">检测数据汇总</div>
-                        <ul class="data_show_box">
+                        <ul class="data_show_box" id="checkDataSumbit">
                             <li class="data_cage">3</li>
                             <li class="data_cage">0</li>
                             <li class="data_cage">1</li>
@@ -96,27 +96,27 @@
                             
                             <ul class="depart_number_cage">
                                 <li class="depart_name">检验机构数量：</li>
-                                <li class="depart_number">36</li>
+                                <li class="depart_number" id="checkStationNum">36</li>
                             </ul>
                             <ul class="depart_number_cage">
                                 <li class="depart_name">检测线总数量：</li>
-                                <li class="depart_number">159</li>
+                                <li class="depart_number" id="checkLineNum">159</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">总检测车辆数：</li>
-                                <li class="depart_number">512034</li>
+                                <li class="depart_number" id="checkCarNum">512034</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">当年机动车检测数：</li>
-                                <li class="depart_number">40321</li>
+                                <li class="depart_number" id="checkCarOfYear">40321</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">当月机动车检测数：</li>
-                                <li class="depart_number">6042</li>
+                                <li class="depart_number" id="checkCarOfMonth">6042</li>
                             </ul>
                             <ul class="depart_number_cage" style="margin-bottom: 0px;width:100%;">
                                 <li class="depart_name">今日机动车检测数：</li>
-                                <li class="depart_number">163</li>
+                                <li class="depart_number" id="checkCarOfDay">163</li>
                             </ul>
                         </div>
                     </div>
@@ -333,15 +333,15 @@
 							<div class="allnav_two" id="areaQyslByMethod"></div> -->
 							<ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">近一年复检次数最多的检验机构：</li>
-                                <li class="depart_number">XXXXXX检测站</li>
+                                <li class="depart_number" id="jynfjcszdjyjg">XXXXXX检测站</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">平均复检次数最多的车型：</li>
-                                <li class="depart_number">宇通牌DI30123X</li>
+                                <li class="depart_number" id="pjfjcszdcx">宇通牌DI30123X</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">检测次数最多的车型：</li>
-                                <li class="depart_number">东风本田牌CIVIC</li>
+                                <li class="depart_number" id="jccszdcx">本田牌CIVIC</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">柴油车排放检验超标最多的企业：</li>
@@ -353,7 +353,7 @@
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">检测工况率最低的检验机构：</li>
-                                <li class="depart_number">AAAAAA检测站</li>
+                                <li class="depart_number" id="jcgklzdjyjg">AAAAAA检测站</li>
                             </ul>
                             <ul class="depart_number_cage" style="width:100%;">
                                 <li class="depart_name">平均复检时间最短的检验机构：</li>
@@ -927,6 +927,7 @@
 <script src="<%=rootPath %>/js/index.js"></script>
 <script src="<%=rootPath %>/js/bstable/js/bootstrap.min.js"></script>
 <script src="<%=rootPath %>/js/bstable/js/bootstrap-table.js"></script>
+<script src="<%=rootPath %>/js/sjtj/dataSubmit.js"></script>
 <script type="text/javascript" src="<%=rootPath %>/js/jquery.pagination.js"></script>
 <script src="<%=rootPath %>/js/bstable/js/bootstrap-table-zh-CN.min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5ieMMexWmzB9jivTq6oCRX9j&callback"></script>

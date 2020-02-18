@@ -93,13 +93,38 @@ function initYcsjlb(){
  */
 function initJdcCycJcl(){
 	var jdcCycCharts = echarts.init(document.getElementById("jdcCycJcl"));
+	
+	var cy_data = [];
+	var qy_data = [];
+	var areaArr = [];
+	
+	var data = fromRedisGetData({
+		key : "getJclByFueltype"
+	});
+	
+	
+	$.each(data.cache,function(i,o){
+		if(o.REGIONNAME!=null && o.REGIONNAME!=""){
+			//如果存放地区的容器没有重复的就添加
+			if(areaArr.indexOf(o.REGIONNAME)==-1){
+				areaArr.push(o.REGIONNAME);
+			}
+		}
+		
+		if(o.FUELTYPE=="柴油"){
+			cy_data.push(o.ZS);
+		}else if(o.FUELTYPE=="汽油"){
+			qy_data.push(o.ZS);
+		}	
+	})
+	
 	var myChart = echarts.init($("#rodeAbook")[0]);
         option = {
             tooltip : {
                 trigger: 'axis'
             },
             grid: {
-                x: 46,
+                x: 55,
                 y:30,
                 x2:30,
                 y2:20,
@@ -117,7 +142,7 @@ function initJdcCycJcl(){
             xAxis : [
                 {
                     type : 'category',
-                    data : ['红塔','江川','团山','澄江','易门','新平','峨山'],
+                    data : areaArr,
                     splitLine: {
                         show: false
                     },
@@ -168,7 +193,7 @@ function initJdcCycJcl(){
                     name:'柴油车',
                     type:'bar',
                     stack: '检测量',
-                    data:[120, 132, 101, 134, 90, 230, 210],
+                    data:cy_data,
                     itemStyle: {
                         normal: {
                             color:"#ffcb89"
@@ -179,7 +204,7 @@ function initJdcCycJcl(){
                     name:'汽油车',
                     type:'bar',
                     stack: '检测量',
-                    data:[220, 232, 301, 234, 190, 330, 210],
+                    data:qy_data,
                     itemStyle: {
                         normal: {
                             color:"#005ea1"
@@ -192,8 +217,15 @@ function initJdcCycJcl(){
 	jdcCycCharts.setOption(option);
 }
 
+
+
 function initZtjchgl(){
 	var zthglCharts = echarts.init(document.getElementById("ztjchglgkl"));
+	
+	var data = fromRedisGetData({
+		key : "getJclAndGkl"
+	});
+	
 	option = {
 		    tooltip : {
 		        formatter: "{a} <br/>{c} {b}"
@@ -245,7 +277,7 @@ function initZtjchgl(){
 		                    fontWeight: 'bolder'
 		                }
 		            },
-		            data:[{value: 79.65, name: '总体工况率'}]
+		            data:[{value: data.cache[0].GKL, name: '总体工况率'}]
 		        },
 		        {
 		            name:'总体检测合格率',
@@ -289,7 +321,7 @@ function initZtjchgl(){
 		                    fontWeight: 'bolder'
 		                }
 		            },
-		            data:[{value: 68.56, name: '总体检测合格率'}]
+		            data:[{value: data.cache[0].HGL, name: '总体检测合格率'}]
 		        }
 		    ]
 		};
